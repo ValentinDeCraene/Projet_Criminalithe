@@ -1,0 +1,14 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+    <h2> Bienvenue dans l'index des personnes</h2>
+<p>
+    Il y {{personnes|length}} personnes enregistrées:
+
+        <ul>
+            {% for personne in personnes %}
+                <li><a href="{{url_for('personne', personnes_id=personne.personnes_id)}}">{{personne.personnes_prenom}} {{personne.personnes_nom}}</a></li>
+            {% endfor %}
+        </ul>
+    <a href="{{url_for('index')}}">Retour à l'index général.</a>
+</p>
+{% endblock %}

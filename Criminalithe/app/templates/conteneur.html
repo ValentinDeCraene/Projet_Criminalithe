@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Projet Criminalithé</title>
+        {% include "partials/metadata.html" %}
+        {% include "partials/css.html" %}
+    </head>
+    <body>
+        <div><h1>Bienvenue sur le projet Criminalithé</h1></div>
+        <div>{% block corps%}{%endblock%}</div>
+        <div>
+            <p>
+                <a href="{{url_for('accueil')}}">Retour à l'accueil.</a>
+            </p>
+        </div>
+    </body>
+</html>

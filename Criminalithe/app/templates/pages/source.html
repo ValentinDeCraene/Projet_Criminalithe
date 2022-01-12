@@ -1,0 +1,8 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+<h1> B {{source.source_id}}</h1>
+<dl>
+    <dt>Identifiant de la source (série B des Archives Départementales du Nord) </dt><dd>B {{source.source_id}}</dd>
+    <dt>Date de la source </dt><dd>{{source.source_date}}</dd>
+</dl>
+{% endblock %}

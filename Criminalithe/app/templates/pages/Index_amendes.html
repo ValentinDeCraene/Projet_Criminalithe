@@ -1,0 +1,14 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+    <h2> Bienvenue dans l'index des amendes</h2>
+<p>
+    Il y {{amendes|length}} amendes enregistrées:
+
+        <ul>
+            {% for amende in amendes %}
+                <li><a href="{{url_for('amende', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></li>
+            {% endfor %}
+        </ul>
+    <a href="{{url_for('index')}}">Retour à l'index général.</a>
+</p>
+{% endblock %}

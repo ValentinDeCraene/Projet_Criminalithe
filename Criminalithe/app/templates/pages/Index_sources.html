@@ -1,0 +1,17 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+    <h2> Bienvenue dans l'index des sources</h2>
+<p>
+    Il y {{sources|length}} sources enregistrées:
+{% if lieux%}
+    en voici une liste :
+{%endif%}
+        <ul>
+            {% for source in sources %}
+                <li><a href="{{url_for('source', source_id=source.source_id)}}">{{source.source_id}}</a></li>
+            {% endfor %}
+        </ul>
+
+<a href="{{url_for('index')}}">Retour à l'index général.</a>
+</p>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+<h1>{{personne.personnes_prenom}} {{personne.personnes_nom}}</h1>
+<dl>
+    <dt>Identifiant de la personne</dt><dd>{{personne.personnes_id}}</dd>
+    <dt>Nom de la personne</dt><dd>{{personne.personnes_nom}}</dd>
+    <dt>Prénom de la personne</dt><dd>{{personne.personnes_prenom}}</dd>
+    <dt>Personne mentionnée dans l'amende numéro </dt><dd>{{personne.personnes_amendes_id}}</dd>
+</dl>
+{% endblock %}
