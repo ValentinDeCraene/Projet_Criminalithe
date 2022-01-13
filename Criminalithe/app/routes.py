@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from .app import app
 from .modeles.donnees import Source, Amendes, Personnes
 @app.route("/")
@@ -38,3 +38,15 @@ def index_personnes():
 def index_sources():
     sources = Source.query.all()
     return render_template("pages/Index_sources.html", sources=sources)
+
+@app.route("/recherche")
+def recherche():
+    motclef = request.args.get("keyword", None)
+    resultats = []
+    titre = "Recherche"
+    if motclef:
+        resultats = Amendes.query.filter(
+            Amendes.amendes_transcription.like("%{}%".format(motclef))
+        ).all()
+        titre = "Résultat pour la recherche `" + motclef + "`"
+    return render_template("pages/recherche.html", resultats=resultats, titre=titre)

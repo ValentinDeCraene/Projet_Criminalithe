@@ -7,11 +7,25 @@
     </head>
     <body>
         <div><h1>Bienvenue sur le projet Criminalithé</h1></div>
-        <div>{% block corps%}{%endblock%}</div>
         <div>
             <p>
                 <a href="{{url_for('accueil')}}">Retour à l'accueil.</a>
             </p>
         </div>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
+        <a class="navbar-brand" href="{{ url_for('accueil') }}">Criminalithe</a>
+        <form class="form-inline" action="{{url_for("recherche")}}" method="GET">
+          <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
+          <button class="btn btn-outline-info" type="submit">Rechercher</button>
+        </form>
+      </nav>
+      {% block afternav %}{%endblock%}
+      <div class="container">
+        <div class="row">
+            <div class="col">
+            {% block corps %}{% endblock %}
+            </div>
+        </div>
+      </div>
     </body>
 </html>
