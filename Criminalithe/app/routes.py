@@ -59,6 +59,7 @@ def recherche():
         titre = "Résultat pour la recherche `" + motclef + "`"
     return render_template("pages/recherche.html", resultats=resultats, titre=titre)
 
+#Si j'ajoute les paramètres suivants, je me retrouve face à une erreur de type NotCallable
 #Personnes.query.filter(or_(
         #Personnes.personnes_id.like("%{}%".format(motclef)),
         #Personnes.personnes_prenom.like("%{}%".format(motclef),
