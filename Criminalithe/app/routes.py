@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from sqlalchemy import and_, or_
 from .app import app
 from .modeles.donnees import Source, Amendes, Personnes
 @app.route("/")
@@ -45,8 +46,21 @@ def recherche():
     resultats = []
     titre = "Recherche"
     if motclef:
-        resultats = Amendes.query.filter(
-            Amendes.amendes_transcription.like("%{}%".format(motclef))
-        ).all()
+        resultats =\
+            Amendes.query.filter(or_(
+                    Amendes.amendes_transcription.like("%{}%".format(motclef)),
+                    Amendes.amendes_id.like("%{}%".format(motclef)),
+                    Amendes.amendes_type.like("%{}%".format(motclef)),
+                    Amendes.amendes_montant.like("%{}%".format(motclef)),
+                    Amendes.amendes_source_id.like("%{}%".format(motclef)),
+                    Amendes.amendes_franche_verite.like("%{}%".format(motclef))
+                )
+            ).all()
         titre = "Résultat pour la recherche `" + motclef + "`"
     return render_template("pages/recherche.html", resultats=resultats, titre=titre)
+
+#Personnes.query.filter(or_(
+        #Personnes.personnes_id.like("%{}%".format(motclef)),
+        #Personnes.personnes_prenom.like("%{}%".format(motclef),
+        #Personnes.personnes_nom.like("%{}%".format(motclef),
+        #Personnes.personnes_amendes_id("%{}%".format(motclef)))))).all()
