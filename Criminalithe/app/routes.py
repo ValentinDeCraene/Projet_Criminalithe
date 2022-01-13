@@ -46,7 +46,7 @@ def recherche():
     resultats = []
     titre = "Recherche"
     if motclef:
-        resultats =\
+        resultatsAmendes =\
             Amendes.query.filter(or_(
                     Amendes.amendes_transcription.like("%{}%".format(motclef)),
                     Amendes.amendes_id.like("%{}%".format(motclef)),
@@ -56,12 +56,48 @@ def recherche():
                     Amendes.amendes_franche_verite.like("%{}%".format(motclef))
                 )
             ).all()
+        if resultatsAmendes:
+            for resultat in resultatsAmendes:
+                resultats.append(resultat)
+
+        resultatPersonnes = Personnes.query.filter(Personnes.personnes_nom.like("%{}%".format(motclef))).all()
+        if resultatPersonnes:
+            for resultat in resultatPersonnes:
+                resultats.append(resultat)
+
         titre = "Résultat pour la recherche `" + motclef + "`"
     return render_template("pages/recherche.html", resultats=resultats, titre=titre)
 
+#Une possibilité est la suivante :
+#def recherche():
+    #motclef = request.args.get("keyword", None)
+    #resultats = []
+    #titre = "Recherche"
+    #if motclef:
+        #resultatsAmendes =\
+            #Amendes.query.filter(or_(
+                    #Amendes.amendes_transcription.like("%{}%".format(motclef)),
+                    #Amendes.amendes_id.like("%{}%".format(motclef)),
+                    #Amendes.amendes_type.like("%{}%".format(motclef)),
+                    #Amendes.amendes_montant.like("%{}%".format(motclef)),
+                    #Amendes.amendes_source_id.like("%{}%".format(motclef)),
+                    #Amendes.amendes_franche_verite.like("%{}%".format(motclef))
+                #)
+            #).all()
+        #if resultatsAmendes:
+            # Pour que resultats ne se transforme pas en liste de listes (chaque table interrogée rendant une liste),
+            # boucler sur chaque résultat pour l'ajouter
+            #for resultat in resultatsAmendes:
+                #resultats.append(resultat)
+
+        # Sur un attribut de la table Personnes
+        #resultatsPersonnes = Personnes.query.filter(Personnes.personnes_nom.like("%{}%".format(motclef))).all()
+        #if resultatsPersonnes:
+            #for resultat in resultatsPersonnes:
+                #resultats.append(resultat)
+
+        #titre = "Résultat pour la recherche `" + motclef + "`"
+    #return render_template("pages/recherche.html", resultats=resultats, titre=titre)
+
+
 #Si j'ajoute les paramètres suivants, je me retrouve face à une erreur de type NotCallable
-#Personnes.query.filter(or_(
-        #Personnes.personnes_id.like("%{}%".format(motclef)),
-        #Personnes.personnes_prenom.like("%{}%".format(motclef),
-        #Personnes.personnes_nom.like("%{}%".format(motclef),
-        #Personnes.personnes_amendes_id("%{}%".format(motclef)))))).all()

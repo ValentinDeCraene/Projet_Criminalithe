@@ -10,5 +10,7 @@
                 <li><a href="{{url_for('amende', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></li>
             {% endfor %}
         </ul>
+    {% else %}
+        <p> Il n'y a pas de résultats à votre requête</p>
     {% endif %}
 {% endblock %}
