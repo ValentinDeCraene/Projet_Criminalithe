@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 import os
+from .constantes import SECRET_KEY
 
 chemin_actuel = os.path.dirname(os.path.abspath(__file__))
 templates = os.path.join(chemin_actuel, "templates")
@@ -13,7 +15,9 @@ app = Flask(
 )
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./bdd.db'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # On initie l'extension
 db = SQLAlchemy(app)
+login = LoginManager(app)
 
 from .routes import accueil, index, index_amendes, amende, personne, source, index_personnes, index_sources

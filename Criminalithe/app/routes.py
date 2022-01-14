@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash, redirect
 from .modeles.donnees import Source, Amendes, Personnes
+from .modeles.utilisateurs import User
 from sqlalchemy import and_, or_
-from .app import app
+from .app import app, login
 from .constantes import RESULTATS_PAR_PAGES
+from flask_login import login_user, current_user, logout_user
 
 @app.route("/")
 def accueil():
@@ -68,6 +70,58 @@ def recherche():
 
         titre = "Résultat pour la recherche `" + motclef + "`"
     return render_template("pages/recherche.html", resultats=resultats, titre=titre, keyword=motclef)
+
+@app.route("/inscription", methods=["GET", "POST"])
+def inscription():
+
+    if request.method == "POST":
+        statut, donnees = User.creer(
+            login=request.form.get("login", None),
+            email=request.form.get("email", None),
+            nom=request.form.get("nom", None),
+            motdepasse=request.form.get("motdepasse", None)
+        )
+        if statut is True:
+            flash("Enregistrement effectué. Identifiez-vous maintenant", "success")
+            return redirect("/")
+        else:
+            flash("Les erreurs suivantes ont été rencontrées : " + ",".join(donnees), "error")
+            return render_template("pages/inscription.html")
+    else:
+        return render_template("pages/inscription.html")
+
+
+@app.route("/connexion", methods=["POST", "GET"])
+def connexion():
+    """ Route gérant les connexions
+    """
+    if current_user.is_authenticated is True:
+        flash("Vous êtes déjà connecté-e", "info")
+        return redirect("/")
+    # Si on est en POST, cela veut dire que le formulaire a été envoyé
+    if request.method == "POST":
+        utilisateur = User.identification(
+            login=request.form.get("login", None),
+            motdepasse=request.form.get("motdepasse", None)
+        )
+        if utilisateur:
+            flash("Connexion effectuée", "success")
+            login_user(utilisateur)
+            return redirect("/")
+        else:
+            flash("Les identifiants n'ont pas été reconnus", "error")
+
+    return render_template("pages/connexion.html")
+login.login_view = 'connexion'
+
+
+@app.route("/deconnexion", methods=["POST", "GET"])
+def deconnexion():
+    if current_user.is_authenticated is True:
+        logout_user()
+    flash("Vous êtes déconnecté-e", "info")
+    return redirect("/")
+
 
 #Une possibilité est la suivante :
 #def recherche():
