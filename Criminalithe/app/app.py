@@ -16,6 +16,7 @@ app = Flask(
 # On configure la base de données
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./bdd.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['SECRET_KEY'] = SECRET_KEY
 # On initie l'extension
 db = SQLAlchemy(app)
 login = LoginManager(app)

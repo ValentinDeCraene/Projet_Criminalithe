@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, flash, redirect
-from .modeles.donnees import Source, Amendes, Personnes
-from .modeles.utilisateurs import User
+
+from ..app import app, login
+from ..modeles.donnees import Source, Amendes, Personnes
+from ..modeles.utilisateurs import User
 from sqlalchemy import and_, or_
-from .app import app, login
-from .constantes import RESULTATS_PAR_PAGES
+from ..constantes import RESULTATS_PAR_PAGES
 from flask_login import login_user, current_user, logout_user
 
 @app.route("/")

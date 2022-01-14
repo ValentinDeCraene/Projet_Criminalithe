@@ -5,11 +5,11 @@ from .. app import db, login
 
 
 class User(UserMixin, db.Model):
-    user_id = db.Column(db.Integer, unique=True, nullable=False, primary_key=True, autoincrement=True)
-    user_nom = db.Column(db.Text, nullable=False)
-    user_login = db.Column(db.String(45), nullable=False, unique=True)
-    user_email = db.Column(db.Text, nullable=False)
-    user_password = db.Column(db.String(100), nullable=False)
+    user_id = db.Column(db.Integer, primary_key=True)
+    user_nom = db.Column(db.Text)
+    user_login = db.Column(db.Text)
+    user_email = db.Column(db.Text)
+    user_password = db.Column(db.Text)
 
     @staticmethod
     def identification(login, motdepasse):
@@ -47,18 +47,18 @@ class User(UserMixin, db.Model):
         if not motdepasse or len(motdepasse) < 6:
             erreurs.append("Le mot de passe fourni est vide ou trop court")
 
-        # On vérifie que personne n'a utilisé cet email ou ce login
+        #On vérifie que personne n'a utilisé cet email ou ce login
         uniques = User.query.filter(
             db.or_(User.user_email == email, User.user_login == login)
         ).count()
         if uniques > 0:
             erreurs.append("L'email ou le login sont déjà inscrits dans notre base de données")
 
-        # Si on a au moins une erreur
+        #Si on a au moins une erreur
         if len(erreurs) > 0:
             return False, erreurs
 
-        # On crée un utilisateur
+        #On crée un utilisateur
         utilisateur = User(
             user_nom=nom,
             user_login=login,
