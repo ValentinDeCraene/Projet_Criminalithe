@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
+from .modeles.donnees import Source, Amendes, Personnes
 from sqlalchemy import and_, or_
 from .app import app
-from .modeles.donnees import Source, Amendes, Personnes
+from .constantes import RESULTATS_PAR_PAGES
+
 @app.route("/")
 def accueil():
     return render_template("pages/accueil.html")
@@ -43,10 +45,17 @@ def index_sources():
 @app.route("/recherche")
 def recherche():
     motclef = request.args.get("keyword", None)
+    page = request.args.get("page", 1)
     resultats = []
     titre = "Recherche"
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
     if motclef:
-        resultatsAmendes =\
+        resultats =\
             Amendes.query.filter(or_(
                     Amendes.amendes_transcription.like("%{}%".format(motclef)),
                     Amendes.amendes_id.like("%{}%".format(motclef)),
@@ -55,18 +64,10 @@ def recherche():
                     Amendes.amendes_source_id.like("%{}%".format(motclef)),
                     Amendes.amendes_franche_verite.like("%{}%".format(motclef))
                 )
-            ).all()
-        if resultatsAmendes:
-            for resultat in resultatsAmendes:
-                resultats.append(resultat)
-
-        resultatPersonnes = Personnes.query.filter(Personnes.personnes_nom.like("%{}%".format(motclef))).all()
-        if resultatPersonnes:
-            for resultat in resultatPersonnes:
-                resultats.append(resultat)
+            ).paginate(page=page, per_page=RESULTATS_PAR_PAGES)
 
         titre = "Résultat pour la recherche `" + motclef + "`"
-    return render_template("pages/recherche.html", resultats=resultats, titre=titre)
+    return render_template("pages/recherche.html", resultats=resultats, titre=titre, keyword=motclef)
 
 #Une possibilité est la suivante :
 #def recherche():
@@ -101,3 +102,4 @@ def recherche():
 
 
 #Si j'ajoute les paramètres suivants, je me retrouve face à une erreur de type NotCallable
+#De plus, problème avec la méthode paginate qui renvoie un objet non iteable donc impossible d'ajouter les deux résultats.
