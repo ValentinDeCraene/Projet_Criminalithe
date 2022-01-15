@@ -35,6 +35,7 @@
 
 
     {% else %}
-        <p> Il n'y a pas de résultats à votre requête</p>
+        <p> Il n'y a pas de résultats à votre requête.</p>
+        <p>Vous pouvez entrer une autre requête, ou naviguer dans la base de donnée en <a href="{{url_for("index")}}"> cliquant ici. </a></p>
     {% endif %}
 {% endblock %}

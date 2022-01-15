@@ -4,6 +4,16 @@
         <title>Projet Criminalithé</title>
         {% include "partials/metadata.html" %}
         {% include "partials/css.html" %}
+        <style type="text/css">
+            .hero  {
+                background-position: center center;
+                padding:10vh;
+                background-image: url({{url_for("static", filename="images/fonds.jpg")}});
+            }
+            .container .hero {
+                background-image: none;
+            }
+        </style>
     </head>
     <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
