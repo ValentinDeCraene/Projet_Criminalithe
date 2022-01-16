@@ -231,8 +231,8 @@ def source_update(source_id):
 
         if not erreurs:
             print("Faire ma modifications")
-            ma_source.personnes_id = request.form["source_id"]
-            ma_source.personnes_amendes_id = request.form["source_date"]
+            ma_source.source_id = request.form["source_id"]
+            ma_source.source_date = request.form["source_date"]
 
 
 
