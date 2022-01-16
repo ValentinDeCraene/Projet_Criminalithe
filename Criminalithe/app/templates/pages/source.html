@@ -5,6 +5,16 @@
     <dt>Identifiant de la source (série B des Archives Départementales du Nord) </dt><dd>B {{source.source_id}}</dd>
     <dt>Date de la source </dt><dd>{{source.source_date}}</dd>
 </dl>
+    <dt>
+        <dd>
+            {% for modification in source.authorships %}
+            <li>[{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
+            {% endfor %}
+        </dd>
+    </dt>
+{% if current_user.is_authenticated %}
+        <a href="{{url_for("source_update", source_id=source.source_id)}}">Modifier la page</a>
+        {% endif %}
 <p>
     <ul type="square">
         <li><h5><a href="{{url_for('index_sources')}}">Retour à l'index des sources.</a></h5></li>

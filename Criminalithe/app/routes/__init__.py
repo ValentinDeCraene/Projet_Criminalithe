@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, flash, redirect
 
-from ..app import app, login
-from ..modeles.donnees import Source, Amendes, Personnes
+from ..app import app, login, db
+from ..modeles.donnees import Source, Amendes, Personnes, Authorship
 from ..modeles.utilisateurs import User
 from sqlalchemy import and_, or_
 from ..constantes import RESULTATS_PAR_PAGES
-from flask_login import login_user, current_user, logout_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
 def accueil():
@@ -122,6 +122,134 @@ def deconnexion():
         logout_user()
     flash("Vous êtes déconnecté-e", "info")
     return redirect("/")
+
+
+@app.route("/personne/<int:personnes_id>/update", methods=["GET", "POST"])
+@login_required
+def personne_update(personnes_id):
+
+    ma_personne = Personnes.query.get(personnes_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        # J"ai un formulaire
+        if not request.form.get("personnes_id", "").strip():
+            erreurs.append("personnes_id")
+        if not request.form.get("personnes_amendes_id", "").strip():
+            erreurs.append("personnes_amendes_id")
+        if not request.form.get("personnes_nom", "").strip():
+            erreurs.append("personnes_nom")
+        if not request.form.get("personnes_prenom", "").strip():
+            erreurs.append("personnes_prenom")
+
+        if not erreurs:
+            print("Faire ma modifications")
+            ma_personne.personnes_id = request.form["personnes_id"]
+            ma_personne.personnes_amendes_id = request.form["personnes_amendes_id"]
+            ma_personne.personnes_nom = request.form["personnes_nom"]
+            ma_personne.personnes_prenom = request.form["personnes_prenom"]
+
+
+            db.session.add(ma_personne)
+            db.session.add(Authorship(personne=ma_personne, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/personne_form_update.html",
+        nom="Criminalithé",
+        personne=ma_personne,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+@app.route("/amende/<int:amendes_id>/update", methods=["GET", "POST"])
+@login_required
+def amende_update(amendes_id):
+
+    mon_amende = Amendes.query.get(amendes_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        # J"ai un formulaire
+        if not request.form.get("amendes_id", "").strip():
+            erreurs.append("amendes_id")
+        if not request.form.get("amendes_source_id", "").strip():
+            erreurs.append("amendes_source_id")
+        if not request.form.get("amendes_montant", "").strip():
+            erreurs.append("amendes_montant")
+        if not request.form.get("amendes_type", "").strip():
+            erreurs.append("amendes_type")
+        if not request.form.get("amendes_franche_verite", "").strip():
+                erreurs.append("amendes_franche_verite")
+        if not request.form.get("amendes_transcription", "").strip():
+            erreurs.append("amendes_transcription")
+
+
+        if not erreurs:
+            print("Faire ma modifications")
+            mon_amende.amendes_id = request.form["amendes_id"]
+            mon_amende.amendes_source_id = request.form["amendes_source_id"]
+            mon_amende.amendes_montant = request.form["amendes_montant"]
+            mon_amende.amendes_type = request.form["amendes_type"]
+            mon_amende.amendes_franche_verite = request.form["amendes_franche_verite"]
+            mon_amende.amendes_transcription = request.form["amendes_transcription"]
+
+
+            db.session.add(mon_amende)
+            db.session.add(Authorship(amende=mon_amende, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/amende_form_update.html",
+        nom="Criminalithé",
+        amende=mon_amende,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+@app.route("/source/<int:source_id>/update", methods=["GET", "POST"])
+@login_required
+def source_update(source_id):
+
+    ma_source = Source.query.get(source_id)
+
+    erreurs = []
+    updated = False
+
+    if request.method == "POST":
+        # J"ai un formulaire
+        if not request.form.get("source_id", "").strip():
+            erreurs.append("source_id")
+        if not request.form.get("source_date", "").strip():
+            erreurs.append("source_date")
+
+        if not erreurs:
+            print("Faire ma modifications")
+            ma_source.personnes_id = request.form["source_id"]
+            ma_source.personnes_amendes_id = request.form["source_date"]
+
+
+
+            db.session.add(ma_source)
+            db.session.add(Authorship(source=ma_source, user=current_user))
+            db.session.commit()
+            updated = True
+
+    return render_template(
+        "pages/source_form_update.html",
+        nom="Criminalithé",
+        source=ma_source,
+        erreurs=erreurs,
+        updated=updated
+    )
+
+
 
 
 #Une possibilité est la suivante :

@@ -1,0 +1,28 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+    {% if source %}
+    {% if updated %}
+    	<div class="alert alert-success">
+    		<p>Modification réussie. Merci pour votre contribution !</p>
+    	</div>
+    {% endif %}
+    <form method="POST" action="{{ url_for('source_update', source_id=source.source_id)}}">
+    	 <div class="mb-3">
+		    <label for="source_id" class="form-label">Identifiant unique de la source (correspond à la cote du document aux ADN)</label>
+		    <input type="text" name="source_id" class="form-control {% if 'source_id' in erreurs%}is-invalid{% endif %}" id="source_id" value="{{source.source_id}}" />
+         </div>
+    	 <div class="mb-3">
+		    <label for="source_date" class="form-label">Date de la source (correspond à la date de reddition du compte à la Chambre des Comptes de Lille)</label>
+		    <input type="text" name="source_date" class="form-control {% if 'source_date' in erreurs%}is-invalid{% endif %}" id="source_date" value="{{source.source_date}}" />
+         </div>
+
+		  <input type="submit" name="Modifier" class="btn btn-primary" />
+    </form>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+{% endblock %}
+
+<!-- Possibilité de transformer certains formulaires comme  en menu déroulant pour limiter les choix et les possibilité de mauvaise saisie (volontaire ou non) des données.
+-->

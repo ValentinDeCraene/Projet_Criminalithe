@@ -1,0 +1,36 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+    {% if personne %}
+    {% if updated %}
+    	<div class="alert alert-success">
+    		<p>Modification réussie. Merci pour votre contribution !</p>
+    	</div>
+    {% endif %}
+    <form method="POST" action="{{ url_for('personne_update', personnes_id=personne.personnes_id)}}">
+    	 <div class="mb-3">
+		    <label for="personnes_id" class="form-label">Identifiant unique de la personne</label>
+		    <input type="text" name="personnes_id" class="form-control {% if 'personnes_id' in erreurs%}is-invalid{% endif %}" id="personnes_id" value="{{personne.personnes_id}}" />
+		  </div>
+    	 <div class="mb-3">
+		    <label for="personnes_amendes_id" class="form-label">Identifiant unique de l'amende dans laquelle est mentionnée la personne.</label>
+		    <input type="text" name="personnes_amendes_id" class="form-control {% if 'personnes_amendes_id' in erreurs%}is-invalid{% endif %}" id="personnes_amendes_id" value="{{personne.personnes_amendes_id}}" />
+		  </div>
+    	 <div class="mb-3">
+		    <label for="personnes_nom" class="form-label">Nom de la personne mentionnée</label>
+		    <input type="text" name="personnes_nom" class="form-control {% if 'personnes_nom' in erreurs %}is-invalid{% endif %}" id="personnes_nom" value="{{personne.personnes_nom}}" />
+		  </div>
+		 <div class="mb-3">
+		    <label for="personnes_prenom" class="form-label">Prénom de la personne mentionnée</label>
+		    <input type="text" name="personnes_prenom" class="form-control {% if 'personnes_prenom' in erreurs %}is-invalid{% endif %}" id="personnes_prenom" value="{{personne.personnes_prenom}}" />
+		  </div>
+
+		  <input type="submit" name="Modifier" class="btn btn-primary" />
+    </form>
+    {% else %}
+        <p>La base de données est en cours de constitution</p>
+    {% endif %}
+{% endblock %}
+
+<!-- Possibilité de transformer certains formulaires comme  en menu déroulant pour limiter les choix et les possibilité de mauvaise saisie (volontaire ou non) des données.
+-->
