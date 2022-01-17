@@ -26,6 +26,8 @@ class Personnes(db.Model):
     personnes_nom = db.Column(db.Text)
     personnes_prenom = db.Column(db.Text)
     authorships = db.relationship("Authorship", back_populates="personne")
+    #transformer personnes_amendes_id en ForeignKEy et comme ceci : personnes_amendes_id = db.Column(db.Integer, db.ForeignKey("amendes.amendes_id")
+    #ajouter : amende = db.relationship("Amendes", back_populates="amendes_id"
 
 class Authorship(db.Model):
     __tablename__= "authorship"
