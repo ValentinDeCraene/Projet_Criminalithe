@@ -7,40 +7,19 @@ from sqlalchemy import and_, or_
 from ..constantes import RESULTATS_PAR_PAGES
 from flask_login import login_user, current_user, logout_user, login_required
 
+#Route menant à la page d'accueil:
 
 @app.route("/")
 def accueil():
     return render_template("pages/accueil.html")
 
+#Route menant à l'"index général":
 
 @app.route("/Index/")
 def index():
     return render_template("pages/Index.html")
 
-
-@app.route("/Index/amendes/")
-def index_amendes():
-    amendes = Amendes.query.all()
-    return render_template("pages/Index_amendes.html", amendes=amendes)
-
-
-@app.route("/amende/<int:amendes_id>")
-def amende(amendes_id):
-    amende_unique = Amendes.query.filter(Amendes.amendes_id == amendes_id).first()
-    return render_template("pages/amende.html", amende=amende_unique)
-
-
-@app.route("/personne/<int:personnes_id>")
-def personne(personnes_id):
-    personne_unique = Personnes.query.filter(Personnes.personnes_id == personnes_id).first()
-    return render_template("pages/personne.html", personne=personne_unique)
-
-
-@app.route("/source/<int:source_id>")
-def source(source_id):
-    source_unique = Source.query.filter(Source.source_id == source_id).first()
-    return render_template("pages/source.html", source=source_unique)
-
+#Route menant aux différentes pages d'index:
 
 @app.route("/Index/personnes/")
 def index_personnes():
@@ -53,9 +32,54 @@ def index_sources():
     sources = Source.query.all()
     return render_template("pages/Index_sources.html", sources=sources)
 
+@app.route("/Index/amendes/")
+def index_amendes():
+    amendes = Amendes.query.all()
+    return render_template("pages/Index_amendes.html", amendes=amendes)
+
+#Route menant aux différentes pages de contenu:
+
+@app.route("/amende/<int:amendes_id>")
+def amende(amendes_id):
+
+    """Création d'une page de contenu pour une amende.
+    :param amendes_id: Id de la clé primaire de la table Amendes dans la base de données
+    :type: amendes_id: Integer
+    :returns: création de la page grâce au render_template
+    """
+    amende_unique = Amendes.query.filter(Amendes.amendes_id == amendes_id).first()
+    return render_template("pages/amende.html", amende=amende_unique)
+
+
+@app.route("/personne/<int:personnes_id>")
+def personne(personnes_id):
+    """Création d'une page de contenu pour une personne.
+        :param personnes_id: Id de la clé primaire de la table Personnes dans la base de données
+        :type personnes_id: Integer
+        :returns: création de la page grâce au render_template """
+
+    personne_unique = Personnes.query.filter(Personnes.personnes_id == personnes_id).first()
+    return render_template("pages/personne.html", personne=personne_unique)
+
+
+@app.route("/source/<int:source_id>")
+def source(source_id):
+
+    """Création d'une page de contenu pour une source.
+        :param source_id: Id de la clé primaire de la table Personnes dans la base de données
+        :type source_id: Integer
+        :returns: création de la page grâce au render_template """
+
+    source_unique = Source.query.filter(Source.source_id == source_id).first()
+    return render_template("pages/source.html", source=source_unique)
+
+#Route pour une page de recherche simple par le biais d'une requête sur la table Amendes.
+#Permet d'afficher 5 résultats par page grâce à la méthode .paginate de Flask.
 
 @app.route("/recherche")
 def recherche():
+
+
     motclef = request.args.get("keyword", None)
     page = request.args.get("page", 1)
     resultats = []
@@ -82,6 +106,8 @@ def recherche():
     return render_template("pages/recherche.html", resultats=resultats, titre=titre, keyword=motclef)
 
 
+#Permet d'afficher une page avec le formulaire d'inscription si l'utilisateur n'est pas encore enregistré dans la base de données.
+
 @app.route("/inscription", methods=["GET", "POST"])
 def inscription():
     if request.method == "POST":
@@ -100,10 +126,15 @@ def inscription():
     else:
         return render_template("pages/inscription.html")
 
+#Permet d'afficher une page de connexion:
 
 @app.route("/connexion", methods=["POST", "GET"])
 def connexion():
-    """ Route gérant les connexions
+    """
+    Route vérifiant si l'utilisateur est déja connecté lorsqu'il s'authentifie
+    Si c'est le cas, l'utilisateur est redirigé vers la page d'accueil.
+    Sinon, renvoi un formulaire de connexion.
+    En cas d'erreurs, affiche un message d'erreurs.
     """
     if current_user.is_authenticated is True:
         flash("Vous êtes déjà connecté-e", "info")
@@ -126,6 +157,7 @@ def connexion():
 
 login.login_view = 'connexion'
 
+#Route permettant la déconnexion de l'utilisateur.
 
 @app.route("/deconnexion", methods=["POST", "GET"])
 def deconnexion():
@@ -135,16 +167,23 @@ def deconnexion():
     return redirect("/")
 
 
+#Routes des formulaires de mise à jour des données pour les amendes, personnes et les sources.
+
 @app.route("/personne/<int:personnes_id>/update", methods=["GET", "POST"])
 @login_required
 def personne_update(personnes_id):
+
+    """
+    :param personnes_id: Id de la clé primaire de la table Personnes dans la base de données
+    :type personnes_id: Integer
+    :return: formulaire de mise à jour des données pour une personne.
+    """
     ma_personne = Personnes.query.get(personnes_id)
 
     erreurs = []
     updated = False
 
     if request.method == "POST":
-        # J"ai un formulaire
         if not request.form.get("personnes_id", "").strip():
             erreurs.append("personnes_id")
         if not request.form.get("personnes_amendes_id", "").strip():
@@ -178,13 +217,19 @@ def personne_update(personnes_id):
 @app.route("/amende/<int:amendes_id>/update", methods=["GET", "POST"])
 @login_required
 def amende_update(amendes_id):
+
+    """
+    :param amendes_id: Id de la clé primaire de la table Amendes dans la base de données
+    :type amendes_id: Integer
+    :return: formulaire de mise à jour des données pour une amende.
+    """
+
     mon_amende = Amendes.query.get(amendes_id)
 
     erreurs = []
     updated = False
 
     if request.method == "POST":
-        # J"ai un formulaire
         if not request.form.get("amendes_id", "").strip():
             erreurs.append("amendes_id")
         if not request.form.get("amendes_source_id", "").strip():
@@ -224,13 +269,18 @@ def amende_update(amendes_id):
 @app.route("/source/<int:source_id>/update", methods=["GET", "POST"])
 @login_required
 def source_update(source_id):
+
+    """
+    :param source_id: Id de la clé primaire de la table Source dans la base de données
+    :type source_id: Integer
+    :return: formulaire de mise à jour des données pour une amende.
+    """
     ma_source = Source.query.get(source_id)
 
     erreurs = []
     updated = False
 
     if request.method == "POST":
-        # J"ai un formulaire
         if not request.form.get("source_id", "").strip():
             erreurs.append("source_id")
         if not request.form.get("source_date", "").strip():

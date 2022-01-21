@@ -1,13 +1,15 @@
 from flask import url_for
+#datetime permet de tracer l'historique des modifications
 import datetime
-
 from .. app import db
+
+#On a recours ici à un ORM pour créer nos classes:
+
 
 class Source(db.Model):
     source_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     source_date = db.Column(db.Integer)
     authorships = db.relationship("Authorship", back_populates="source")
-
 
 
 class Amendes(db.Model):
