@@ -19,6 +19,10 @@ def accueil():
 def index():
     return render_template("pages/Index.html")
 
+@app.route("/repertoire/")
+def repertoire():
+    return render_template("pages/repertoire.html")
+
 #Route menant aux différentes pages d'index:
 
 @app.route("/Index/personnes/")
@@ -36,6 +40,8 @@ def index_sources():
 def index_amendes():
     amendes = Amendes.query.all()
     return render_template("pages/Index_amendes.html", amendes=amendes)
+
+
 
 #Route menant aux différentes pages de contenu:
 
@@ -304,37 +310,90 @@ def source_update(source_id):
         updated=updated
     )
 
-# Une possibilité est la suivante :
-# def recherche():
-# motclef = request.args.get("keyword", None)
-# resultats = []
-# titre = "Recherche"
-# if motclef:
-# resultatsAmendes =\
-# Amendes.query.filter(or_(
-# Amendes.amendes_transcription.like("%{}%".format(motclef)),
-# Amendes.amendes_id.like("%{}%".format(motclef)),
-# Amendes.amendes_type.like("%{}%".format(motclef)),
-# Amendes.amendes_montant.like("%{}%".format(motclef)),
-# Amendes.amendes_source_id.like("%{}%".format(motclef)),
-# Amendes.amendes_franche_verite.like("%{}%".format(motclef))
-# )
-# ).all()
-# if resultatsAmendes:
-# Pour que resultats ne se transforme pas en liste de listes (chaque table interrogée rendant une liste),
-# boucler sur chaque résultat pour l'ajouter
-# for resultat in resultatsAmendes:
-# resultats.append(resultat)
+@app.route("/ajout_amende", methods=["GET", "POST"])
+@login_required
+def ajout_amende():
 
-# Sur un attribut de la table Personnes
-# resultatsPersonnes = Personnes.query.filter(Personnes.personnes_nom.like("%{}%".format(motclef))).all()
-# if resultatsPersonnes:
-# for resultat in resultatsPersonnes:
-# resultats.append(resultat)
+    # Ajout d'une amende
+    if request.method == "POST":
+        statut, informations = Amendes.ajout_amende(
+        ajout_amendes_id = request.form.get("ajout_amendes_id", None),
+        ajout_amendes_source_id = request.form.get("ajout_amendes_source_id", None),
+        ajout_amendes_montant = request.form.get("ajout_amendes_montant", None),
+        ajout_amendes_type = request.form.get("ajout_amendes_type", None),
+        ajout_amendes_franche_verite = request.form.get("ajout_amendes_franche_verite", None),
+        ajout_amendes_transcription= request.form.get("ajout_amendes_transcription", None),
+        #categorie_id = request.form.get("categorie_id", None),
+        #localisation_id = request.form.get("localisation_id", None),
+        )
 
-# titre = "Résultat pour la recherche `" + motclef + "`"
-# return render_template("pages/recherche.html", resultats=resultats, titre=titre)
+        if statut is True:
+            flash("Ajout d'une nouvelle amende", "success")
+            return redirect("/")
+        else:
+            flash("L'ajout a échoué pour les raisons suivantes : " + ", ".join(informations), "danger")
+            return render_template("pages/ajout_amende.html")
+    else:
+        return render_template("pages/ajout_amende.html")
 
+@app.route("/ajout_personne", methods=["GET", "POST"])
+@login_required
+def ajout_personne():
 
-# Si j'ajoute les paramètres suivants, je me retrouve face à une erreur de type NotCallable
-# De plus, problème avec la méthode paginate qui renvoie un objet non iteable donc impossible d'ajouter les deux résultats.
+    # Ajout d'une personne
+    if request.method == "POST":
+        statut, informations = Personnes.ajout_personne(
+        ajout_personnes_id = request.form.get("ajout_personnes_id", None),
+        ajout_personnes_amendes_id = request.form.get("ajout_personnes_amendes_id", None),
+        ajout_personnes_nom = request.form.get("ajout_personnes_nom", None),
+        ajout_personnes_prenom = request.form.get("ajout_personnes_prenom", None)
+        )
+
+        if statut is True:
+            flash("Ajout d'une nouvelle personne", "success")
+            return redirect("/")
+        else:
+            flash("L'ajout a échoué pour les raisons suivantes : " + ", ".join(informations), "danger")
+            return render_template("pages/ajout_personne.html")
+    else:
+        return render_template("pages/ajout_personne.html")
+
+@app.route("/ajout_source", methods=["GET", "POST"])
+@login_required
+def ajout_source():
+
+    # Ajout d'une personne
+    if request.method == "POST":
+        statut, informations = Source.ajout_source(
+        ajout_source_id = request.form.get("ajout_source_id", None),
+        ajout_source_date = request.form.get("ajout_source_date", None)
+        )
+
+        if statut is True:
+            flash("Ajout d'une nouvelle source", "success")
+            return redirect("/")
+        else:
+            flash("L'ajout a échoué pour les raisons suivantes : " + ", ".join(informations), "danger")
+            return render_template("pages/ajout_source.html")
+    else:
+        return render_template("pages/ajout_source.html")
+
+@app.route("/supprimer_amende/<int:amendes_id>", methods=["POST", "GET"])
+@login_required
+def supprimer_amende(amendes_id):
+
+    suppr_amende = Amendes.query.get(amendes_id)
+
+    if request.method == "POST":
+        statut = Amendes.supprimer_oeuvre(
+            amendes_id=amendes_id
+        )
+
+        if statut is True:
+            flash("Suppression réussie", "success")
+            return redirect("/")
+        else:
+            flash("La suppression a échoué. Réessayez !", "error")
+            return redirect("/")
+    else:
+        return render_template("pages/supprimer_amende.html", suppr_amende=suppr_amende)
