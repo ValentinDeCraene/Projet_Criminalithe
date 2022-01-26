@@ -40,6 +40,18 @@ class Source(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+    @staticmethod
+    def supprimer_source(source_id):
+
+        suppr_source = Source.query.get(source_id)
+
+        try:
+            db.session.delete(suppr_source)
+            db.session.commit()
+            return True
+
+        except Exception as erreur:
+            return False, [str(erreur)]
 
 class Amendes(db.Model):
 
@@ -94,6 +106,18 @@ class Amendes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+    @staticmethod
+    def supprimer_amende(amendes_id):
+
+        suppr_amende = Amendes.query.get(amendes_id)
+
+        try:
+            db.session.delete(suppr_amende)
+            db.session.commit()
+            return True
+
+        except Exception as erreur:
+            return False, [str(erreur)]
 
 class Personnes(db.Model):
     personnes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
@@ -134,6 +158,19 @@ class Personnes(db.Model):
             db.session.add(nouvelle_personne)
             db.session.commit()
             return True, nouvelle_personne
+
+        except Exception as erreur:
+            return False, [str(erreur)]
+
+    @staticmethod
+    def supprimer_personne(personnes_id):
+
+        suppr_personne = Personnes.query.get(personnes_id)
+
+        try:
+            db.session.delete(suppr_personne)
+            db.session.commit()
+            return True
 
         except Exception as erreur:
             return False, [str(erreur)]

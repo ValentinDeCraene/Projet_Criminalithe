@@ -322,9 +322,7 @@ def ajout_amende():
         ajout_amendes_montant = request.form.get("ajout_amendes_montant", None),
         ajout_amendes_type = request.form.get("ajout_amendes_type", None),
         ajout_amendes_franche_verite = request.form.get("ajout_amendes_franche_verite", None),
-        ajout_amendes_transcription= request.form.get("ajout_amendes_transcription", None),
-        #categorie_id = request.form.get("categorie_id", None),
-        #localisation_id = request.form.get("localisation_id", None),
+        ajout_amendes_transcription= request.form.get("ajout_amendes_transcription", None)
         )
 
         if statut is True:
@@ -385,7 +383,7 @@ def supprimer_amende(amendes_id):
     suppr_amende = Amendes.query.get(amendes_id)
 
     if request.method == "POST":
-        statut = Amendes.supprimer_oeuvre(
+        statut = Amendes.supprimer_amende(
             amendes_id=amendes_id
         )
 
@@ -397,3 +395,43 @@ def supprimer_amende(amendes_id):
             return redirect("/")
     else:
         return render_template("pages/supprimer_amende.html", suppr_amende=suppr_amende)
+
+@app.route("/supprimer_personne/<int:personnes_id>", methods=["POST", "GET"])
+@login_required
+def supprimer_personne(personnes_id):
+
+    suppr_personne = Personnes.query.get(personnes_id)
+
+    if request.method == "POST":
+        statut = Personnes.supprimer_personne(
+            personnes_id=personnes_id
+        )
+
+        if statut is True:
+            flash("Suppression réussie", "success")
+            return redirect("/")
+        else:
+            flash("La suppression a échoué. Réessayez !", "error")
+            return redirect("/")
+    else:
+        return render_template("pages/supprimer_personne.html", suppr_personne=suppr_personne)
+
+@app.route("/supprimer_source/<int:source_id>", methods=["POST", "GET"])
+@login_required
+def supprimer_source(source_id):
+
+    suppr_source = Source.query.get(source_id)
+
+    if request.method == "POST":
+        statut = Source.supprimer_source(
+            source_id=source_id
+        )
+
+        if statut is True:
+            flash("Suppression réussie", "success")
+            return redirect("/")
+        else:
+            flash("La suppression a échoué. Réessayez !", "error")
+            return redirect("/")
+    else:
+        return render_template("pages/supprimer_source.html", suppr_source=suppr_source)

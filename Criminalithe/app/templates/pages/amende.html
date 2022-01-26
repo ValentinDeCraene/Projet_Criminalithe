@@ -14,14 +14,23 @@
     <dt>
         <dd>
             {% for modification in amende.authorships %}
-            <li>[{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
+            <li>Historique des modifications : [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
             {% endfor %}
         </dd>
     </dt>
 </dl>
+<p>
 {% if current_user.is_authenticated %}
         <a href="{{url_for("amende_update", amendes_id=amende.amendes_id)}}">Modifier la page</a>
-        {% endif %}
+{% endif %}
+</p>
+
+<p>
+{% if current_user.is_authenticated %}
+        <a href="{{url_for("supprimer_amende", amendes_id=amende.amendes_id)}}">Supprimer la page</a>
+{% endif %}
+</p>
+
 <p>
     <ul type="square">
         <li><a href="{{url_for('index_amendes')}}">Retour à l'index des amendes.</a></li>
