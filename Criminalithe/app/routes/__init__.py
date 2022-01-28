@@ -4,7 +4,7 @@ from ..app import app, login, db
 from ..modeles.donnees import Source, Amendes, Personnes, Authorship
 from ..modeles.utilisateurs import User
 from sqlalchemy import and_, or_
-from ..constantes import RESULTATS_PAR_PAGES
+from ..constantes import RESULTATS_PAR_PAGES, RESULTATS_PAR_PAGES_INDEX
 from flask_login import login_user, current_user, logout_user, login_required
 
 #Route menant à la page d'accueil:
@@ -27,18 +27,39 @@ def repertoire():
 
 @app.route("/Index/personnes/")
 def index_personnes():
-    personnes = Personnes.query.all()
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    personnes = Personnes.query.order_by(Personnes.personnes_nom).paginate(page=page, per_page=RESULTATS_PAR_PAGES_INDEX)
     return render_template("pages/Index_personnes.html", personnes=personnes)
 
 
 @app.route("/Index/sources/")
 def index_sources():
-    sources = Source.query.all()
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    sources = Source.query.paginate(page=page, per_page=RESULTATS_PAR_PAGES_INDEX)
     return render_template("pages/Index_sources.html", sources=sources)
 
 @app.route("/Index/amendes/")
 def index_amendes():
-    amendes = Amendes.query.all()
+
+    page = request.args.get("page", 1)
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+
+    amendes = Amendes.query.paginate(page=page, per_page=RESULTATS_PAR_PAGES_INDEX)
+
     return render_template("pages/Index_amendes.html", amendes=amendes)
 
 
@@ -313,6 +334,7 @@ def source_update(source_id):
 @app.route("/ajout_amende", methods=["GET", "POST"])
 @login_required
 def ajout_amende():
+
 
     # Ajout d'une amende
     if request.method == "POST":

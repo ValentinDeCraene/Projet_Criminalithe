@@ -2,18 +2,38 @@
 {% block corps %}
     <h2> Bienvenue dans l'index des sources</h2>
 <p>
-    Il y {{sources|length}} sources enregistrées:
-{% if lieux%}
-    en voici une liste :
-{%endif%}
+    Il y 11 sources enregistrées:
+
         <ul>
-            {% for source in sources %}
-                <li><a href="{{url_for('source', source_id=source.source_id)}}">{{source.source_id}}</a></li>
+            {% for source in sources.items %}
+                <li><a href="{{url_for('source', source_id=source.source_id)}}">B {{source.source_id}}</a></li>
             {% endfor %}
         </ul>
+<nav aria-label="research-pagination">
+      <ul class="pagination">
+        {%- for page in sources.iter_pages() %}
+            {% if page %}
 
-<ul type="square">
-    <li><a href="{{url_for('index')}}">Retour à l'index général.</a></li>
-</ul>
+              {% if page != sources.page %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ url_for("index_sources", page=page) }}">{{page}}</a>
+                </li>
+              {% else %}
+                <li class="page-item active disabled">
+                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
+                </li>
+              {% endif %}
+
+          {% else %}
+                <li class="page-item disabled">
+                  <a class="page-link">...</a>
+                </li>
+          {% endif %}
+        {%- endfor %}
+      </ul>
+
+<button type="button" class="btn btn-outline-primary">
+    <a href="{{url_for('index')}}">Retour à l'index général.</a></li>
+</button>
 </p>
 {% endblock %}

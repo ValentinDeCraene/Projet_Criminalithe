@@ -7,11 +7,14 @@
 
 
 
-<ul type="square">
-    <li><h3><a href="{{url_for('index')}}">Accès à l'index général.</a></li></h3>
-    <li><h3><a href="{{url_for('inscription')}}">Accès au formulaire d'inscription.</a></li></h3>
-    <li><h3><a href="{{url_for('connexion')}}">Accès au formulaire de connexion.</a></li></h3>
-    <li><h3><a href="{{url_for('repertoire')}}">Accès au répertoire des formulaires d'ajout de données.</a></li></h3>
+<ul type="square" class="navbar-brand list-unstyled">
+    <li class="list-group-item"><h3><a href="{{url_for('index')}}">Accès à l'index général.</a></li></h3>
+    <li class="list-group-item"><h3><a href="{{url_for('inscription')}}">Accès au formulaire d'inscription.</a></li></h3>
+    <li class="list-group-item"><h3><a href="{{url_for('connexion')}}">Accès au formulaire de connexion.</a></li></h3>
+    <li class="list-group-item"><h3><a href="{{url_for('repertoire')}}">Accès au répertoire des formulaires d'ajout de données.</a></li></h3>
 
 </ul>
+
+
+
 {% endblock %}

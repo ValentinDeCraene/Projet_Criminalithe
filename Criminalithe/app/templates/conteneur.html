@@ -7,7 +7,7 @@
         <style type="text/css">
             .hero  {
                 background-position: center center;
-                padding:10vh;
+                padding:15vh;
                 background-image: url({{url_for("static", filename="images/fonds.jpg")}});
             }
             .container .hero {
@@ -32,7 +32,14 @@
                 <a class="nav-link" href="{{url_for("deconnexion")}}">Déconnexion ({{current_user.user_nom}})</a>
               </li>
             {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for("repertoire")}}">Contribuer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for("index")}}">Index général</a>
+            </li>
         </ul>
+
         <form class="form-inline" action="{{url_for("recherche")}}" method="GET">
           <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
           <button class="btn btn-info" type="submit">Rechercher</button>

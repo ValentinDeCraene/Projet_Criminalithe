@@ -1,14 +1,14 @@
 {% extends "conteneur.html" %}
 {% block corps %}
-    <h2> Bienvenue dans le répertoire des formulaires.</h2>
-<ul>
-    <li> Pour accéder à l'index des amendes,<a href="{{url_for('index_amendes')}}"> cliquez ici.</a></li>
-    <li> Pour accéder à l'index des personnes,<a href="{{url_for('index_personnes')}}"> cliquez ici.</a></li>
-    <li>Pour accéder à l'index des sources,<a href="{{url_for('index_sources')}}"> cliquez ici.</a></li>
+    <h2> Bienvenue dans le répertoire des index.</h2>
+<ul class="navbar-brand list-unstyled">
+    <li class="list-group-item"><h3><a href="{{url_for('index_amendes')}}"> Accès à l'index des amendes</a></h3></li>
+    <li class="list-group-item"><h3><a href="{{url_for('index_personnes')}}"> Accès à l'index des personnes</a></h3></li>
+    <li class="list-group-item"><h3><a href="{{url_for('index_sources')}}"> Accès à l'index des sources</a></h3></li>
 </ul>
 <p>
-<ul type="square">
-    <li><a href="{{url_for('accueil')}}">Retour à l'accueil</a></li>
-</ul>
+<button type="button" class="btn btn-outline-primary">
+    <a href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
 </p>
 {% endblock %}
