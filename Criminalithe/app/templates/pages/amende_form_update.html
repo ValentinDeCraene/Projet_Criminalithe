@@ -33,6 +33,9 @@
 		    <textarea name="amendes_transcription" class="form-control {% if 'amendes_transcription' in erreurs%}is-invalid{% endif %}" id="amendes_transcription">{{amende.amendes_transcription}}</textarea>
 
 		  <input type="submit" name="Modifier" class="btn btn-primary" />
+			<button type="button" class="btn btn-outline-danger">
+        <a href="{{url_for('accueil')}}">Annuler</a>
+            </button>
     </form>
     {% else %}
         <p>La base de données est en cours de constitution</p>

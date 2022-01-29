@@ -17,12 +17,16 @@
 </dl>
 <p>
 {% if current_user.is_authenticated %}
+<button type="button" class="btn btn-outline-warning">
     <a href="{{url_for("personne_update", personnes_id=personne.personnes_id)}}"> Modifier la page</a>
+</button>
 {% endif %}
 </p>
 <p>
 {% if current_user.is_authenticated %}
+<button type="button" class="btn btn-outline-danger">
         <a href="{{url_for("supprimer_personne", personnes_id=personne.personnes_id)}}"> Supprimer la page</a>
+</button>
 {% endif %}
 </p>
 <p>

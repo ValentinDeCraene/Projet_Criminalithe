@@ -8,10 +8,12 @@ from ..app import db
 # On a recours ici à un ORM pour créer nos classes:
 
 
+
 class Source(db.Model):
     source_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     source_date = db.Column(db.Integer)
     authorships = db.relationship("Authorship", back_populates="source")
+
 
     @staticmethod
     def ajout_source(ajout_source_id, ajout_source_date):
@@ -61,7 +63,10 @@ class Amendes(db.Model):
     amendes_type = db.Column(db.Text)
     amendes_franche_verite = db.Column(db.Text)
     amendes_transcription = db.Column(db.Text)
+    amendes_personnes_id = db.Column(db.Integer, db.ForeignKey("personnes.personnes_amendes_id"))
     authorships = db.relationship("Authorship", back_populates="amende")
+
+
 
     @staticmethod
     def ajout_amende(ajout_amendes_id, ajout_amendes_source_id, ajout_amendes_montant, ajout_amendes_type, ajout_amendes_franche_verite,
@@ -121,12 +126,11 @@ class Amendes(db.Model):
 
 class Personnes(db.Model):
     personnes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
-    personnes_amendes_id = db.Column(db.Integer)
+    personnes_amendes_id = db.Column(db.Integer, db.ForeignKey("amendes.amendes_personnes_id"))
     personnes_nom = db.Column(db.Text)
     personnes_prenom = db.Column(db.Text)
     authorships = db.relationship("Authorship", back_populates="personne")
     # transformer personnes_amendes_id en ForeignKEy et comme ceci : personnes_amendes_id = db.Column(db.Integer, db.ForeignKey("amendes.amendes_id")
-    # ajouter : amende = db.relationship("Amendes", back_populates="amendes_id"
 
     @staticmethod
     def ajout_personne(ajout_personnes_id, ajout_personnes_amendes_id, ajout_personnes_nom, ajout_personnes_prenom):
@@ -187,3 +191,4 @@ class Authorship(db.Model):
     amende = db.relationship("Amendes", back_populates="authorships")
     personne = db.relationship("Personnes", back_populates="authorships")
     source = db.relationship("Source", back_populates="authorships")
+

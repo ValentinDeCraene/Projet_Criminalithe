@@ -13,13 +13,18 @@
         </dd>
     </dt>
 <p>
+        <button type="button" class="btn btn-outline-warning">
+
 {% if current_user.is_authenticated %}
         <a href="{{url_for("source_update", source_id=source.source_id)}}">Modifier la page</a>
+        </button>
 {% endif %}
 <p>
 <p>
+    <button type="button" class="btn btn-outline-danger">
 {% if current_user.is_authenticated %}
         <a href="{{url_for("supprimer_source", source_id=source.source_id)}}">Supprimer la page</a>
+    </button>
 {% endif %}
 </p>
 <p>

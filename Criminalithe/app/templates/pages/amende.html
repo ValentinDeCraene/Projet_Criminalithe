@@ -9,7 +9,7 @@
     <dt>Type de l'amende </dt><dd>{{amende.amendes_type}}</dd>
     <dt>Franche-vérités</dt><dd>{{amende.amendes_franche_verite}}</dd>
     <dt>Transcription</dt><dd>"{{amende.amendes_transcription}}"</dd>
-    <dt> Justiciable(s) mentionné(s)</dt><dd> </dd>
+    <dt> Justiciable(s) mentionné(s)</dt><dd>{{amende.amendes_personnes_id}}</dd>
     <dt>Historique des modifications</dt>
     <dt>
         <dd>
@@ -21,17 +21,22 @@
 </dl>
 <p>
 {% if current_user.is_authenticated %}
+        <button type="button" class="btn btn-outline-warning">
         <a href="{{url_for("amende_update", amendes_id=amende.amendes_id)}}">Modifier la page</a>
+        </button>
 {% endif %}
 </p>
 
 <p>
 {% if current_user.is_authenticated %}
+    <button type="button" class="btn btn-outline-danger">
         <a href="{{url_for("supprimer_amende", amendes_id=amende.amendes_id)}}">Supprimer la page</a>
+    </button>
 {% endif %}
 </p>
 
+
 <button type="button" class="btn btn-outline-primary">
-    <a href="{{url_for('index_amendes')}}">Retour à l'index des amendes.</a></li>
+    <a href="{{url_for('index_amendes')}}">Retour à l'index des amendes.</a>
 </button>
 {% endblock %}
