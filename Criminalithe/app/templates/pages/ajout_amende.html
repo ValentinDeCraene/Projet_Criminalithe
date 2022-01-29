@@ -1,0 +1,90 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<div>
+    <center>
+        <h2>Ajouter une amende</h2>
+        <p>Pour ajouter une nouvelle amende, complétez le formulaire et cliquez sur "Ajouter".</p>
+    </center>
+</div>
+<form class="form" method="POST" action="{{url_for('ajout_amende')}}">
+    <div class="form-group row">
+      <label for="ajout_amendes_id" class="col-sm-2 col-form-label">Identifiant de l'amende</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ajout_amendes_id" placeholder="Id de l'amende"/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="ajout_amendes_source_id" class="col-sm-2 col-form-label">Identifiant de la source de l'amende</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ajout_amendes_source_id" placeholder="Id de la source de l'amende (sous la forme B62XX)"/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="ajout_amendes_montant" class="col-sm-2 col-form-label">Montant de l'amende (en sous parisis)</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" list="datalistOptions3" name="ajout_amendes_montant" placeholder="Montant de l'amende (voir les plus courants ci dessous : )"/>
+          <datalist id="datalistOptions3">
+                <option value="20">
+                <option value="26">
+                <option value="28">
+                <option value="33">
+                <option value="40">
+                <option value="60">
+                <option value="80">
+                <option value="160">
+            </datalist>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="ajout_amendes_type" class="col-sm-2 col-form-label">Type de l'amende</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" list="datalistOptions" name="ajout_amendes_type" placeholder="Type de l'amende, choisissez parmi les valeurs ci dessous:"/>
+                <datalist id="datalistOptions">
+                    <option value="brigandage">
+                    <option value="conflit_juridiction">
+                    <option value="dégradation">
+                    <option value="désobéissance">
+                    <option value="port_arme">
+                    <option value="soutien_banni">
+                    <option value="violence_physique">
+                    <option value="vol">
+                </datalist>
+        </div>
+    </div>
+    <div class="form-group row">
+      <label for="ajout_amendes_franche_verite" class="col-sm-2 col-form-label">Amende issue d'une franche vérité ?</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" list="datalistOptions2" name="ajout_amendes_franche_verite" placeholder="Franche vérité, indiquez oui / non "/>
+          <datalist id="datalistOptions2">
+                <option value="oui">
+                <option value="non">
+          </datalist>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="ajout_amendes_transcription" class="col-sm-2 col-form-label">Transcription de l'amende</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ajout_amendes_transcription" placeholder="Transcription de l'amende"/>
+      </div>
+    </div>
+        <center>
+      <div>
+        <button type="submit" class="btn btn-info">Ajouter</button>
+      </div>
+    </center>
+</form>
+
+<br/>
+<p>
+<button type="button" class="btn btn-outline-primary">
+    <a href="{{url_for('repertoire')}}">Retour au répertoire des formulaires.</a></li>
+</button>
+</p>
+{% endblock %}
+
+<!--  Possibilité d'ajouter la balise pattern avec une regex = attente spécifique.-->

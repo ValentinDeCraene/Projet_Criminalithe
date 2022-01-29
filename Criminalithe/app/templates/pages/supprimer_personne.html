@@ -1,0 +1,32 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<center>
+<form method="POST" action="{{url_for('supprimer_personne', personnes_id=suppr_personne.personnes_id)}}">
+	<div>
+		<p>Etes-vous certain de vouloir supprimer cette personne ?
+		<br/>
+		<p name="personne" value="{{suppr_personne}}">
+			<em>Identifiant de la personne : {{suppr_personne.personnes_id}}</em> <br/>
+			<em>Nom de la personne : {{suppr_personne.personnes_nom}}</em> <br/>
+			<em>Prénom de la personne : {{suppr_personne.personnes_prenom}}</em> <br/>
+		</p>
+	</div>
+	<br/>
+	<div>
+      <div>
+          <button type="submit" class="btn btn-info">Confirmer</button>
+      </div>
+  	</div>
+
+</form>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</center>
+
+{% endblock %}

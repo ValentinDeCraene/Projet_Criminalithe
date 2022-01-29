@@ -1,0 +1,50 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<div>
+    <center>
+        <h2>Ajouter une personne</h2>
+        <p>Pour ajouter une nouvelle personne, complétez le formulaire et cliquez sur "Ajouter".</p>
+    </center>
+</div>
+<form class="form" method="POST" action="{{url_for('ajout_personne')}}">
+    <div class="form-group row">
+      <label for="ajout_personnes_id" class="col-sm-2 col-form-label">Identifiant de la personne</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ajout_personnes_id" placeholder="Identifiant de la personne"/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="ajout_personnes_amendes_id" class="col-sm-2 col-form-label">Identifiant de l'amende mentionnant la personne</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ajout_personnes_amendes_id" placeholder="Identifiant de l'amende mentionnant la personne"/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="ajout_personnes_nom" class="col-sm-2 col-form-label">Nom de la personne</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ajout_personnes_nom" placeholder="Nom de la personne"/>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="ajout_personnes_prenom" class="col-sm-2 col-form-label">Prénom de la personne</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="ajout_personnes_prenom" placeholder="Prénom de la personne "/>
+      </div>
+    </div>
+
+        <center>
+      <div>
+        <button type="submit" class="btn btn-info">Ajouter</button>
+      </div>
+    </center>
+</form>
+<br/>
+
+<p>
+<button type="button" class="btn btn-outline-primary">
+    <a href="{{url_for('repertoire')}}">Retour au répertoire des formulaires.</a></li>
+</button>
+</p>
+{% endblock %}

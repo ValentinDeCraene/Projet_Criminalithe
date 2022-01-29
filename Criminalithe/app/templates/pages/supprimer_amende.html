@@ -1,0 +1,31 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<center>
+<form method="POST" action="{{url_for('supprimer_amende', amendes_id=suppr_amende.amendes_id)}}">
+	<div>
+		<p>Etes-vous certain de vouloir supprimer cette amende ? </>
+		<br/>
+		<p name="amende" value="{{suppr_amende}}">
+			<em> Numéro de l'amende : {{suppr_amende.amendes_id}}</em> <br/>
+			<em> Transcription de l'amende : "{{suppr_amende.amendes_transcription}}"</em>
+		</p>
+	</div>
+	<br/>
+	<div>
+      <div>
+          <button type="submit" class="btn btn-info">Confirmer</button>
+      </div>
+  </div>
+</form>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</center>
+
+{% endblock %}

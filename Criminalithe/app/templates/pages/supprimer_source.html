@@ -1,0 +1,30 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+<center>
+<form method="POST" action="{{url_for('supprimer_source', source_id=suppr_source.source_id)}}">
+	<div>
+		<p>Etes-vous certain de vouloir supprimer cette personne : </>
+		<br/>
+		<br name="source" value="{{suppr_source}}"><em> Identifiant de la source : {{suppr_source.source_id}}</em> </br>
+        <br name="source" value="{{suppr_source}}"><em>Date de la source : {{suppr_source.source_date}}</em> </br>
+		</p>
+
+	</div>
+	<br/>
+	<div>
+      <div>
+          <button type="submit" class="btn btn-info">Confirmer</button>
+      </div>
+  </div>
+</form>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</center>
+
+{% endblock %}
