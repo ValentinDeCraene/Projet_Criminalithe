@@ -77,7 +77,7 @@ class Amendes(db.Model):
                     "Veuillez renseigner le montant de cette amende (en sous parisis si possible.")
         if not ajout_amendes_type:
             erreurs.append(
-                    "Veuillez renseigner des dimensions pour cette oeuvre. Si les dimensions ne sont pas connues, indiquer la mention : dimensions inconnues.")
+                    "Veuillez renseigner le type de l'amende")
         if not ajout_amendes_franche_verite:
             erreurs.append(
                     "Veuillez renseigner si cette amende est issue d'une franche-vérité (oui/non)")
@@ -89,7 +89,7 @@ class Amendes(db.Model):
         if len(erreurs) > 0:
             return False, erreurs
 
-            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table AMendes (champs correspondant aux paramètres du modèle)
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Amendes (champs correspondant aux paramètres du modèle)
         nouvelle_amende = Amendes(amendes_id=ajout_amendes_id,
                                      amendes_source_id=ajout_amendes_source_id,
                                      amendes_montant=ajout_amendes_montant,

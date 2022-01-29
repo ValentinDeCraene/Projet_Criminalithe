@@ -2,11 +2,14 @@
 {% block corps %}
     <h2> Bienvenue dans l'index des personnes</h2>
 <p>
-    Il y 101 personnes enregistrées:
+    Il y 101 personnes enregistrées (classées par ordre alphabétique) :
 
         <ul>
             {% for personne in personnes.items %}
-                <li><a href="{{url_for('personne', personnes_id=personne.personnes_id)}}">{{personne.personnes_prenom}} {{personne.personnes_nom}}</a></li>
+                <li><a href="{{url_for('personne', personnes_id=personne.personnes_id)}}">
+                    <b>Nom </b>: {{personne.personnes_nom}}<br/>
+                    <b>Prénom</b> : {{personne.personnes_prenom}}<br/>
+                </a></li><br/>
             {% endfor %}
         </ul>
 
