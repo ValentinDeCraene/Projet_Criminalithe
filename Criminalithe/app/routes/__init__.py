@@ -69,12 +69,17 @@ def index_amendes():
 @app.route("/amende/<int:amendes_id>")
 def amende(amendes_id):
 
+
     """Création d'une page de contenu pour une amende.
     :param amendes_id: Id de la clé primaire de la table Amendes dans la base de données
     :type: amendes_id: Integer
     :returns: création de la page grâce au render_template
     """
     amende_unique = Amendes.query.filter(Amendes.amendes_id == amendes_id).first()
+    #Attention jointure nulle à changer mais elle est possible, reste encore à comprendre comment avec les classes :(
+    #jointure = db.engine.execute("SELECT amendes.amendes_personnes_id, personnes.personnes_amendes_id, personnes.personnes_nom FROM amendes INNER JOIN personnes ON amendes.amendes_personnes_id = personnes.personnes_amendes_id;")
+    #for x in jointure.fetchall():
+        #liste.append(x)
     return render_template("pages/amende.html", amende=amende_unique)
 
 

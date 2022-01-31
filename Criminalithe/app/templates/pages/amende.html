@@ -1,6 +1,6 @@
 {% extends "conteneur.html" %}
 {% block corps %}
-<h1>Amende numéro {{amende.amendes_id}}</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Amende numéro {{amende.amendes_id}}</h1>
 
 <dl>
     <dt>Identifiant de l'amende</dt><dd>{{amende.amendes_id}}</dd>
@@ -9,7 +9,8 @@
     <dt>Type de l'amende </dt><dd>{{amende.amendes_type}}</dd>
     <dt>Franche-vérités</dt><dd>{{amende.amendes_franche_verite}}</dd>
     <dt>Transcription</dt><dd>"{{amende.amendes_transcription}}"</dd>
-    <dt> Justiciable(s) mentionné(s)</dt><dd>{{amende.amendes_personnes_id}}</dd>
+    <dt> Justiciable(s) mentionné(s)</dt><dd> {{amende.justiciable}}</dd>
+    </dt>
     <dt>Historique des modifications</dt>
     <dt>
         <dd>

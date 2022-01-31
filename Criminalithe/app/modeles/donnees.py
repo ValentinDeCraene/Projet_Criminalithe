@@ -65,6 +65,7 @@ class Amendes(db.Model):
     amendes_transcription = db.Column(db.Text)
     amendes_personnes_id = db.Column(db.Integer, db.ForeignKey("personnes.personnes_amendes_id"))
     authorships = db.relationship("Authorship", back_populates="amende")
+    justiciable = db.relationship("Personnes", foreign_keys="Personnes.personnes_amendes_id")
 
 
 
@@ -130,7 +131,7 @@ class Personnes(db.Model):
     personnes_nom = db.Column(db.Text)
     personnes_prenom = db.Column(db.Text)
     authorships = db.relationship("Authorship", back_populates="personne")
-    # transformer personnes_amendes_id en ForeignKEy et comme ceci : personnes_amendes_id = db.Column(db.Integer, db.ForeignKey("amendes.amendes_id")
+    amendes = db.relationship("Amendes", foreign_keys="Amendes.amendes_personnes_id")
 
     @staticmethod
     def ajout_personne(ajout_personnes_id, ajout_personnes_amendes_id, ajout_personnes_nom, ajout_personnes_prenom):
