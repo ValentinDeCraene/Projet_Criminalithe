@@ -6,6 +6,19 @@
     <dt>Nom de la personne</dt><dd>{{personne.personnes_nom}}</dd>
     <dt>Prénom de la personne</dt><dd>{{personne.personnes_prenom}}</dd>
     <dt>Personne mentionnée dans l'amende numéro </dt><dd>{{personne.personnes_amendes_id}}</dd>
+    <dt> Délit commis par le justiciable : </dt><dd>
+    {% for amendes in personne.amendes %}
+    <dd>
+        <ul>
+        <li> Type de l'amende : {{amendes.amendes_type}}</li>
+        <li> Transcription : "Par {{personne.personnes_nom}} {{personne.personnes_prenom}}, <br/> {{amendes.amendes_transcription}}"</li>
+        <li> Lien vers la fiche de l'amende: <a href="{{url_for("amende", amendes_id=amendes.amendes_id)}}">{{amendes.amendes_id}}</a></li>
+    {% endfor %}
+        </ul>
+    </dd>
+
+
+
     <dt>Historique des modifications</dt>
     <dt>
         <dd>

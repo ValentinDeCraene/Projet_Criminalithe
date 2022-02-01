@@ -58,7 +58,7 @@ class Source(db.Model):
 class Amendes(db.Model):
 
     amendes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
-    amendes_source_id = db.Column(db.Integer)
+    amendes_source_id = db.Column(db.Integer, db.ForeignKey("source.source_id"))
     amendes_montant = db.Column(db.Text)
     amendes_type = db.Column(db.Text)
     amendes_franche_verite = db.Column(db.Text)

@@ -4,11 +4,18 @@
 
 <dl>
     <dt>Identifiant de l'amende</dt><dd>{{amende.amendes_id}}</dd>
-    <dt>Identifiant de la source dont est tirée l'amende (série B des Archives Départementales du Nord)</dt><dd>{{amende.amendes_source_id}}</dd>
+    <dt>Identifiant de la source dont est tirée l'amende (série B des Archives Départementales du Nord)</dt><dd>B {{amende.amendes_source_id}}</dd>
     <dt>Montant de l'amende (en sous parisis)</dt><dd>{{amende.amendes_montant}}</dd>
     <dt>Type de l'amende </dt><dd>{{amende.amendes_type}}</dd>
     <dt>Franche-vérités</dt><dd>{{amende.amendes_franche_verite}}</dd>
-    <dt>Transcription</dt><dd>"{{amende.amendes_transcription}}"</dd>
+    <dt>Transcription</dt><dd>
+    "Par
+    {% for justiciable in amende.justiciable %}
+    {{justiciable.personnes_nom}}
+    {{justiciable.personnes_prenom}},
+    <br/>
+    {% endfor%}
+    {{amende.amendes_transcription}}."</dd>
     <dt> Justiciable(s) mentionné(s)</dt> <dd>
     {% for justiciable in amende.justiciable %}
     <ul>

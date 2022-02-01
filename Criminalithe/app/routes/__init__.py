@@ -82,9 +82,7 @@ def amende(amendes_id):
         #liste.append(x)
     return render_template("pages/amende.html", amende=amende_unique)
 
-def justiciables(justiciable):
 
-    return render_template("pages/amende.html", )
 
 @app.route("/personne/<int:personnes_id>")
 def personne(personnes_id):
