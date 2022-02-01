@@ -13,7 +13,7 @@ class Source(db.Model):
     source_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     source_date = db.Column(db.Integer)
     authorships = db.relationship("Authorship", back_populates="source")
-    #amende = db.relationship("Amendes", foreign_keys="Amendes.source", backref="source")
+    amendes = db.relationship("Amendes", back_populates="source")
 
 
     @staticmethod
@@ -67,7 +67,7 @@ class Amendes(db.Model):
     amendes_personnes_id = db.Column(db.Integer, db.ForeignKey("personnes.personnes_amendes_id"))
     authorships = db.relationship("Authorship", back_populates="amende")
     justiciable = db.relationship("Personnes", foreign_keys="Personnes.personnes_amendes_id", backref="justiciable")
-    #source = db.relationship("Source", foreign_keys="Source.source_id", backref="amende")
+    source = db.relationship("Source", back_populates="amendes")
 
 
 
