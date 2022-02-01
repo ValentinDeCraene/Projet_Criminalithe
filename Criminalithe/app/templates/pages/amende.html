@@ -9,7 +9,10 @@
     <dt>Type de l'amende </dt><dd>{{amende.amendes_type}}</dd>
     <dt>Franche-vérités</dt><dd>{{amende.amendes_franche_verite}}</dd>
     <dt>Transcription</dt><dd>"{{amende.amendes_transcription}}"</dd>
-    <dt> Justiciable(s) mentionné(s)</dt><dd> {{amende.justiciable}}</dd>
+    <dt> Justiciable(s) mentionné(s)</dt><dd>
+    {% for justiciable in amende.justiciable %}
+    <p> {{justiciable.personnes_nom}}</p>
+    {% endfor %}</dd>
     </dt>
     <dt>Historique des modifications</dt>
     <dt>
