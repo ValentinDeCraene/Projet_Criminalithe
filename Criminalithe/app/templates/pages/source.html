@@ -6,28 +6,32 @@
     <dt>Date de la source </dt><dd> {{source.source_date}}</dd>
     <dt> Contient les amendes suivantes :</dt>
     {% for amende in source.amendes %}
-    {{amende.amendes_id}}
+    <ul>
+        <li>{{amende.amendes_id}} : {{amende.amendes_transcription}}</li>
+        <li type="square"> Lien : <a href="{{url_for("amende", amendes_id=amende.amendes_id)}}"> cliquez ici</a></li>
+    </ul>
     {% endfor %}
 
-</dl>
-    <dt>
+<ul>
         <dd>
             {% for modification in source.authorships %}
             <li>Historique des modifications: [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
             {% endfor %}
         </dd>
-    </dt>
+</ul>
+</dl>
 <p>
-        <button type="button" class="btn btn-outline-warning">
 
 {% if current_user.is_authenticated %}
+    <button type="button" class="btn btn-outline-warning">
         <a href="{{url_for("source_update", source_id=source.source_id)}}">Modifier la page</a>
-        </button>
+    </button>
 {% endif %}
 <p>
 <p>
-    <button type="button" class="btn btn-outline-danger">
+
 {% if current_user.is_authenticated %}
+    <button type="button" class="btn btn-outline-danger">
         <a href="{{url_for("supprimer_source", source_id=source.source_id)}}">Supprimer la page</a>
     </button>
 {% endif %}

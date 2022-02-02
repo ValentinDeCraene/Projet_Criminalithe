@@ -21,7 +21,7 @@
     <ul>
         <li>Nom de la personnne : {{justiciable.personnes_nom}}</li>
         <li>Prénom de la personne : {{justiciable.personnes_prenom}}</li>
-        <li> Lien vers la fiche de la personne : <a href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">{{justiciable.personnes_nom}} {{justiciable.personnes_prenom}} </a></li>
+        <li> Lien vers la fiche de la personne : <a href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">cliquez ici</a></li>
     {% endfor %}
     </ul>
     </dd>

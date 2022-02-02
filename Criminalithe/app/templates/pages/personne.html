@@ -12,7 +12,7 @@
         <ul>
         <li> Type de l'amende : {{amendes.amendes_type}}</li>
         <li> Transcription : <br/>"Par {{personne.personnes_nom}} {{personne.personnes_prenom}}, <br/> {{amendes.amendes_transcription}}"</li>
-        <li> Lien vers la fiche de l'amende: <a href="{{url_for("amende", amendes_id=amendes.amendes_id)}}">{{amendes.amendes_id}}</a></li>
+        <li> Lien vers la fiche de l'amende: <a href="{{url_for("amende", amendes_id=amendes.amendes_id)}}">cliquez ici</a></li>
     {% endfor %}
         </ul>
     </dd>
