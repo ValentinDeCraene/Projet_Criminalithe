@@ -19,9 +19,9 @@
     <dt> Justiciable(s) mentionné(s)</dt> <dd>
     {% for justiciable in amende.justiciable %}
     <ul>
-        <li>Nom de la personnne : {{justiciable.personnes_nom}}</li>
-        <li>Prénom de la personne : {{justiciable.personnes_prenom}}</li>
-        <li> Lien vers la fiche de la personne : <a href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">cliquez ici</a></li>
+        <li><b>Nom</b> de la personnne : {{justiciable.personnes_nom}}</li>
+        <li><b>Prénom</b> de la personne : {{justiciable.personnes_prenom}}</li>
+        <li><b>Lien</b> vers la fiche de la personne : <a href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">cliquez ici</a></li>
     {% endfor %}
     </ul>
     </dd>

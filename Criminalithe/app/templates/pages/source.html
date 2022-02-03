@@ -7,19 +7,21 @@
     <dt> Contient les amendes suivantes :</dt>
     {% for amende in source.amendes %}
     <ul>
-        <li>{{amende.amendes_id}} : {{amende.amendes_transcription}}</li>
-        <li type="square"> Lien : <a href="{{url_for("amende", amendes_id=amende.amendes_id)}}"> cliquez ici</a></li>
+        <li><b>Numéro de l'amende</b>: {{amende.amendes_id}}</li>
+        <li><b>Transcription</b>:"{{amende.amendes_transcription}}"</li>
+        <li type="square"> <b>Lien</b> : <a href="{{url_for("amende", amendes_id=amende.amendes_id)}}"> cliquez ici</a></li>
     </ul>
     {% endfor %}
-
-<ul>
-        <dd>
-            {% for modification in source.authorships %}
-            <li>Historique des modifications: [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
-            {% endfor %}
-        </dd>
-</ul>
 </dl>
+<p>
+    <b>Historique des modifications</b>:
+    <ul>
+    {% for modification in source.authorships %}
+        <li> [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
+    {% endfor %}
+    </ul>
+</p>
+
 <p>
 
 {% if current_user.is_authenticated %}
