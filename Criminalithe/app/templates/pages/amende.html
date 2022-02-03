@@ -6,6 +6,8 @@
     <dt>Identifiant de l'amende</dt><dd>{{amende.amendes_id}}</dd>
     <dt>Identifiant de la source dont est tirée l'amende (série B des Archives Départementales du Nord)</dt><dd>B {{amende.amendes_source_id}}</dd>
     <dt>Montant de l'amende (en sous parisis)</dt><dd>{{amende.amendes_montant}}</dd>
+    <dd> <i>Soit en livres parisis : {{amende.amendes_montant/20}}</i></dd>
+    <dd> <i>Soit en deniers parisis : {{amende.amendes_montant*12}}</i></dd>
     <dt>Type de l'amende </dt><dd>{{amende.amendes_type}}</dd>
     <dt>Franche-vérités</dt><dd>{{amende.amendes_franche_verite}}</dd>
     <dt>Transcription</dt><dd>
