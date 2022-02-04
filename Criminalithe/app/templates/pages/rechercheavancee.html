@@ -1,0 +1,107 @@
+{% extends "conteneur.html" %}
+
+
+{% block corps %}
+
+<h1>Recherche avancée</h1>
+<h2> Veuillez remplir au minimum un champ par catégories.</h2>
+
+<form class="form" method="POST" action="{{url_for('rechercheavancee')}}">
+    <div class="panel panel-info">
+        </div>
+        <div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h2>Source</h2>
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Identifiant de la source :</strong>
+                    <input type="text" name="idSource" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Date de la source :</strong>
+                    <input type="text" name="dateSource" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h2>Amende</h2>
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Identifiant de l'amende:</strong>
+                    <input type="text" name="idAmende" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Identifiant de la source dont provient l'amende :</strong>
+                    <input type="text" name="idSourceAmende" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Montant de l'amende :</strong>
+                    <input type="text" name="montantAmende" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Type de l'amende :</strong>
+                    <input type="text" name="typeAmende" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Franche vérité</strong>
+                    <input type="text" name="francheVeriteAmende" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>transcription</strong>
+                    <input type="text" name="transcriptionAmende" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Identifiants des personnes mentionnées:</strong>
+                    <input type="text" name="idPersonneAmende" class="form-control" value="" />
+                </div>
+                <div class="col-md-12">
+                <div class="col-md-12">
+                    <h2>Personnes</h2>
+                </div>
+            </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Identifiant de la personne :</strong>
+                    <input type="text" name="idPersonne" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Identifiant de la source dans laquelle est mentionnée la personne:</strong>
+                    <input type="text" name="idAmendePersonne" class="form-control" value="" />
+                </div>
+            </div>
+            <div class="form-group row flex-v-center">
+                <div class="col-md-6 col-xs-12">
+                    <strong>Nom de la personne :</strong>
+                    <input type="text" name="nomPersonne" class="form-control" value="" />
+                </div>
+                <div class="span1"></div>
+                <div class="col-md-6 col-xs-12">
+                    <strong>Prénom de la personne :</strong>
+                    <input type="text" name="prenomPersonne" class="form-control" value="" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Recherche avancée</button>
+    </div>
+</form>
+{% endblock %}

@@ -6,6 +6,7 @@ from ..modeles.utilisateurs import User
 from sqlalchemy import and_, or_
 from ..constantes import RESULTATS_PAR_PAGES, RESULTATS_PAR_PAGES_INDEX
 from flask_login import login_user, current_user, logout_user, login_required
+from warnings import warn
 
 #Route menant à la page d'accueil:
 
@@ -461,3 +462,102 @@ def supprimer_source(source_id):
             return redirect("/")
     else:
         return render_template("pages/supprimer_source.html", suppr_source=suppr_source)
+
+
+@app.route('/rechercheavancee', methods=["POST", "GET"])
+def rechercheavancee():
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    if request.method == "POST":
+
+        keyword = "test"
+
+        questionAmendes = Amendes.query
+        questionPersonnes = Personnes.query
+        questionSource = Source.query
+
+        # Oeuvre
+        idSource = request.form.get("idSource", None)
+        dateSource = request.form.get("dateSource", None)
+
+        # Amende
+        idAmende = request.form.get("idAmende", None)
+        idSourceAmende = request.form.get("idSourceAmende", None)
+        montantAmende = request.form.get("montantAmende", None)
+        typeAmende = request.form.get("typeAmende", None)
+        francheVeriteAmende = request.form.get("francheVeriteAmende", None)
+        transcriptionAmende = request.form.get("transcriptionAmende", None)
+        idPersonneAmende = request.form.get("idPersonneAmende", None)
+
+        # Personne
+        idPersonne = request.form.get("idPersonne", None)
+        idAmendePersonne = request.form.get("idAmendePersonne", None)
+        nomPersonne = request.form.get("nomPersonne", None)
+        prenomPersonne = request.form.get("prenomPersonne", None)
+
+        if idSource:
+            questionSource = questionSource.filter(Source.source_id.like("%{}%".format(idSource)))
+
+        if dateSource:
+            questionSource = questionSource.filter(Source.source_date.like("%{}%".format(dateSource)))
+
+        if idAmende:
+            questionAmendes = questionAmendes.filter(Amendes.amendes_id.like("%{}%".format(idAmende)))
+
+        if idSourceAmende:
+            questionAmendes = questionAmendes.filter(Amendes.amendes_source_id.like("%{}%".format(idSourceAmende)))
+
+        if montantAmende:
+            questionAmendes = questionAmendes.filter(Amendes.amendes_montant.like("%{}%".format(montantAmende)))
+
+        if typeAmende:
+            questionAmendes = questionAmendes.filter(Amendes.amendes_type.like("%{}%".format(typeAmende)))
+
+        if francheVeriteAmende:
+            questionAmendes = questionAmendes.filter(
+                Amendes.amendes_franche_verite.like("%{}%".format(francheVeriteAmende)))
+
+        if transcriptionAmende:
+            questionAmendes = questionAmendes.filter(
+                Amendes.amendes_transcription.like("%{}%".format(transcriptionAmende)))
+
+        if idPersonneAmende:
+            questionAmendes = questionAmendes.filter(Amendes.amendes_personnes_id.like("%{}%".format(idPersonneAmende)))
+
+        if idPersonne:
+            questionPersonnes = questionPersonnes.filter(Personnes.personnes_id.like("%{}%".format(idPersonne)))
+
+        if idAmendePersonne:
+            questionPersonnes = questionPersonnes.filter(
+                Personnes.personnes_amendes_id.like("%{}%".format(idAmendePersonne)))
+
+        if nomPersonne:
+            questionPersonnes = questionPersonnes.filter(Personnes.personnes_nom.like("%{}%".format(nomPersonne)))
+
+        if prenomPersonne:
+            questionPersonnes = questionPersonnes.filter(Personnes.personnes_prenom.like("%{}%".format(prenomPersonne)))
+
+        resultats_source = questionSource.paginate()
+        resultats_amendes = questionAmendes.paginate()
+        resultats_personnes = questionPersonnes.paginate()
+
+        if resultats_source is None:
+            warn("Vous devez renseigner au moins un élément dans cette catéorie")
+        if resultats_amendes is None:
+            warn("Vous devez renseigner au moins un élément dans cette catéorie")
+        if resultats_personnes is None:
+            warn("Vous devez renseigner au moins un élément dans cette catéorie")
+
+        return render_template(
+            "pages/resultats_recherche_avancee.html",
+            resultats_amendes=resultats_amendes,
+            resultats_personnes=resultats_personnes,
+            resultats_source=resultats_source,
+        )
+
+    return render_template("pages/rechercheavancee.html")
