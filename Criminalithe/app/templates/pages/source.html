@@ -16,9 +16,13 @@
 <p>
     <b>Historique des modifications</b>:
     <ul>
+    {% if source.authorships %}
     {% for modification in source.authorships %}
         <li> [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
     {% endfor %}
+    {% else %}
+    Cette fiche n'a pas encore été modifiée.
+    {%endif%}
     </ul>
 </p>
 

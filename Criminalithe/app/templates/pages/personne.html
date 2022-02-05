@@ -22,9 +22,13 @@
     <dt>Historique des modifications</dt>
     <dt>
         <dd>
+            {% if personne.authorships %}
             {% for modification in personne.authorships %}
             <li>Historique des modifications : [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
             {% endfor %}
+            {% else %}
+            Cette fiche n'a pas encore été modifiée.
+            {%endif%}
         </dd>
     </dt>
 </dl>

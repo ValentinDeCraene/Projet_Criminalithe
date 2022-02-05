@@ -30,9 +30,13 @@
     <dt>Historique des modifications</dt>
     <dt>
         <dd>
+            {% if amende.authorships %}
             {% for modification in amende.authorships %}
             <li>Historique des modifications : [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
             {% endfor %}
+            {% else %}
+            Cette fiche n'a pas encore été modifiée.
+            {%endif%}
         </dd>
     </dt>
 </dl>
