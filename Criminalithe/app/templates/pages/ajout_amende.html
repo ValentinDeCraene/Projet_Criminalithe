@@ -42,6 +42,13 @@
     <div class="form-group row">
         <label for="ajout_amendes_type" class="col-sm-2 col-form-label">Type de l'amende</label>
         <div class="col-sm-10">
+<!--            <select method="POST">-->
+<!--            {% for type in amendes_type %}-->
+<!--                <option value="{{type}}">-->
+<!--			    		{{type}}-->
+<!--                </option>-->
+<!--		    	{% endfor %}-->
+<!--            </select>-->
             <input type="text" class="form-control" list="datalistOptions" name="ajout_amendes_type" placeholder="Type de l'amende, choisissez parmi les valeurs ci dessous:"/>
                 <datalist id="datalistOptions">
                     <option value="brigandage">

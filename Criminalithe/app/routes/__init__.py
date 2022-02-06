@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, flash, redirect
 
+import spacy
 from ..app import app, login, db
 from ..modeles.donnees import Source, Amendes, Personnes, Authorship
 from ..modeles.utilisateurs import User
 from sqlalchemy import and_, or_
-from ..constantes import RESULTATS_PAR_PAGES, RESULTATS_PAR_PAGES_INDEX
+from ..constantes import RESULTATS_PAR_PAGES, RESULTATS_PAR_PAGES_INDEX, RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE
 from flask_login import login_user, current_user, logout_user, login_required
 from warnings import warn
 
@@ -77,9 +78,20 @@ def amende(amendes_id):
     :returns: création de la page grâce au render_template
     """
     amende_unique = Amendes.query.filter(Amendes.amendes_id == amendes_id).first()
-    #amende_deniers = Amendes.query.filter(Amendes.amendes_montant == montant_deniers) * 12
+
+    # ner = []
+    #
+    # nlp = spacy.load('fr_dep_news_trf')
+    # text_transcription = "Par Doremieux Girard, avoit esté condempnez pour faulte de reparacion de chemin trouvée contre son heritage receu LX sous"
+    # # Amendes.query.filter(Amendes.amendes_transcription == Amendes.amendes_id).first()
+    # # text_transcription = str(text_transcription)
+    # doc = nlp(text_transcription)
+    # for entity in doc.ents:
+    #     ner.append((entity.text))
+
 
     return render_template("pages/amende.html", amende=amende_unique)
+    # ner=ner)
 
 
 
@@ -340,6 +352,10 @@ def source_update(source_id):
 @login_required
 def ajout_amende():
 
+    # amendes_type = []
+    # for type in Amendes.query.distinct(Amendes.amendes_type):
+    #     amendes_type.append(type.amendes_type)
+
 
     # Ajout d'une amende
     if request.method == "POST":
@@ -360,6 +376,7 @@ def ajout_amende():
             return render_template("pages/ajout_amende.html")
     else:
         return render_template("pages/ajout_amende.html")
+                               # amendes_type=amendes_type)
 
 @app.route("/ajout_personne", methods=["GET", "POST"])
 @login_required
@@ -476,14 +493,9 @@ def rechercheavancee():
     if request.method == "POST":
 
         keyword = "test"
+        resultats_amendes = []
 
         questionAmendes = Amendes.query
-        questionPersonnes = Personnes.query
-        questionSource = Source.query
-
-        # Oeuvre
-        idSource = request.form.get("idSource", None)
-        dateSource = request.form.get("dateSource", None)
 
         # Amende
         idAmende = request.form.get("idAmende", None)
@@ -493,18 +505,8 @@ def rechercheavancee():
         francheVeriteAmende = request.form.get("francheVeriteAmende", None)
         transcriptionAmende = request.form.get("transcriptionAmende", None)
         idPersonneAmende = request.form.get("idPersonneAmende", None)
-
-        # Personne
-        idPersonne = request.form.get("idPersonne", None)
-        idAmendePersonne = request.form.get("idAmendePersonne", None)
         nomPersonne = request.form.get("nomPersonne", None)
-        prenomPersonne = request.form.get("prenomPersonne", None)
 
-        if idSource:
-            questionSource = questionSource.filter(Source.source_id.like("%{}%".format(idSource)))
-
-        if dateSource:
-            questionSource = questionSource.filter(Source.source_date.like("%{}%".format(dateSource)))
 
         if idAmende:
             questionAmendes = questionAmendes.filter(Amendes.amendes_id.like("%{}%".format(idAmende)))
@@ -529,35 +531,20 @@ def rechercheavancee():
         if idPersonneAmende:
             questionAmendes = questionAmendes.filter(Amendes.amendes_personnes_id.like("%{}%".format(idPersonneAmende)))
 
-        if idPersonne:
-            questionPersonnes = questionPersonnes.filter(Personnes.personnes_id.like("%{}%".format(idPersonne)))
+        # if nomPersonne:
+        #     questionAmendes = questionAmendes.filter(Amendes.justiciable.like("%{}%".format(nomPersonne)))
 
-        if idAmendePersonne:
-            questionPersonnes = questionPersonnes.filter(
-                Personnes.personnes_amendes_id.like("%{}%".format(idAmendePersonne)))
+        #Pour une question de lisibilité des résultats, tout les résultats doivent apparaitrent sur une seule page, d'où le recours à cette constante.
+        resultats_amendes = questionAmendes.paginate(page=page, per_page=RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE)
 
-        if nomPersonne:
-            questionPersonnes = questionPersonnes.filter(Personnes.personnes_nom.like("%{}%".format(nomPersonne)))
 
-        if prenomPersonne:
-            questionPersonnes = questionPersonnes.filter(Personnes.personnes_prenom.like("%{}%".format(prenomPersonne)))
-
-        resultats_source = questionSource.paginate()
-        resultats_amendes = questionAmendes.paginate()
-        resultats_personnes = questionPersonnes.paginate()
-
-        if resultats_source is None:
-            warn("Vous devez renseigner au moins un élément dans cette catéorie")
         if resultats_amendes is None:
             warn("Vous devez renseigner au moins un élément dans cette catéorie")
-        if resultats_personnes is None:
-            warn("Vous devez renseigner au moins un élément dans cette catéorie")
+
 
         return render_template(
             "pages/resultats_recherche_avancee.html",
             resultats_amendes=resultats_amendes,
-            resultats_personnes=resultats_personnes,
-            resultats_source=resultats_source,
         )
 
-    return render_template("pages/rechercheavancee.html")
+    return render_template("pages/rechercheavancee.html", page=page)
