@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, send_file
 
 import spacy
 from ..app import app, login, db
@@ -548,3 +548,12 @@ def rechercheavancee():
         )
 
     return render_template("pages/rechercheavancee.html", page=page)
+
+@app.route('/telechargement')
+def telechargement():
+    return render_template("pages/telechargement.html")
+
+@app.route('/download')
+def download():
+    f = './bdd.db'
+    return send_file(f, attachment_filename='bdd.db', as_attachment=True)
