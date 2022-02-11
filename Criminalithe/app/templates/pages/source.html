@@ -7,7 +7,7 @@
     <dt> Contient les amendes suivantes :</dt>
     {% for amende in source.amendes %}
     <ul>
-        <li><b>Numéro de l'amende</b>: {{amende.amendes_id}}</li>
+        <li><b>Numéro de l'amende</b>: {{amende.amendes_id+1}}</li>
         <li><b>Transcription</b>:"{{amende.amendes_transcription}}"</li>
         <li type="square"> <b>Lien</b> : <a href="{{url_for("amende", amendes_id=amende.amendes_id)}}"> cliquez ici</a></li>
     </ul>

@@ -79,20 +79,9 @@ def amende(amendes_id):
     """
     amende_unique = Amendes.query.filter(Amendes.amendes_id == amendes_id).first()
 
-    # ner = []
-    #
-    # nlp = spacy.load('fr_dep_news_trf')
-    # text_transcription = "Par Doremieux Girard, avoit esté condempnez pour faulte de reparacion de chemin trouvée contre son heritage receu LX sous"
-    # # Amendes.query.filter(Amendes.amendes_transcription == Amendes.amendes_id).first()
-    # # text_transcription = str(text_transcription)
-    # doc = nlp(text_transcription)
-    # for entity in doc.ents:
-    #     ner.append((entity.text))
 
 
     return render_template("pages/amende.html", amende=amende_unique)
-    # ner=ner)
-
 
 
 @app.route("/personne/<int:personnes_id>")
