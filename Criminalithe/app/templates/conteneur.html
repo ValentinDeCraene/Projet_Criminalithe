@@ -44,11 +44,15 @@
             <li class="nav-item">
                 <a class="nav-link text-white bg-dark" href="{{url_for("rechercheavancee")}}">Recherche avancée</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-white bg-dark" href="">API</a>
+              </li>
+        </ul>
 
 
         <form class="form-inline" action="{{url_for("recherche")}}" method="GET">
-          <input class="form-control bg-light text-dark" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
-          <button class="btn btn-grey type="submit">Rechercher</button>
+          <input class="form-control bg-grey text-dark" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
+          <button class="btn btn-grey" type="submit">Rechercher</button>
         </form>
       </nav>
       {% block afternav %}{%endblock%}
