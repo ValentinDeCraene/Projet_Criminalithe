@@ -19,35 +19,35 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
         <a class="navbar-brand" href="{{ url_for('accueil') }}">Criminalithé</a>
 
-        <ul class="navbar-nav mr-auto">
+        <ul class="nav nav-pills mr-auto">
             {% if not current_user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{{url_for("inscription")}}">Inscription</a>
+                <a class="nav-link text-white bg-dark" href="{{url_for("inscription")}}">Inscription</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{url_for("connexion")}}">Connexion</a>
+                <a class="nav-link text-white bg-dark" href="{{url_for("connexion")}}">Connexion</a>
               </li>
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{{url_for("deconnexion")}}">Déconnexion ({{current_user.user_nom}})</a>
+                <a class="nav-link text-white bg-dark" href="{{url_for("deconnexion")}}">Déconnexion ({{current_user.user_nom}})</a>
               </li>
             {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for("repertoire")}}">Contribuer</a>
+                <a class="nav-link text-white bg-dark" href="{{url_for("repertoire")}}">Contribuer</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for("index")}}">Index général</a>
+                <a class="nav-link text-white bg-dark" href="{{url_for("index")}}">Index général</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for("download")}}">Téléchargement</a>
+                <a class="nav-link text-white bg-dark" href="{{url_for("download")}}">Téléchargement</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for("rechercheavancee")}}">Recherche avancée</a>
+                <a class="nav-link text-white bg-dark" href="{{url_for("rechercheavancee")}}">Recherche avancée</a>
             </li>
-        </ul>
+
 
         <form class="form-inline" action="{{url_for("recherche")}}" method="GET">
-          <input class="form-control" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
+          <input class="form-control bg-light text-dark" name="keyword" type="search" placeholder="Recherche rapide" aria-label="Recherche">
           <button class="btn btn-grey type="submit">Rechercher</button>
         </form>
       </nav>

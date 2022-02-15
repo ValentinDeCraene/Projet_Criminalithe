@@ -40,6 +40,11 @@
     {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
+<p>
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
 {% endblock %}
 
 <!-- Possibilité de transformer certains formulaires comme type, franche vérité, montant (?) en menu déroulant pour limiter les choix et les possibilité de mauvaise saisie (volontaire ou non) des données.
