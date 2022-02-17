@@ -42,6 +42,31 @@
     </button>
 {% endif %}
 </p>
+
+    {% if source.source_id == 6234 %}
+<p>
+        <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('source', source_id=source.source_id+1)}}"> Source suivante</a>
+    </button>
+</p>
+{% elif source.source_id == 6243 %}
+<p>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('source', source_id=source.source_id-1)}}"> Source précédante</a>
+    </button>
+</p>
+
+    {% else %}
+<p>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('source', source_id=source.source_id-1)}}"> Source précédente</a>
+    </button>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('source', source_id=source.source_id+1)}}"> Source suivante</a>
+    </button>
+</p>
+    {% endif %}
+
 <p>
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('index_sources')}}">Retour à l'index des sources.</a></li>

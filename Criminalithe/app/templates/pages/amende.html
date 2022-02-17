@@ -58,6 +58,29 @@ pour que les amendes soient bien numérotées de 1 à 101 et non de 0 à 100-->
 {% endif %}
 </p>
 
+    {% if amende.amendes_id == 1 %}
+<p>
+        <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('amende', amendes_id=amende.amendes_id+1)}}"> Amende suivante</a>
+    </button>
+</p>
+{% elif amende.amendes_id == 101 %}
+<p>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('amende', amendes_id=amende.amendes_id-1)}}"> Amende précédante</a>
+    </button>
+</p>
+
+    {% else %}
+<p>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('amende', amendes_id=amende.amendes_id-1)}}"> Amende précédente</a>
+    </button>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('amende', amendes_id=amende.amendes_id+1)}}"> Amende suivante</a>
+    </button>
+</p>
+    {% endif %}
 
 <p>
 <button type="button" class="btn btn-dark">

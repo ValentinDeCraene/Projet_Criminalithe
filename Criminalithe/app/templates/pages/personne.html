@@ -47,6 +47,31 @@ pour que les personnes soient bien numérotées de 1 à 101 et non de 0 à 100--
         <a href="{{url_for("supprimer_personne", personnes_id=personne.personnes_id)}}"> Supprimer la page</a>
 </button>
 {% endif %}
+
+        {% if personne.personnes_id == 1 %}
+<p>
+        <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('personne', personnes_id=personne.personnes_id+1)}}"> Personne suivante</a>
+    </button>
+</p>
+{% elif personne.personnes_id == 101 %}
+<p>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('personne', personnes_id=personne.personnes_id-1)}}"> Personne précédante</a>
+    </button>
+</p>
+
+    {% else %}
+<p>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('personne', personnes_id=personne.personnes_id-1)}}"> Personne précédente</a>
+    </button>
+    <button type="button" class="btn btn-dark">
+        <a class="text-light" href="{{url_for('personne', personnes_id=personne.personnes_id+1)}}"> Personne suivante</a>
+    </button>
+</p>
+    {% endif %}
+
 </p>
 <p>
 <button type="button" class="btn btn-dark">
