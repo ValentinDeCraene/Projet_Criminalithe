@@ -544,5 +544,5 @@ def telechargement():
 
 @app.route('/download')
 def download():
-    f = './bdd.db'
-    return send_file(f, attachment_filename='bdd.db', as_attachment=True)
+    f = './bdd2.db'
+    return send_file(f, attachment_filename='bdd2.db', as_attachment=True)
