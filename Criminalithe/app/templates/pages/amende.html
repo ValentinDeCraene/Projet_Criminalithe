@@ -2,10 +2,10 @@
 {% block corps %}
 <!-- En raison d'un problème d'un probléme d'identifiant dans la base de donnée, j'ai eu recours à ce subterge
 pour que les amendes soient bien numérotées de 1 à 101 et non de 0 à 100-->
-<h1 xmlns="http://www.w3.org/1999/html">Amende numéro {{amende.amendes_id+1}}</h1>
+<h1 xmlns="http://www.w3.org/1999/html">Amende numéro {{amende.amendes_id}}</h1>
 
 <dl>
-    <dt>Identifiant de l'amende</dt><dd>{{amende.amendes_id+1}}</dd>
+    <dt>Identifiant de l'amende</dt><dd>{{amende.amendes_id}}</dd>
     <dt>Identifiant de la source dont est tirée l'amende (série B des Archives Départementales du Nord)</dt><dd>B {{amende.amendes_source_id}}
     <dt>Montant de l'amende (en sous parisis)</dt><dd>{{amende.amendes_montant}}</dd>
     <dd> <i>Soit en livres parisis : {{amende.amendes_montant/20}}</i></dd>

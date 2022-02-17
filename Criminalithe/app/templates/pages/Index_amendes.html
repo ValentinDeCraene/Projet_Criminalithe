@@ -7,7 +7,7 @@
         <ul>
             {% for amende in amendes.items %}
                 <li><a href="{{url_for('amende', amendes_id=amende.amendes_id)}}">
-                        <b>Numéro de l'amende</b> : {{amende.amendes_id+1}} <br/>
+                        <b>Numéro de l'amende</b> : {{amende.amendes_id}} <br/>
                         Type de l'amende: {{amende.amendes_type}} <br/>
                         Transcription : {{amende.amendes_transcription}} <br/>
                 </a></li></br>

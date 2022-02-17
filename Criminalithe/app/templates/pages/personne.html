@@ -4,10 +4,10 @@
 <dl>
     <!-- En raison d'un problème d'un probléme d'identifiants dans la base de donnée, j'ai eu recours à ce subterge
 pour que les personnes soient bien numérotées de 1 à 101 et non de 0 à 100-->
-    <dt>Identifiant de la personne</dt><dd>{{personne.personnes_id+1}}</dd>
+    <dt>Identifiant de la personne</dt><dd>{{personne.personnes_id}}</dd>
     <dt>Nom de la personne</dt><dd>{{personne.personnes_nom}}</dd>
     <dt>Prénom de la personne</dt><dd>{{personne.personnes_prenom}}</dd>
-    <dt>Personne mentionnée dans l'amende numéro </dt><dd>{{personne.personnes_amendes_id+1}}</dd>
+    <dt>Personne mentionnée dans l'amende numéro </dt><dd>{{personne.personnes_amendes_id}}</dd>
     <dt> Délit commis par le justiciable : </dt><dd>
     {% for amendes in personne.amendes %}
     <dd>

@@ -18,7 +18,7 @@ app = Flask(
     static_folder=statics
 )
 # On configure ici la base de données:
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./bdd.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./bdd2.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 #TRACK_MODIFICATIONS configuré en False pour retirer le message d'alerte à chaque lancement de l'application.
 app.config['SECRET_KEY'] = SECRET_KEY
