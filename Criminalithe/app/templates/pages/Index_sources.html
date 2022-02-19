@@ -6,12 +6,19 @@
 
         <ul>
             {% for source in sources.items %}
-                <li><a href="{{url_for('source', source_id=source.source_id)}}">
+                <li><a class="btn btn-dark stretched-link" href="{{url_for('source', source_id=source.source_id)}}">
+                    <style>
+        .btn{
+          width: 300px;
+        }
+      </style>
                     <b>Cote de la source : B {{source.source_id}}</b><br/>
                     Date : {{source.source_date}}<br/>
                 </a></li><br/>
             {% endfor %}
         </ul>
+
+
 <nav aria-label="research-pagination">
       <ul class="pagination">
         {%- for page in sources.iter_pages() %}

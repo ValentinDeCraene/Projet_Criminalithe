@@ -1,18 +1,28 @@
 {% extends "conteneur.html" %}
 {% block corps %}
-<!-- En raison d'un problème d'un probléme d'identifiant dans la base de donnée, j'ai eu recours à ce subterge
-pour que les amendes soient bien numérotées de 1 à 101 et non de 0 à 100-->
-<h1 xmlns="http://www.w3.org/1999/html">Amende numéro {{amende.amendes_id}}</h1>
+
+<h1 class="display-2">Amende numéro {{amende.amendes_id}}</h1>
 
 <dl>
-    <dt>Identifiant de l'amende</dt><dd>{{amende.amendes_id}}</dd>
-    <dt>Identifiant de la source dont est tirée l'amende (série B des Archives Départementales du Nord)</dt><dd>B {{amende.amendes_source_id}}
-    <dt>Montant de l'amende (en sous parisis)</dt><dd>{{amende.amendes_montant}}</dd>
-    <dd> <i>Soit en livres parisis : {{amende.amendes_montant/20}}</i></dd>
-    <dd> <i>Soit en deniers parisis : {{amende.amendes_montant*12}}</i></dd>
-    <dt>Type de l'amende </dt><dd>{{amende.amendes_type}}</dd>
-    <dt>Franche-vérités</dt><dd>{{amende.amendes_franche_verite}}</dd>
-    <dt>Transcription</dt><dd>
+    <dt>Identifiant de l'amende :</dt><dd>{{amende.amendes_id}}</dd>
+    <dt>Identifiant de la source dont est tirée l'amende <br/>(série B des Archives Départementales du Nord) :</dt><dd>B {{amende.amendes_source_id}}</dd>
+</dl>
+    <table class="table table-bordered">
+      <tr class="table-active">
+        <th>Montant de l'amende (en sous parisis)</th>
+        <th><i>Soit en livres parisis</i></th>
+        <th><i>Soit en deniers parisis</i></th>
+      </tr>
+      <tr>
+        <td>{{amende.amendes_montant}}</td>
+        <td>{{amende.amendes_montant/20}}</td>
+        <td>{{amende.amendes_montant*12}}</td>
+      </tr>
+    </table>
+<dl>
+    <dt>Type de l'amende : </dt><dd>{{amende.amendes_type}}</dd>
+    <dt>Franche-vérités :</dt><dd>{{amende.amendes_franche_verite}}</dd>
+    <dt>Transcription :</dt><dd>
     "Par
     {% for justiciable in amende.justiciable %}
     {{justiciable.personnes_nom}}
@@ -25,35 +35,52 @@ pour que les amendes soient bien numérotées de 1 à 101 et non de 0 à 100-->
     <ul>
         <li><b>Nom</b> de la personnne : {{justiciable.personnes_nom}}</li>
         <li><b>Prénom</b> de la personne : {{justiciable.personnes_prenom}}</li>
-        <li><b>Lien</b> vers la fiche de la personne : <a href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">cliquez ici</a></li>
+        <li><b>Lien</b> vers la fiche de la personne : <a class="btn btn-secondary stretched-link" href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">cliquez ici</a></li>
     {% endfor %}
     </ul>
     </dd>
-    <dt>Historique des modifications</dt>
-    <dt>
-        <dd>
-            {% if amende.authorships %}
-            {% for modification in amende.authorships %}
-            <li>Historique des modifications : [{{modification.authorship_date}}] {{modification.user.user_nom}}</li>
-            {% endfor %}
-            {% else %}
-            Cette fiche n'a pas encore été modifiée.
-            {%endif%}
-        </dd>
-    </dt>
-</dl>
-<p>
-{% if current_user.is_authenticated %}
-        <button type="button" class="btn btn-outline-warning">
-        <a href="{{url_for("amende_update", amendes_id=amende.amendes_id)}}">Modifier la page</a>
-        </button>
-{% endif %}
-</p>
 
+
+
+    {% if amende.authorships %}
+    <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Identifiant de la modification</th>
+                        <th scope="col">Date de la modification</th>
+                        <th scope="col">Nom du contributeur</th>
+                    </thead>
+                    <tbody>
+                    {% for modification in amende.authorships %}
+                      <tr>
+                        <td>Identifiant de la modification</td>
+                        <td>{{modification.authorship_date}}</td>
+                        <td>{{modification.user.user_nom}}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+    {% else %}
+            <table class="table table-bordered">
+                    <thead>
+                      <tr class="table-active">
+                        <th scope="col">Historique des modifications</th>
+                      </tr>
+                      <tr>
+                        <td> Cette fiche n'a pas encore été modifiée</td>
+                      </tr>
+                    </thead>
+            </table>
+    {%endif%}
 <p>
+
 {% if current_user.is_authenticated %}
-    <button type="button" class="btn btn-outline-danger">
-        <a href="{{url_for("supprimer_amende", amendes_id=amende.amendes_id)}}">Supprimer la page</a>
+    <button type="button" class="btn btn-primary text-light">
+        <a class="text-light" href="{{url_for("amende_update", amendes_id=amende.amendes_id)}}">Modifier la page</a>
+    </button>
+
+    <button type="button" class="btn btn-danger text-light">
+        <a class="text-light" href="{{url_for("supprimer_amende", amendes_id=amende.amendes_id)}}">Supprimer la page</a>
     </button>
 {% endif %}
 </p>

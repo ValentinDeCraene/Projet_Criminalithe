@@ -6,7 +6,12 @@
 
         <ul>
             {% for personne in personnes.items %}
-                <li><a href="{{url_for('personne', personnes_id=personne.personnes_id)}}">
+                <li><a class="btn btn-dark stretched-link" href="{{url_for('personne', personnes_id=personne.personnes_id)}}">
+                    <style>
+        .btn{
+          width: 200px;
+        }
+      </style>
                     <b>Nom </b>: {{personne.personnes_nom}}<br/>
                     <b>Prénom</b> : {{personne.personnes_prenom}}<br/>
                 </a></li><br/>
