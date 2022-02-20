@@ -1,5 +1,6 @@
 from warnings import warn
 
+API_ROUTE = "/api"
 
 #La variable résultats par page est déclarée ici pour afficher 5 résultats par page lors de l'utilisation de la méthode .paginate
 RESULTATS_PAR_PAGES = 5

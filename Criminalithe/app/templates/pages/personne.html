@@ -61,6 +61,7 @@
     </button>
 {% endif %}
 </p>
+<div class="navbar">
         {% if personne.personnes_id == 1 %}
 <p>
         <button type="button" class="btn btn-dark">
@@ -86,9 +87,10 @@
     {% endif %}
 
 </p>
-<p>
+<p class="navbar">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('index_personnes')}}">Retour à l'index des personnes.</a></li>
 </button>
 </p>
+</div>
 {% endblock %}

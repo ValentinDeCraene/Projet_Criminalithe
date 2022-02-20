@@ -61,6 +61,7 @@
 {% endif %}
 </p>
 
+<div class="navbar">
     {% if source.source_id == 6234 %}
 <p>
         <button type="button" class="btn btn-dark">
@@ -85,9 +86,10 @@
 </p>
     {% endif %}
 
-<p>
+<p class="navbar">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('index_sources')}}">Retour à l'index des sources.</a></li>
 </button>
 </p>
+</div>
 {% endblock %}

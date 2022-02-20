@@ -85,6 +85,7 @@
 {% endif %}
 </p>
 
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
     {% if amende.amendes_id == 1 %}
 <p>
         <button type="button" class="btn btn-dark">
@@ -109,9 +110,10 @@
 </p>
     {% endif %}
 
-<p>
+<p class="navbar">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('index_amendes')}}">Retour à l'index des amendes.</a></li>
 </button>
 </p>
+        </div>
 {% endblock %}

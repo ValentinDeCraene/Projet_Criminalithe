@@ -43,6 +43,30 @@ class Source(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+    # @staticmethod
+    # def to_jsonapi_dict(self):
+    #     return {
+    #         "type": "source",
+    #         "id": self.source_id,
+    #         "attributes": {
+    #             "source_id": self.source_id,
+    #             "source_date": self.source_date,
+    #             "authorships": self.authorships,
+    #             "amendes": self.amendes,
+    #         },
+    #         "links": {
+    #             "self": url_for("source", source_id=self.source_id, _external=True),
+    #             "json": url_for("api_source", source_id=self.source_id, _external=True)
+    #         },
+    #         "relationships": {
+    #              "editions": [
+    #                  author.author_to_json()
+    #                  for author in self.authorships
+    #              ]
+    #         }
+    #     }
+
+
     @staticmethod
     def supprimer_source(source_id):
 
@@ -194,4 +218,10 @@ class Authorship(db.Model):
     amende = db.relationship("Amendes", back_populates="authorships")
     personne = db.relationship("Personnes", back_populates="authorships")
     source = db.relationship("Source", back_populates="authorships")
+
+    def author_to_json(self):
+        return {
+            "author": self.user.to_jsonapi_dict(),
+            "on": self.authorship_date
+        }
 
