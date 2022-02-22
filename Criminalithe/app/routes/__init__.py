@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, send_file
 
-import spacy
 from ..app import app, login, db
 from ..modeles.donnees import Source, Amendes, Personnes, Authorship
 from ..modeles.utilisateurs import User
@@ -546,3 +545,21 @@ def telechargement():
 def download():
     f = './bdd2.db'
     return send_file(f, attachment_filename='bdd2.db', as_attachment=True)
+
+@app.route("/navigation_api")
+def navigation_api():
+    """ Route permettant la recherche plein-texte
+    """
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    resultats = Amendes.query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+
+    return render_template(
+        "pages/navigation_api.html",
+        resultats=resultats
+    )

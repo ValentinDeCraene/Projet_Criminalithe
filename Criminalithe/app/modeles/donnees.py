@@ -1,8 +1,8 @@
 from flask import url_for
 # datetime permet de tracer l'historique des modifications
-import datetime
+import datetime, jsonify, json
 from sqlalchemy import and_
-from ..app import db
+from .. app import db
 
 
 # On a recours ici à un ORM pour créer nos classes:
@@ -43,29 +43,6 @@ class Source(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
-    # @staticmethod
-    # def to_jsonapi_dict(self):
-    #     return {
-    #         "type": "source",
-    #         "id": self.source_id,
-    #         "attributes": {
-    #             "source_id": self.source_id,
-    #             "source_date": self.source_date,
-    #             "authorships": self.authorships,
-    #             "amendes": self.amendes,
-    #         },
-    #         "links": {
-    #             "self": url_for("source", source_id=self.source_id, _external=True),
-    #             "json": url_for("api_source", source_id=self.source_id, _external=True)
-    #         },
-    #         "relationships": {
-    #              "editions": [
-    #                  author.author_to_json()
-    #                  for author in self.authorships
-    #              ]
-    #         }
-    #     }
-
 
     @staticmethod
     def supprimer_source(source_id):
@@ -80,6 +57,25 @@ class Source(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+    def to_jsonapi_dict_source(self):
+        return {
+            "type": "source",
+            "id": self.source_id,
+            "attributes": {
+                "source_date": self.source_date
+            },
+            "links": {
+                "self": url_for("source", source_id=self.source_id, _external=True),
+                "json": url_for("api_source", source_id=self.source_id, _external=True)
+            },
+            "relationships": {
+                 "editions": [
+                     author.author_to_json()
+                     for author in self.authorships
+                 ]
+            }
+        }
+
 class Amendes(db.Model):
 
     amendes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
@@ -93,6 +89,30 @@ class Amendes(db.Model):
     justiciable = db.relationship("Personnes", foreign_keys="Personnes.personnes_amendes_id", backref="justiciable")
     source = db.relationship("Source", back_populates="amendes")
 
+    def to_jsonapi_dict_amende(self):
+        return {
+            "type": "amende",
+            "id": self.amendes_id,
+            "attributes": {
+                "amendes_id": self.amendes_id,
+                "amendes_source_id": self.amendes_source_id,
+                "amendes_montant": self.amendes_montant,
+                "amendes_type": self.amendes_type,
+                "amendes_franche_verite": self.amendes_franche_verite,
+                "amendes_transcription": self.amendes_transcription,
+                "amendes_personnes_id": self.amendes_personnes_id
+            },
+            "links": {
+                "self": url_for("amende", amendes_id=self.amendes_id, _external=True),
+                "json": url_for("api_amendes", amendes_id=self.amendes_id, _external=True)
+            },
+            "relationships": {
+                 "editions": [
+                     author.author_to_json()
+                     for author in self.authorships
+                 ]
+            }
+        }
 
 
     @staticmethod
@@ -159,6 +179,28 @@ class Personnes(db.Model):
     authorships = db.relationship("Authorship", back_populates="personne")
     amendes = db.relationship("Amendes", backref="amendes", foreign_keys="Amendes.amendes_personnes_id")
 
+
+    def to_jsonapi_dict_personnes(self):
+        return {
+            "type": "personnes",
+            "id": self.personnes_id,
+            "attributes": {
+                "personnes_amendes_id": self.personnes_amendes_id,
+                "personnes_nom": self.personnes_nom,
+                "personnes_prenom": self.personnes_prenom
+            },
+            "links": {
+                "self": url_for("personne", personnes_id=self.personnes_id, _external=True),
+                "json": url_for("api_personnes", personnes_id=self.personnes_id, _external=True)
+            },
+            "relationships": {
+                 "editions": [
+                     author.author_to_json()
+                     for author in self.authorships
+                 ]
+            }
+        }
+
     @staticmethod
     def ajout_personne(ajout_personnes_id, ajout_personnes_amendes_id, ajout_personnes_nom, ajout_personnes_prenom):
         erreurs = []
@@ -219,9 +261,8 @@ class Authorship(db.Model):
     personne = db.relationship("Personnes", back_populates="authorships")
     source = db.relationship("Source", back_populates="authorships")
 
-    def author_to_json(self):
+    def author_to_json_authorship(self):
         return {
             "author": self.user.to_jsonapi_dict(),
             "on": self.authorship_date
         }
-
