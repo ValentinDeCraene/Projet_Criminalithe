@@ -16,7 +16,7 @@ def Json_404():
 def api_amendes(amendes_id):
     try:
         query = Amendes.query.get(amendes_id)
-        return jsonify(query.to_jsonapi_dict_amende())
+        return jsonify(query.to_jsonapi_dict())
     except:
         return Json_404()
 
@@ -24,7 +24,7 @@ def api_amendes(amendes_id):
 def api_source(source_id):
     try:
         query = Source.query.get(source_id)
-        return jsonify(query.to_jsonapi_dict_source())
+        return jsonify(query.to_jsonapi_dict())
     except:
         return Json_404()
 
@@ -32,7 +32,7 @@ def api_source(source_id):
 def api_personnes(personnes_id):
     try:
         query = Personnes.query.get(personnes_id)
-        return jsonify(query.to_jsonapi_dict_personnes())
+        return jsonify(query.to_jsonapi_dict())
     except:
         return Json_404()
 
@@ -59,7 +59,7 @@ def api_amendes_navigation():
         query = Amendes.query
 
     try:
-        resultats = query.paginate(page=page, per_page=LIEUX_PAR_PAGE)
+        resultats = query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
     except Exception:
         return Json_404()
 
@@ -68,8 +68,8 @@ def api_amendes_navigation():
             "self": request.url
         },
         "data": [
-            amendes.to_jsonapi_dict_amendes()
-            for amendes in resultats.items
+            amende.to_jsonapi_dict()
+            for amende in resultats.items
         ]
     }
 

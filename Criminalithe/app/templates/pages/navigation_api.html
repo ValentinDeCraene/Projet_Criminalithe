@@ -1,15 +1,17 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
-{% include "partials/recherche.html" %}
-    <h1>{{titre}}</h1>
+
+    <h1>Navigation API amendes</h1>
     {% if resultats %}
     <p>Il y a {{resultats.total}} amendes qui répondent à votre requête :</p>
         <ul>
             {% for amende in resultats.items %}
-                <li><a href="{{url_for('amende', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></li>
+                <li><a href="{{url_for('api_amendes', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></li>
             {% endfor %}
         </ul>
+    </p>
+
 
     <nav aria-label="research-pagination">
       <ul class="pagination">
@@ -18,7 +20,7 @@
 
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("navigation_api", keyword=keyword, page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for("navigation_api", page=page)}}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">

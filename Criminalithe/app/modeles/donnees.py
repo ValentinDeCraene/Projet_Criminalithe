@@ -2,11 +2,10 @@ from flask import url_for
 # datetime permet de tracer l'historique des modifications
 import datetime, jsonify, json
 from sqlalchemy import and_
-from .. app import db
+from ..app import db
 
 
 # On a recours ici à un ORM pour créer nos classes:
-
 
 
 class Source(db.Model):
@@ -14,7 +13,6 @@ class Source(db.Model):
     source_date = db.Column(db.Integer)
     authorships = db.relationship("Authorship", back_populates="source")
     amendes = db.relationship("Amendes", back_populates="source")
-
 
     @staticmethod
     def ajout_source(ajout_source_id, ajout_source_date):
@@ -25,14 +23,13 @@ class Source(db.Model):
             erreurs.append(
                 "Veuillez renseigner la date de cette source.")
 
-
             # S'il y a au moins une erreur, afficher un message d'erreur.
         if len(erreurs) > 0:
             return False, erreurs
 
             # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table AMendes (champs correspondant aux paramètres du modèle)
         nouvelle_source = Source(source_id=ajout_source_id,
-                                      source_date=ajout_source_date)
+                                 source_date=ajout_source_date)
 
         # Tentative d'ajout qui sera stoppée si une erreur apparaît.
         try:
@@ -42,7 +39,6 @@ class Source(db.Model):
 
         except Exception as erreur:
             return False, [str(erreur)]
-
 
     @staticmethod
     def supprimer_source(source_id):
@@ -57,7 +53,7 @@ class Source(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
-    def to_jsonapi_dict_source(self):
+    def to_jsonapi_dict(self):
         return {
             "type": "source",
             "id": self.source_id,
@@ -69,15 +65,19 @@ class Source(db.Model):
                 "json": url_for("api_source", source_id=self.source_id, _external=True)
             },
             "relationships": {
-                 "editions": [
-                     author.author_to_json()
-                     for author in self.authorships
-                 ]
+                "editions": [
+                    author.author_to_json()
+                    for author in self.authorships
+                ]
+                # "amendes": [
+                #     amende.amendes_jointure_source_to_json()
+                #     for amende in self.amendes
+                # ]
             }
         }
 
-class Amendes(db.Model):
 
+class Amendes(db.Model):
     amendes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     amendes_source_id = db.Column(db.Integer, db.ForeignKey("source.source_id"))
     amendes_montant = db.Column(db.Integer)
@@ -89,7 +89,13 @@ class Amendes(db.Model):
     justiciable = db.relationship("Personnes", foreign_keys="Personnes.personnes_amendes_id", backref="justiciable")
     source = db.relationship("Source", back_populates="amendes")
 
-    def to_jsonapi_dict_amende(self):
+    # def amendes_jointure_source_to_json(self):
+    #     return {
+    #         "amendes": self.source.to_json_api_dict()
+    #     }
+
+
+    def to_jsonapi_dict(self):
         return {
             "type": "amende",
             "id": self.amendes_id,
@@ -107,35 +113,35 @@ class Amendes(db.Model):
                 "json": url_for("api_amendes", amendes_id=self.amendes_id, _external=True)
             },
             "relationships": {
-                 "editions": [
-                     author.author_to_json()
-                     for author in self.authorships
-                 ]
+                "editions": [
+                    author.author_to_json()
+                    for author in self.authorships
+                ]
             }
         }
 
-
     @staticmethod
-    def ajout_amende(ajout_amendes_id, ajout_amendes_source_id, ajout_amendes_montant, ajout_amendes_type, ajout_amendes_franche_verite,
-                         ajout_amendes_transcription):
+    def ajout_amende(ajout_amendes_id, ajout_amendes_source_id, ajout_amendes_montant, ajout_amendes_type,
+                     ajout_amendes_franche_verite,
+                     ajout_amendes_transcription):
         erreurs = []
         if not ajout_amendes_id:
             erreurs.append("Veuillez renseigner l'id pour cette amendes.")
         if not ajout_amendes_source_id:
             erreurs.append(
-                    "Veuillez renseigner une l'id de la source pour cette amende.")
+                "Veuillez renseigner une l'id de la source pour cette amende.")
         if not ajout_amendes_montant:
             erreurs.append(
-                    "Veuillez renseigner le montant de cette amende (en sous parisis si possible.")
+                "Veuillez renseigner le montant de cette amende (en sous parisis si possible.")
         if not ajout_amendes_type:
             erreurs.append(
-                    "Veuillez renseigner le type de l'amende")
+                "Veuillez renseigner le type de l'amende")
         if not ajout_amendes_franche_verite:
             erreurs.append(
-                    "Veuillez renseigner si cette amende est issue d'une franche-vérité (oui/non)")
+                "Veuillez renseigner si cette amende est issue d'une franche-vérité (oui/non)")
         if not ajout_amendes_transcription:
             erreurs.append(
-                    "Veuillez indiquer la transcription de cette amende.")
+                "Veuillez indiquer la transcription de cette amende.")
 
             # S'il y a au moins une erreur, afficher un message d'erreur.
         if len(erreurs) > 0:
@@ -143,13 +149,13 @@ class Amendes(db.Model):
 
             # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Amendes (champs correspondant aux paramètres du modèle)
         nouvelle_amende = Amendes(amendes_id=ajout_amendes_id,
-                                     amendes_source_id=ajout_amendes_source_id,
-                                     amendes_montant=ajout_amendes_montant,
-                                     amendes_type=ajout_amendes_type,
-                                     amendes_franche_verite=ajout_amendes_franche_verite,
-                                     amendes_transcription=ajout_amendes_transcription)
+                                  amendes_source_id=ajout_amendes_source_id,
+                                  amendes_montant=ajout_amendes_montant,
+                                  amendes_type=ajout_amendes_type,
+                                  amendes_franche_verite=ajout_amendes_franche_verite,
+                                  amendes_transcription=ajout_amendes_transcription)
 
-            # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
         try:
             db.session.add(nouvelle_amende)
             db.session.commit()
@@ -171,6 +177,7 @@ class Amendes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+
 class Personnes(db.Model):
     personnes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     personnes_amendes_id = db.Column(db.Integer, db.ForeignKey("amendes.amendes_personnes_id"))
@@ -179,8 +186,7 @@ class Personnes(db.Model):
     authorships = db.relationship("Authorship", back_populates="personne")
     amendes = db.relationship("Amendes", backref="amendes", foreign_keys="Amendes.amendes_personnes_id")
 
-
-    def to_jsonapi_dict_personnes(self):
+    def to_jsonapi_dict(self):
         return {
             "type": "personnes",
             "id": self.personnes_id,
@@ -194,10 +200,10 @@ class Personnes(db.Model):
                 "json": url_for("api_personnes", personnes_id=self.personnes_id, _external=True)
             },
             "relationships": {
-                 "editions": [
-                     author.author_to_json()
-                     for author in self.authorships
-                 ]
+                "editions": [
+                    author.author_to_json()
+                    for author in self.authorships
+                ]
             }
         }
 
@@ -208,25 +214,25 @@ class Personnes(db.Model):
             erreurs.append("Veuillez renseigner l'identifiant pour cette personne.")
         if not ajout_personnes_amendes_id:
             erreurs.append(
-                        "Veuillez renseigner l'identifiant de l'amende mentionnant cette amende.")
+                "Veuillez renseigner l'identifiant de l'amende mentionnant cette amende.")
         if not ajout_personnes_nom:
             erreurs.append(
-                        "Veuillez renseigner le nom de cette personne")
+                "Veuillez renseigner le nom de cette personne")
         if not ajout_personnes_prenom:
             erreurs.append(
-                        "Veuillez renseigner le prénom de cette personne")
+                "Veuillez renseigner le prénom de cette personne")
 
-                # S'il y a au moins une erreur, afficher un message d'erreur.
+            # S'il y a au moins une erreur, afficher un message d'erreur.
         if len(erreurs) > 0:
             return False, erreurs
 
-                # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table AMendes (champs correspondant aux paramètres du modèle)
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table AMendes (champs correspondant aux paramètres du modèle)
         nouvelle_personne = Personnes(personnes_id=ajout_personnes_id,
-                                         personnes_amendes_id=ajout_personnes_amendes_id,
-                                         personnes_nom=ajout_personnes_nom,
-                                         personnes_prenom=ajout_personnes_prenom)
+                                      personnes_amendes_id=ajout_personnes_amendes_id,
+                                      personnes_nom=ajout_personnes_nom,
+                                      personnes_prenom=ajout_personnes_prenom)
 
-                # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
         try:
             db.session.add(nouvelle_personne)
             db.session.commit()
@@ -248,6 +254,7 @@ class Personnes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+
 class Authorship(db.Model):
     __tablename__ = "authorship"
     authorship_id = db.Column(db.Integer, nullable=True, autoincrement=True, primary_key=True)
@@ -261,7 +268,7 @@ class Authorship(db.Model):
     personne = db.relationship("Personnes", back_populates="authorships")
     source = db.relationship("Source", back_populates="authorships")
 
-    def author_to_json_authorship(self):
+    def author_to_json(self):
         return {
             "author": self.user.to_jsonapi_dict(),
             "on": self.authorship_date

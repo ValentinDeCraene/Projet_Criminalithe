@@ -548,8 +548,7 @@ def download():
 
 @app.route("/navigation_api")
 def navigation_api():
-    """ Route permettant la recherche plein-texte
-    """
+
     page = request.args.get("page", 1)
 
     if isinstance(page, str) and page.isdigit():
