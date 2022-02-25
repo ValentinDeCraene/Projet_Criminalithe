@@ -117,6 +117,10 @@ class Amendes(db.Model):
                     author.author_to_json()
                     for author in self.authorships
                 ]
+                # "justiciables": [
+                #     justiciable.justiciables()
+                #     for justiciable in self.justiciable
+                # ]
             }
         }
 
@@ -206,6 +210,11 @@ class Personnes(db.Model):
                 ]
             }
         }
+
+    # def justiciables(self):
+    #         return {
+    #             "justiciable": self.amendes.to_jsonapi_dict()
+    #         }
 
     @staticmethod
     def ajout_personne(ajout_personnes_id, ajout_personnes_amendes_id, ajout_personnes_nom, ajout_personnes_prenom):

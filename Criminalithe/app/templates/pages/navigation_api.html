@@ -4,12 +4,17 @@
 
     <h1>Navigation API amendes</h1>
     {% if resultats %}
-    <p>Il y a {{resultats.total}} amendes qui répondent à votre requête :</p>
+    <p>Il y a {{resultats.total}} amendes au sein de l'API :</p>
         <ul>
             {% for amende in resultats.items %}
                 <li><a href="{{url_for('api_amendes', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></li>
             {% endfor %}
         </ul>
+    </p>
+    <p>
+        Navigation dans l'ensemble des données de l'API (au format JSON).
+        Utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
+<li><a href="{{url_for('api_amendes_navigation', amendes_id=amendes_id)}}"> cliquez ici </a></li>
     </p>
 
 
