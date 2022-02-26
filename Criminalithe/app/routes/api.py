@@ -53,13 +53,13 @@ def api_amendes_navigation():
 
     if motclef:
         query = Amendes.query.filter(
-            Amendes.amendes_transcription.like("%{}%".format(motclef))
+            Amendes.amendes_id.like("%{}%".format(motclef))
         )
     else:
         query = Amendes.query
 
     try:
-        resultats = query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+        query = query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
     except Exception:
         return Json_404()
 
@@ -69,21 +69,21 @@ def api_amendes_navigation():
         },
         "data": [
             amende.to_jsonapi_dict()
-            for amende in resultats.items
+            for amende in query.items
         ]
     }
 
-    if resultats.has_next:
+    if query.has_next:
         arguments = {
-            "page": resultats.next_num
+            "page": query.next_num
         }
         if motclef:
             arguments["q"] = motclef
         dict_resultats["links"]["next"] = url_for("api_amendes_navigation", _external=True)+"?"+urlencode(arguments)
 
-    if resultats.has_prev:
+    if query.has_prev:
         arguments = {
-            "page": resultats.prev_num
+            "page": query.prev_num
         }
         if motclef:
             arguments["q"] = motclef

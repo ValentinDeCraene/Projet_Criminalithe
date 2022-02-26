@@ -1,0 +1,38 @@
+{% extends "conteneur.html" %}
+
+
+{% block corps %}
+
+<h1>Recherche avancée</h1>
+
+<form class="form" method="POST" action="{{url_for('rechercheavancee_source')}}">
+    <div>
+                <div class="col-md-12">
+                    <h2>Sources</h2>
+                </div>
+            <div>
+                <div class="col-md-10">
+                    <strong>Identifiant de la source:</strong>
+                    <input type="text" name="idSource" class="form-control" value="" />
+                </div>
+                <div class="col-md-10">
+                    <strong>Date de la source:</strong>
+                    <input type="text" name="dateSource" class="form-control" value="" />
+                </div>
+            </div>
+
+    </div>
+    <div class="text-center">
+    <button type="submit" class="btn btn-primary text-center">Rechercher</button>
+    </div>
+</form>
+<br/>
+<div>
+
+<p>
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a>
+</button>
+</p>
+</div>
+{% endblock %}

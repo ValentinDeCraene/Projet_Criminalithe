@@ -1,0 +1,16 @@
+{% extends "conteneur.html" %}
+{% block corps %}
+    <h2> Bienvenue dans le répertoire des formulaires de recherche.</h2>
+<p class="h3"> Choisissez la table que vous voulez requêter : </p>
+<ul class="navbar-brand list-unstyled">
+    <li class="list-group-item btn-outline-light"><h3><a href="{{url_for('rechercheavancee')}}">Accès au formulaire de recherche des amendes.</a></h3></li>
+    <li class="list-group-item btn-outline-light"><h3><a href="{{url_for('rechercheavancee_personnes')}}">Accès au formulaire de recherche des personnes.</a></h3></li>
+    <li class="list-group-item btn-outline-light"><h3><a href="{{url_for('rechercheavancee_source')}}">Accès au formulaire de recherche des sources.</a></h3></li>
+</ul>
+</ul>
+<p>
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
+{% endblock %}

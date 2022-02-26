@@ -24,6 +24,10 @@ def index():
 def repertoire():
     return render_template("pages/repertoire.html")
 
+@app.route("/repertoire_recherche_avancee/")
+def repertoire_recherche_avancee():
+    return render_template("pages/repertoire_recherche_avancee.html")
+
 #Route menant aux différentes pages d'index:
 
 @app.route("/Index/personnes/")
@@ -536,6 +540,102 @@ def rechercheavancee():
         )
 
     return render_template("pages/rechercheavancee.html", page=page)
+
+@app.route('/rechercheavancee_personnes', methods=["POST", "GET"])
+def rechercheavancee_personnes():
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    if request.method == "POST":
+
+        keyword = "test"
+        resultats_amendes = []
+
+        questionPersonnes = Personnes.query
+
+        # Amende
+        idPersonne = request.form.get("idPersonne", None)
+        idPersonneAmende = request.form.get("idPersonneAmende", None)
+        nomPersonne = request.form.get("nomPersonne", None)
+        prenomPersonne = request.form.get("prenomPersonne", None)
+
+
+
+        if idPersonne:
+            questionPersonnes = questionPersonnes.filter(Personnes.personnes_id.like("%{}%".format(idPersonne)))
+
+        if idPersonneAmende:
+            questionPersonnes = questionPersonnes.filter(Personnes.personnes_amendes_id.like("%{}%".format(idPersonneAmende)))
+
+        if nomPersonne:
+            questionPersonnes = questionPersonnes.filter(Personnes.personnes_nom.like("%{}%".format(nomPersonne)))
+
+        if prenomPersonne:
+            questionPersonnes = questionPersonnes.filter(Personnes.personnes_prenom.like("%{}%".format(prenomPersonne)))
+
+
+        #Pour une question de lisibilité des résultats, tout les résultats doivent apparaitrent sur une seule page, d'où le recours à cette constante.
+        resultats_personnes = questionPersonnes.paginate(page=page, per_page=RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE)
+
+
+        if resultats_personnes is None:
+            warn("Vous devez renseigner au moins un élément dans cette catéorie")
+
+
+        return render_template(
+            "pages/resultats_recherche_avancee_personnes.html",
+            resultats_personnes=resultats_personnes,
+        )
+
+    return render_template("pages/rechercheavancee_personnes.html", page=page)
+
+@app.route('/rechercheavancee_source', methods=["POST", "GET"])
+def rechercheavancee_source():
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    if request.method == "POST":
+
+        keyword = "test"
+        resultats_source = []
+
+        questionSource = Source.query
+
+        # Amende
+        idSource = request.form.get("idSource", None)
+        dateSource = request.form.get("dateSource", None)
+
+
+
+
+        if idSource:
+            questionSource = questionSource.filter(Source.source_id.like("%{}%".format(idSource)))
+
+        if dateSource:
+            questionSource = questionSource.filter(Source.source_date.like("%{}%".format(dateSource)))
+
+        #Pour une question de lisibilité des résultats, tout les résultats doivent apparaitrent sur une seule page, d'où le recours à cette constante.
+        resultats_source = questionSource.paginate(page=page, per_page=RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE)
+
+
+        if resultats_source is None:
+            warn("Vous devez renseigner au moins un élément dans cette catéorie")
+
+
+        return render_template(
+            "pages/resultats_recherche_avancee_source.html",
+            resultats_source=resultats_source,
+        )
+
+    return render_template("pages/rechercheavancee_source.html", page=page)
 
 @app.route('/telechargement')
 def telechargement():

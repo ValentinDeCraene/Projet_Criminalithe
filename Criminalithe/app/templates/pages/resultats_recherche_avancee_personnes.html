@@ -1,0 +1,14 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+        <p>Il y a {{resultats_personnes.total}} personnes(s) qui répond(ent) à votre requête :</p>
+        <ul>
+            {% for resultat in resultats_personnes.items %}
+            <li><a href="{{url_for('personne', personnes_id=resultat.personnes_id)}}">{{resultat.personnes_id}} : {{resultat.personnes_nom}} {{resultat.personnes_prenom}} </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+
+{% endblock %}

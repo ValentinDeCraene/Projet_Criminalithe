@@ -1,7 +1,8 @@
 {% extends "conteneur.html" %}
 
-{% block corps %}
 
+{% block corps %}
+{% include "partials/recherche_api.html" %}
     <h1>Navigation API amendes</h1>
     {% if resultats %}
     <p>Il y a {{resultats.total}} amendes au sein de l'API :</p>

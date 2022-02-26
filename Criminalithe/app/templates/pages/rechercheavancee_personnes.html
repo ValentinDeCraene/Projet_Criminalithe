@@ -1,0 +1,48 @@
+{% extends "conteneur.html" %}
+
+
+{% block corps %}
+
+<h1>Recherche avancée</h1>
+
+<form class="form" method="POST" action="{{url_for('rechercheavancee_personnes')}}">
+    <div>
+                <div class="col-md-12">
+                    <h2>Personnes</h2>
+                </div>
+            <div>
+                <div class="col-md-10">
+                    <strong>Identifiant de la personne:</strong>
+                    <input type="text" name="idPersonne" class="form-control" value="" />
+                </div>
+                <div class="col-md-10">
+                    <strong>Identifiant de l'amende dans laquelle la personne est mentionnée :</strong>
+                    <input type="text" name="idPersonneAmende" class="form-control" value="" />
+                </div>
+            </div>
+            <div>
+                <div class="col-md-10">
+                    <strong>Nom de la personne :</strong>
+                    <input type="text" name="nomPersonne" class="form-control" value="" />
+                </div>
+                <div class="col-md-10">
+                    <strong>Prénom de la personne:</strong>
+                    <input type="text" name="prenomPersonne" class="form-control" value="" />
+                </div>
+            </div>
+
+    </div>
+    <div class="text-center">
+    <button type="submit" class="btn btn-primary text-center">Rechercher</button>
+    </div>
+</form>
+<br/>
+<div>
+
+<p>
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a>
+</button>
+</p>
+</div>
+{% endblock %}

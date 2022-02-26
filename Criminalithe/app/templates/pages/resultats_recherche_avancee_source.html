@@ -1,0 +1,14 @@
+{% extends "conteneur.html" %}
+
+{% block corps %}
+
+        <p>Il y a {{resultats_source.total}} source(s) qui répond(ent) à votre requête :</p>
+        <ul>
+            {% for resultat in resultats_source.items %}
+            <li><a href="{{url_for('source', source_id=resultat.source_id)}}">{{resultat.source_id}} : {{resultat.source_date}} </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+
+{% endblock %}
