@@ -91,3 +91,107 @@ def api_amendes_navigation():
 
     response = jsonify(dict_resultats)
     return response
+
+@app.route(API_ROUTE+"/personnes")
+def api_personnes_navigation():
+
+    motclef = request.args.get("q", None)
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    if motclef:
+        query = Personnes.query.filter(
+            Personnes.personnes_id.like("%{}%".format(motclef))
+        )
+    else:
+        query = Personnes.query
+
+    try:
+        query = query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+    except Exception:
+        return Json_404()
+
+    dict_resultats = {
+        "links": {
+            "self": request.url
+        },
+        "data": [
+            personne.to_jsonapi_dict()
+            for personne in query.items
+        ]
+    }
+
+    if query.has_next:
+        arguments = {
+            "page": query.next_num
+        }
+        if motclef:
+            arguments["q"] = motclef
+        dict_resultats["links"]["next"] = url_for("api_personnes_navigation", _external=True)+"?"+urlencode(arguments)
+
+    if query.has_prev:
+        arguments = {
+            "page": query.prev_num
+        }
+        if motclef:
+            arguments["q"] = motclef
+        dict_resultats["links"]["prev"] = url_for("api_personnes_navigation", _external=True)+"?"+urlencode(arguments)
+
+    response = jsonify(dict_resultats)
+    return response
+
+@app.route(API_ROUTE+"/source")
+def api_source_navigation():
+
+    motclef = request.args.get("q", None)
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    if motclef:
+        query = Source.query.filter(
+            Source.source_id_id.like("%{}%".format(motclef))
+        )
+    else:
+        query = Source.query
+
+    try:
+        query = query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+    except Exception:
+        return Json_404()
+
+    dict_resultats = {
+        "links": {
+            "self": request.url
+        },
+        "data": [
+            source.to_jsonapi_dict()
+            for source in query.items
+        ]
+    }
+
+    if query.has_next:
+        arguments = {
+            "page": query.next_num
+        }
+        if motclef:
+            arguments["q"] = motclef
+        dict_resultats["links"]["next"] = url_for("api_source_navigation", _external=True)+"?"+urlencode(arguments)
+
+    if query.has_prev:
+        arguments = {
+            "page": query.prev_num
+        }
+        if motclef:
+            arguments["q"] = motclef
+        dict_resultats["links"]["prev"] = url_for("api_source_navigation", _external=True)+"?"+urlencode(arguments)
+
+    response = jsonify(dict_resultats)
+    return response

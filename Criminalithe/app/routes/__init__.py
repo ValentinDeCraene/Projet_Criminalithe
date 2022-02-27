@@ -656,9 +656,13 @@ def navigation_api():
     else:
         page = 1
 
-    resultats = Amendes.query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+    resultats_amendes = Amendes.query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+    resultats_personnes = Personnes.query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+    resultats_source = Source.query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
 
     return render_template(
         "pages/navigation_api.html",
-        resultats=resultats
+        resultats_amendes=resultats_amendes,
+        resultats_personnes=resultats_personnes,
+        resultats_source=resultats_source
     )
