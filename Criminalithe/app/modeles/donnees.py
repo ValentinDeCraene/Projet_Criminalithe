@@ -184,7 +184,6 @@ class Amendes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
-
 class Personnes(db.Model):
     personnes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     personnes_amendes_id = db.Column(db.Integer, db.ForeignKey("amendes.amendes_personnes_id"))
@@ -192,7 +191,6 @@ class Personnes(db.Model):
     personnes_prenom = db.Column(db.Text)
     authorships = db.relationship("Authorship", back_populates="personne")
     amendes = db.relationship("Amendes", backref="amendes", foreign_keys="Amendes.amendes_personnes_id")
-
 
 
     def personnes_to_jsonapi_dict(self):
@@ -216,10 +214,6 @@ class Personnes(db.Model):
             }
         }
 
-    # def justiciables(self):
-    #         return {
-    #             "justiciable": self.amendes.to_jsonapi_dict()
-    #         }
 
     @staticmethod
     def ajout_personne(ajout_personnes_id, ajout_personnes_amendes_id, ajout_personnes_nom, ajout_personnes_prenom):

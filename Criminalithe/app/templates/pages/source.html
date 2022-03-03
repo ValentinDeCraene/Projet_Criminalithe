@@ -47,9 +47,20 @@
             </table>
     {%endif%}
 </p>
+    <p>
+        <dl>
+
+<dt> Accéder aux données correspondantes dans l'API:</dt>
+            <dl><button type="button" class="btn btn-secondary">
+                <a class="text-light" href="{{url_for("api_source", source_id=source.source_id)}}">Cliquez ici</a>
+            </button></dl>
+
+    </p>
 
 <p>
-
+  <dl>
+    <dt> Modifications autorisées de la page : </dt>
+    <dd>
 {% if current_user.is_authenticated %}
     <button type="button" class="btn btn-primary text-light">
         <a class="text-light" href="{{url_for("source_update", source_id=source.source_id)}}">Modifier la page</a>
@@ -58,10 +69,12 @@
     <button type="button" class="btn btn-danger text-light">
         <a class="text-light" href="{{url_for("supprimer_source", source_id=source.source_id)}}">Supprimer la page</a>
     </button>
+    </dd>
+</dl>
 {% endif %}
 </p>
 
-<div class="navbar">
+<div class="navbar navbar-dark bg-dark">
     {% if source.source_id == 6234 %}
 <p>
         <button type="button" class="btn btn-dark">
