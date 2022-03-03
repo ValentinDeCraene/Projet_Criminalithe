@@ -16,7 +16,7 @@ def Json_404():
 def api_amendes(amendes_id):
     try:
         query = Amendes.query.get(amendes_id)
-        return jsonify(query.to_jsonapi_dict())
+        return jsonify(query.amendes_to_jsonapi_dict())
     except:
         return Json_404()
 
@@ -24,7 +24,7 @@ def api_amendes(amendes_id):
 def api_source(source_id):
     try:
         query = Source.query.get(source_id)
-        return jsonify(query.to_jsonapi_dict())
+        return jsonify(query.source_to_jsonapi_dict())
     except:
         return Json_404()
 
@@ -32,7 +32,7 @@ def api_source(source_id):
 def api_personnes(personnes_id):
     try:
         query = Personnes.query.get(personnes_id)
-        return jsonify(query.to_jsonapi_dict())
+        return jsonify(query.personnes_to_jsonapi_dict())
     except:
         return Json_404()
 
@@ -59,7 +59,7 @@ def api_amendes_navigation():
         query = Amendes.query
 
     try:
-        query = query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
+        resultats = query.paginate(page=page, per_page=RESULTATS_PAR_PAGES)
     except Exception:
         return Json_404()
 
@@ -68,22 +68,22 @@ def api_amendes_navigation():
             "self": request.url
         },
         "data": [
-            amende.to_jsonapi_dict()
-            for amende in query.items
+            amende.amendes_to_jsonapi_dict()
+            for amende in resultats.items
         ]
     }
 
-    if query.has_next:
+    if resultats.has_next:
         arguments = {
-            "page": query.next_num
+            "page": resultats.next_num
         }
         if motclef:
             arguments["q"] = motclef
         dict_resultats["links"]["next"] = url_for("api_amendes_navigation", _external=True)+"?"+urlencode(arguments)
 
-    if query.has_prev:
+    if resultats.has_prev:
         arguments = {
-            "page": query.prev_num
+            "page": resultats.prev_num
         }
         if motclef:
             arguments["q"] = motclef
@@ -120,7 +120,7 @@ def api_personnes_navigation():
             "self": request.url
         },
         "data": [
-            personne.to_jsonapi_dict()
+            personne.personnes_to_jsonapi_dict()
             for personne in query.items
         ]
     }
@@ -147,7 +147,7 @@ def api_personnes_navigation():
 @app.route(API_ROUTE+"/source")
 def api_source_navigation():
 
-    motclef = request.args.get("q", None)
+    query = request.args.get("q", None)
     page = request.args.get("page", 1)
 
     if isinstance(page, str) and page.isdigit():
@@ -155,9 +155,9 @@ def api_source_navigation():
     else:
         page = 1
 
-    if motclef:
+    if query:
         query = Source.query.filter(
-            Source.source_id_id.like("%{}%".format(motclef))
+            Source.source_id.like("%{}%".format(query))
         )
     else:
         query = Source.query
@@ -172,7 +172,7 @@ def api_source_navigation():
             "self": request.url
         },
         "data": [
-            source.to_jsonapi_dict()
+            source.source_to_jsonapi_dict()
             for source in query.items
         ]
     }
@@ -182,7 +182,7 @@ def api_source_navigation():
             "page": query.next_num
         }
         if motclef:
-            arguments["q"] = motclef
+            arguments["q"] = query
         dict_resultats["links"]["next"] = url_for("api_source_navigation", _external=True)+"?"+urlencode(arguments)
 
     if query.has_prev:
@@ -190,7 +190,7 @@ def api_source_navigation():
             "page": query.prev_num
         }
         if motclef:
-            arguments["q"] = motclef
+            arguments["q"] = query
         dict_resultats["links"]["prev"] = url_for("api_source_navigation", _external=True)+"?"+urlencode(arguments)
 
     response = jsonify(dict_resultats)

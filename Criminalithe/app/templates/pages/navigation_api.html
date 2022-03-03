@@ -2,120 +2,41 @@
 
 
 {% block corps %}
+
     <h1 class="text-center"> Bienvenue sur la page de navigation de l'API :</h1>
-    <h1 class="list-item">Navigation API amendes</h1>
-    {% if resultats_amendes %}
-    <p>Il y a {{resultats_amendes.total}} amendes enregistrées au sein de l'API :</p>
-        <ul>
-            {% for amende in resultats_amendes.items %}
-                <li><a href="{{url_for('api_amendes', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></li>
-            {% endfor %}
-        </ul>
-    </p>
+<br/>
+    <h2 class="list-item">Navigation API amendes</h2>
+<form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_amendes_navigation')}}" method="GET">
+    <input type="search" name="q" class="form-control mr-sm-10" type="text">
+    <button type="submit" class="btn btn-secondary">Rechercher</button>
+</form>
+
     <p>
-        Navigation dans l'ensemble des données de l'API (au format JSON).
-        Utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
-<li><a href="{{url_for('api_amendes_navigation', amendes_id=amendes_id)}}"> cliquez ici </a></li>
+        Pour naviguer dans l'ensemble des données de l'API (au format JSON), cliquez sur le lien ce dessous, puis utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
+<li><a class="btn btn-dark" href="{{url_for('api_amendes_navigation', amendes_id=amendes_id)}}"> cliquez ici </a></li>
     </p>
 
-
-    <nav aria-label="research-pagination">
-      <ul class="pagination">
-        {%- for page in resultats_amendes.iter_pages() %}
-            {% if page %}
-
-              {% if page != resultats_amendes.page %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ url_for("navigation_api", page=page)}}">{{page}}</a>
-                </li>
-              {% else %}
-                <li class="page-item active disabled">
-                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
-                </li>
-              {% endif %}
-
-          {% else %}
-                <li class="page-item disabled">
-                  <a class="page-link">...</a>
-                </li>
-          {% endif %}
-        {%- endfor %}
-      </ul>
-    </nav>
-
-
-    {% else %}
-        <p> Il n'y a pas de résultats à votre requête.</p>
-        <p>Vous pouvez entrer une autre requête, ou naviguer dans la base de donnée en <a href="{{url_for("index")}}"> cliquant ici. </a></p>
-    {% endif %}
-
-
-
-          <h1>Navigation API personnes</h1>
-    {% if resultats_personnes %}
-    <p>Il y a {{resultats_personnes.total}} personnes enregistrées au sein de l'API :</p>
-        <ul>
-            {% for personne in resultats_personnes.items %}
-                <li><a href="{{url_for('api_personnes', personnes_id=personne.personnes_id)}}">{{personne.personnes_id}} : {{personne.personnes_nom}} {{personne.personnes_prenom}}</a></li>
-            {% endfor %}
-        </ul>
-    </p>
+<br/>
+          <h2>Navigation API personnes</h2>
+    <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_personnes_navigation')}}" method="GET">
+        <input type="search" name="q" class="form-control mr-sm-10" type="text">
+        <button type="submit" class="btn btn-secondary">Rechercher</button>
+    </form>
     <p>
-        Navigation dans l'ensemble des données de l'API (au format JSON).
-        Utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
-<li><a href="{{url_for('api_personnes_navigation', personnes_id=personnes_id)}}"> cliquez ici </a></li>
+        Pour naviguer dans l'ensemble des données de l'API (au format JSON), cliquez sur le lien ce dessous, puis utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
+<li><a class="btn btn-dark" href="{{url_for('api_personnes_navigation', personnes_id=personnes_id)}}"> cliquez ici </a></li>
     </p>
 
-<nav aria-label="research-pagination">
-      <ul class="pagination">
-        {%- for page in resultats_personnes.iter_pages() %}
-            {% if page %}
-
-              {% if page != resultats_personnes.page %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ url_for("navigation_api", page=page)}}">{{page}}</a>
-                </li>
-              {% else %}
-                <li class="page-item active disabled">
-                  <a class="page-link">{{page}} <span class="sr-only">(actuelle)</span></a>
-                </li>
-              {% endif %}
-
-          {% else %}
-                <li class="page-item disabled">
-                  <a class="page-link">...</a>
-                </li>
-          {% endif %}
-        {%- endfor %}
-      </ul>
-    </nav>
-
-           {% else %}
-        <p> Il n'y a pas de résultats à votre requête.</p>
-        <p>Vous pouvez entrer une autre requête, ou naviguer dans la base de donnée en <a href="{{url_for("index")}}"> cliquant ici. </a></p>
-    {% endif %}
-
-
-
-          <h1>Navigation API sources</h1>
-    {% if resultats_source %}
-    <p>Il y a {{resultats_source.total}} personnes enregistrées au sein de l'API :</p>
-        <ul>
-            {% for source in resultats_source.items %}
-                <li><a href="{{url_for('api_source', source_id=source.source_id)}}">{{source.source_id}} : {{source.source_date}}</a></li>
-            {% endfor %}
-        </ul>
-    </p>
+<br/>
+          <h2>Navigation API sources</h2>
+    <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_source_navigation')}}" method="GET">
+        <input type="search" name="q" class="form-control mr-sm-10" type="text">
+        <button type="submit" class="btn btn-secondary">Rechercher</button>
+    </form>
     <p>
-        Navigation dans l'ensemble des données de l'API (au format JSON).
-        Utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
-<li><a href="{{url_for('api_source_navigation', source_id=source_id)}}"> cliquez ici </a></li>
+        Pour naviguer dans l'ensemble des données de l'API (au format JSON), cliquez sur le lien ce dessous, puis utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
+<li><a class="btn btn-dark" href="{{url_for('api_source_navigation', source_id=source_id)}}"> cliquez ici </a></li>
     </p>
 
-
-           {% else %}
-        <p> Il n'y a pas de résultats à votre requête.</p>
-        <p>Vous pouvez entrer une autre requête, ou naviguer dans la base de donnée en <a href="{{url_for("index")}}"> cliquant ici. </a></p>
-    {% endif %}
 
 {% endblock %}

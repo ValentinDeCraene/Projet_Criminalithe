@@ -53,7 +53,7 @@ class Source(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
-    def to_jsonapi_dict(self):
+    def source_to_jsonapi_dict(self):
         return {
             "type": "source",
             "id": self.source_id,
@@ -95,7 +95,7 @@ class Amendes(db.Model):
     #     }
 
 
-    def to_jsonapi_dict(self):
+    def amendes_to_jsonapi_dict(self):
         return {
             "type": "amende",
             "id": self.amendes_id,
@@ -123,6 +123,9 @@ class Amendes(db.Model):
                 # ]
             }
         }
+
+
+
 
     @staticmethod
     def ajout_amende(ajout_amendes_id, ajout_amendes_source_id, ajout_amendes_montant, ajout_amendes_type,
@@ -190,7 +193,9 @@ class Personnes(db.Model):
     authorships = db.relationship("Authorship", back_populates="personne")
     amendes = db.relationship("Amendes", backref="amendes", foreign_keys="Amendes.amendes_personnes_id")
 
-    def to_jsonapi_dict(self):
+
+
+    def personnes_to_jsonapi_dict(self):
         return {
             "type": "personnes",
             "id": self.personnes_id,
