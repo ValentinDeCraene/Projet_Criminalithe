@@ -12,8 +12,6 @@ Les consignes initiales sont les suivantes :
 
 # Installation et utilisation :
 
-gear Installation
-
 Nota : commandes à exécuter dans le terminal (Linux ou macOS).
 
     Cloner le dossier : git clone https://github.com/ValentinDeCraene/Projet_Python
