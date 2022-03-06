@@ -4,9 +4,9 @@ Projet Python réalisé par Valentin De Craene dans le cadre du module de format
 
 Les consignes initiales sont les suivantes :
 
-    Réalisation d'une application avec base de données relationnelle, comprenant formulaire pour ajout, suppression, édition.
-    Il doit être possible de naviguer dans la collection, d'y faire une recherche simple voire complexe, un index doit y être inclus.
-    Pour plus de détails, se référer à ce document.
+- Réalisation d'une application avec base de données relationnelle, comprenant formulaire pour ajout, suppression, édition.
+- Il doit être possible de naviguer dans la collection, d'y faire une recherche simple voire complexe, un index doit y être inclus.
+- Pour plus de détails, se référer à ce document (https://github.com/PonteIneptique/cours-python/wiki/2021-2022-Devoir).
 
 
 
