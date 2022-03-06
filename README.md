@@ -11,11 +11,27 @@ Les consignes initiales sont les suivantes :
 
 
 # Installation et utilisation :
-Cloner le repository.
 
-Se déplacer dans le dossier.
+gear Installation
 
-Lancer la commande pip install -r requirements.txt.
+Nota : commandes à exécuter dans le terminal (Linux ou macOS).
 
-Lancer la commande python3 run.py.
+    Cloner le dossier : git clone https://github.com/ValentinDeCraene/Projet_Python
 
+    Installer l'environnement virtuel :
+
+        Vérifier que la version de Python est bien 3.x : python --version;
+
+        Aller dans le dossier : cd Criminalithé;
+
+        Installer l'environnement : python3 -m venv [nom_environnement].
+
+    Installer les packages et librairies :
+
+        Activer l'environnement : source [nom de l'environnement]/bin/activate;
+        
+        Lancer la commande pip install -r requirements.txt.
+
+        Lancement : python run.py ;
+
+        Aller sur http://127.0.0.1:5000/;
