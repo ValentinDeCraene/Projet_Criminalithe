@@ -3,7 +3,7 @@
 
 {% block corps %}
 
-    <h1 class="text-center"> Bienvenue sur la page de navigation de l'API :</h1>
+    <h1 class="text-center"> Bienvenue sur la page de navigation de l'API.</h1>
 <br/>
     <h2 class="list-item">Navigation API amendes</h2>
 <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_amendes_navigation')}}" method="GET">
@@ -17,6 +17,8 @@
     </p>
 
 <br/>
+<br/>
+
           <h2>Navigation API personnes</h2>
     <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_personnes_navigation')}}" method="GET">
         <input type="search" name="q" class="form-control mr-sm-10" type="text">
@@ -28,6 +30,8 @@
     </p>
 
 <br/>
+<br/>
+
           <h2>Navigation API sources</h2>
     <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_source_navigation')}}" method="GET">
         <input type="search" name="q" class="form-control mr-sm-10" type="text">

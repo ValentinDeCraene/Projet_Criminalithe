@@ -5,9 +5,42 @@
 {% block corps %}
 
 <div>
-    <h1> Présentation du projet : </h1>
-        <p>[à remplir]</p>
-    <h1> Naviguer dans l'application : </h1>
+    <h1 class="text-center"> Présentation du projet. </h1>
+
+        <div class="text-justify">
+            <h2> Introduction au projet.</h2>
+                <div>
+                    <p>Projet Python réalisé par Valentin De Craene dans le cadre du module de formation au langage de programmation Python du master
+                    TNAH de l'Ecole Nationale des Chartes, 2021-2022. Le projet <i>Criminalithé</i> a donc pour but de mettre à disposition d'un public
+                    de chercheurs et d'érudits les données constituées des amendes extraites des registres du bailliage de Lille pour la période 1429-1441, conservés
+                    aux Archives Départementales du Nord. A ce jour, les années 1430 à 1434 sont couvertes. Ce travail se fonde sur les travaux de Valentin De Craene réalisés
+                    dans le cadre d'un mémoire de master 1, soutenu à l'Université de Lille en 2018.</p>
+                    <p>Les consignes initiales sont les suivantes :
+                    <ul>
+                        <li>Réalisation d'une application avec base de données relationnelle, comprenant formulaire pour ajout, suppression, édition.</li>
+                        <li>Il doit être possible de naviguer dans la collection, d'y faire une recherche simple voire complexe, un index doit y être inclus.</li>
+                        <li>Pour plus de détails, se référer à <a href="https://github.com/PonteIneptique/cours-python/wiki/2021-2022-Devoir">ce document.</a></li>
+                    </ul>
+                    </p>
+                </div>
+            <h2> Possibilités techniques du projet.</h2>
+                <div>
+                <p> Il donc possible pour l'utilisateur de :</p>
+                <ul>
+                    <li> Naviguer dans la base de données par le biais d'un index général, renvoyant sur un index des amendes, des personnes (justiciables) et des sources.
+                    De même, par un système de renvoi interne entre les données, l'utilisateur peut naviguer entre les fiches d'amendes, de personnes et de sources.</li>
+                    <li> D'effectuer une recherche simple dans la table principale des amendes et des recherches "semi-complexes" dans les différentes tables.</li>
+                    <li> De s'inscrire pour ensuite se connecter et contribuer au projet.</li>
+                    <li> De télécharger la base de données relationnelles (format SQLite).</li>
+                    <li> Une fois inscrit et connecté, de proposer des ajouts, des modifications ou suppression de données dans les tables des amendes, personnes et sources.</li>
+                    <li> D'accéder à une API mettant à disposition les données au format JSON des différentes tables. Il est possible de requêter cette API grâce à un formulaire de recherche.
+                    L'utilisateur peut finalement naviguer directement au sein des pages au format JSON.</li>
+
+                </ul>
+                </div>
+        </div>
+<br/>
+    <h1 class="text-center"> Naviguer dans l'application. </h1>
 </div>
 
 
