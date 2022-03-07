@@ -77,22 +77,22 @@
 {% endif %}
 
 </p>
-<div class="navbar navbar-dark bg-dark">
+<div class="navbar navbar-dark">
         {% if personne.personnes_id == 1 %}
-<p>
+<p class="col-md-12 text-center">
         <button type="button" class="btn btn-dark">
         <a class="text-light" href="{{url_for('personne', personnes_id=personne.personnes_id+1)}}"> Personne suivante</a>
     </button>
 </p>
 {% elif personne.personnes_id == 101 %}
-<p>
+<p class="col-md-12 text-center">
     <button type="button" class="btn btn-dark">
         <a class="text-light" href="{{url_for('personne', personnes_id=personne.personnes_id-1)}}"> Personne précédante</a>
     </button>
 </p>
 
     {% else %}
-<p>
+<p class="col-md-12 text-center">
     <button type="button" class="btn btn-dark">
         <a class="text-light" href="{{url_for('personne', personnes_id=personne.personnes_id-1)}}"> Personne précédente</a>
     </button>
@@ -103,7 +103,7 @@
     {% endif %}
 
 </p>
-<p class="navbar">
+<p class="col-md-12 text-center">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('index_personnes')}}">Retour à l'index des personnes.</a></li>
 </button>

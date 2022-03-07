@@ -99,22 +99,22 @@
 {% endif %}
 </p>
 
-    <div class="navbar navbar-dark bg-dark">
+    <div>
     {% if amende.amendes_id == 1 %}
-<p>
+<p class="col-md-12 text-center">
         <button type="button" class="btn btn-dark">
         <a class="text-light" href="{{url_for('amende', amendes_id=amende.amendes_id+1)}}"> Amende suivante</a>
     </button>
 </p>
 {% elif amende.amendes_id == 101 %}
-<p>
+<p class="col-md-12 text-center">
     <button type="button" class="btn btn-dark">
         <a class="text-light" href="{{url_for('amende', amendes_id=amende.amendes_id-1)}}"> Amende précédante</a>
     </button>
 </p>
 
     {% else %}
-<p>
+<p class="col-md-12 text-center">
     <button type="button" class="btn btn-dark">
         <a class="text-light" href="{{url_for('amende', amendes_id=amende.amendes_id-1)}}"> Amende précédente</a>
     </button>
@@ -124,7 +124,7 @@
 </p>
     {% endif %}
 
-<p>
+<p class="col-md-12 text-center">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('index_amendes')}}">Retour à l'index des amendes.</a></li>
 </button>

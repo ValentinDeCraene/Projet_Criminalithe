@@ -666,3 +666,7 @@ def navigation_api():
         resultats_personnes=resultats_personnes,
         resultats_source=resultats_source
     )
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('pages/404.html', nom="404 - Page non trouvée"), 404
