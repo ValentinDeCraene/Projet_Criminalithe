@@ -670,3 +670,7 @@ def navigation_api():
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('pages/404.html', nom="404 - Page non trouvée"), 404
+
+@app.errorhandler(418)
+def page_not_found(e):
+    return render_template('pages/404.html', nom="418 - I am a teapot"), 418
