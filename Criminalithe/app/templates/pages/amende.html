@@ -81,12 +81,13 @@
             </button></dl>
 
     </p>
-<p>
+{% if current_user.is_authenticated %}
+    <p>
   <dl>
     <dt> Modifications autorisées de la page : </dt>
     <dd>
 
-{% if current_user.is_authenticated %}
+
     <button type="button" class="btn btn-primary text-light">
         <a class="text-light" href="{{url_for("amende_update", amendes_id=amende.amendes_id)}}">Modifier la page</a>
     </button>

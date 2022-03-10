@@ -33,20 +33,49 @@
               </li>
             {% endif %}
             <li class="nav-item">
-                <a class="nav-link text-white bg-dark" href="{{url_for("repertoire")}}">Contribuer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white bg-dark" href="{{url_for("index")}}">Index général</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link text-white bg-dark" href="{{url_for("download")}}">Télécharger la BDD</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link text-white bg-dark" href="{{url_for("repertoire_recherche_avancee")}}">Recherche avancée</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white bg-dark" href="{{url_for("navigation_api")}}">{API}</a>
               </li>
+            <li class="nav-item dropdown text-white">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Contribuer
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{url_for("ajout_amende")}}">Ajouter une amende</a>
+              <a class="dropdown-item" href="{{url_for("ajout_personne")}}">Ajouter une personne</a>
+              <a class="dropdown-item" href="{{url_for("ajout_source")}}">Ajouter une source</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{url_for("repertoire")}}">Répertoire des formulaires d'ajout</a>
+            </div>
+          </li>
+
+            <li class="nav-item dropdown text-white">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Index général
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{url_for("index_amendes")}}">Accéder à l'index des amendes</a>
+              <a class="dropdown-item" href="{{url_for("index_personnes")}}">Accéder à l'index des personnes</a>
+              <a class="dropdown-item" href="{{url_for("index_sources")}}">Accéder à l'index des sources</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{url_for("index")}}">Répertoire des index</a>
+            </div>
+          </li>
+
+            <li class="nav-item dropdown text-white">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Recherche avancée
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{url_for("rechercheavancee")}}">Accéder au formulaire de recherche des amendes</a>
+              <a class="dropdown-item" href="{{url_for("rechercheavancee_personnes")}}">Accéder au formulaire de recherche des personnes</a>
+              <a class="dropdown-item" href="{{url_for("rechercheavancee_source")}}">Accéder au formulaire de recherche des sources</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{url_for("repertoire_recherche_avancee")}}">Répertoire des formulaires</a>
+            </div>
+          </li>
         </ul>
 
 

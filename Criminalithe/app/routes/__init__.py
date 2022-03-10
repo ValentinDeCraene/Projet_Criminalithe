@@ -674,3 +674,7 @@ def page_not_found(e):
 @app.errorhandler(418)
 def page_not_found(e):
     return render_template('pages/404.html', nom="418 - I am a teapot"), 418
+
+@app.route("/418")
+def teapot():
+    return render_template("pages/418.html")
