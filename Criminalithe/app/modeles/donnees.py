@@ -104,7 +104,7 @@ class Amendes(db.Model):
                 "amendes_personnes_id": self.amendes_personnes_id
             },
             "links": {
-                "justiciables(personnes)": url_for("personne", personnes_id=self.amendes_personnes_id, _external=True),
+                "justiciables(personnes)": url_for("api_personnes", personnes_id=self.amendes_personnes_id, _external=True),
                 "self": url_for("amende", amendes_id=self.amendes_id, _external=True),
                 "json": url_for("api_amendes", amendes_id=self.amendes_id, _external=True),
                 "source": url_for("source", source_id=self.amendes_source_id, _external=True)
@@ -203,7 +203,7 @@ class Personnes(db.Model):
             "links": {
                 "self": url_for("personne", personnes_id=self.personnes_id, _external=True),
                 "json": url_for("api_personnes", personnes_id=self.personnes_id, _external=True),
-                "amende": url_for("amende", amendes_id=self.personnes_amendes_id, _external=True)
+                "amende": url_for("api_amendes", amendes_id=self.personnes_amendes_id, _external=True)
 
             },
             "relationships": {
