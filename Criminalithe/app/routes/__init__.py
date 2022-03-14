@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, send_file
+from flask import Flask, render_template, request, flash, redirect, send_file, url_for
 
 from ..app import app, login, db
 from ..modeles.donnees import Source, Amendes, Personnes, Authorship
@@ -7,6 +7,7 @@ from sqlalchemy import and_, or_
 from ..constantes import RESULTATS_PAR_PAGES, RESULTATS_PAR_PAGES_INDEX, RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE
 from flask_login import login_user, current_user, logout_user, login_required
 from warnings import warn
+import random
 
 #Route menant à la page d'accueil:
 
@@ -344,9 +345,7 @@ def source_update(source_id):
 @login_required
 def ajout_amende():
 
-    # amendes_type = []
-    # for type in Amendes.query.distinct(Amendes.amendes_type):
-    #     amendes_type.append(type.amendes_type)
+    amendes_type = ["vol", "violence_physique", "port_arme"]
 
 
     # Ajout d'une amende
@@ -367,7 +366,7 @@ def ajout_amende():
             flash("L'ajout a échoué pour les raisons suivantes : " + ", ".join(informations), "danger")
             return render_template("pages/ajout_amende.html")
     else:
-        return render_template("pages/ajout_amende.html")
+        return render_template("pages/ajout_amende.html", amendes_type=amendes_type)
                                # amendes_type=amendes_type)
 
 @app.route("/ajout_personne", methods=["GET", "POST"])
@@ -646,6 +645,11 @@ def download():
     f = './bdd2.db'
     return send_file(f, attachment_filename='bdd2.db', as_attachment=True)
 
+@app.route('/download_sql')
+def download_sql():
+    f = './bdd2.sql'
+    return send_file(f, attachment_filename='bdd2.sql', as_attachment=True)
+
 @app.route("/navigation_api")
 def navigation_api():
 
@@ -678,3 +682,14 @@ def page_not_found(e):
 @app.route("/418")
 def teapot():
     return render_template("pages/418.html")
+
+@app.route('/aleatoire')
+def aleatoire():
+    """Route génère un nombre aléatoire, et retourne une redirection vers l'url composée de noticechercheur et de ce nombre aléatoire,
+    ce qui déclenche de là la fonction noticechercheur prenant ce nombre aléatoire en paramètre : cela affiche donc une notice aléatoirement"""
+
+    nbMax = Amendes.query.count()
+
+    nb = random.randint(1, nbMax)
+
+    return redirect(url_for('amende', amendes_id=nb))
