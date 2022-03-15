@@ -141,7 +141,7 @@ class Amendes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
-    #Méthode statique qui permet de supprimer une amende et qui est appelée dans la route correspondante.
+#Méthode statique qui permet de supprimer une amende et qui est appelée dans la route correspondante.
 
     @staticmethod
     def supprimer_amende(amendes_id):

@@ -390,7 +390,7 @@ def ajout_amende():
             flash("L'ajout a échoué pour les raisons suivantes : " + ", ".join(informations), "danger")
             return render_template("pages/ajout_amende.html")
     else:
-        return render_template("pages/ajout_amende.html", amendes_type=amendes_type)
+        return render_template("pages/ajout_amende.html")
 
 
 #Route permettant l'ajout d'une personne dans la BDD.
