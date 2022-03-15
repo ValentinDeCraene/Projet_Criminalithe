@@ -14,6 +14,8 @@ class Source(db.Model):
     authorships = db.relationship("Authorship", back_populates="source")
     amendes = db.relationship("Amendes", back_populates="source")
 
+#Méthode statique qui permet d'ajouter une source à la BDD. Elle est appelée dans la route correspondante.
+
     @staticmethod
     def ajout_source(ajout_source_id, ajout_source_date):
         erreurs = []
@@ -27,11 +29,12 @@ class Source(db.Model):
         if len(erreurs) > 0:
             return False, erreurs
 
-            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table AMendes (champs correspondant aux paramètres du modèle)
+            # Si aucune erreur n'a été détectée, ajout d'une nouvelle entrée dans la table Amendes (champs correspondant aux paramètres du modèle)
         nouvelle_source = Source(source_id=ajout_source_id,
                                  source_date=ajout_source_date)
 
-        # Tentative d'ajout qui sera stoppée si une erreur apparaît.
+        # Tentative d'ajout qui sera stoppée si une erreur apparaît en uilisant try et except
+        # (On anticipe les erreurs en les ajoutants le cas échéant dans une liste vide, qui est transformée en chaîne de caractères)
         try:
             db.session.add(nouvelle_source)
             db.session.commit()
@@ -40,7 +43,10 @@ class Source(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+
     @staticmethod
+    #Méthode statique qui permet de supprimer une source et qui est appelée dans la route correspondante.
+
     def supprimer_source(source_id):
 
         suppr_source = Source.query.get(source_id)
@@ -52,6 +58,9 @@ class Source(db.Model):
 
         except Exception as erreur:
             return False, [str(erreur)]
+
+    #Fonction qui permet de "transformer" les données issue de la table concernée en un dictionnaire,
+    #qui est ensuite utilisé dans l'API pour retourner des données au format JSON.
 
     def source_to_jsonapi_dict(self):
         return {
@@ -84,46 +93,9 @@ class Amendes(db.Model):
     justiciable = db.relationship("Personnes", foreign_keys="Personnes.personnes_amendes_id", backref="justiciable")
     source = db.relationship("Source", back_populates="amendes")
 
-    # def amendes_jointure_source_to_json(self):
-    #     return {
-    #         "amendes": self.source.to_json_api_dict()
-    #     }
 
 
-    def amendes_to_jsonapi_dict(self):
-        return {
-            "type": "amende",
-            "id": self.amendes_id,
-            "attributes": {
-                "amendes_id": self.amendes_id,
-                "amendes_source_id": self.amendes_source_id,
-                "amendes_montant": self.amendes_montant,
-                "amendes_type": self.amendes_type,
-                "amendes_franche_verite": self.amendes_franche_verite,
-                "amendes_transcription": self.amendes_transcription,
-                "amendes_personnes_id": self.amendes_personnes_id
-            },
-            "links": {
-                "justiciables(personnes)": url_for("api_personnes", personnes_id=self.amendes_personnes_id, _external=True),
-                "self": url_for("amende", amendes_id=self.amendes_id, _external=True),
-                "json": url_for("api_amendes", amendes_id=self.amendes_id, _external=True),
-                "source": url_for("source", source_id=self.amendes_source_id, _external=True)
-
-            },
-            "relationships": {
-                "editions": [
-                    author.author_to_json()
-                    for author in self.authorships
-                ]
-                # "justiciables": [
-                #     justiciable.justiciables()
-                #     for justiciable in self.justiciable
-                # ]
-            }
-        }
-
-
-
+    # Méthode statique qui permet d'ajouter une amende à la BDD. Elle est appelée dans la route correspondante.
 
     @staticmethod
     def ajout_amende(ajout_amendes_id, ajout_amendes_source_id, ajout_amendes_montant, ajout_amendes_type,
@@ -169,6 +141,8 @@ class Amendes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+    #Méthode statique qui permet de supprimer une amende et qui est appelée dans la route correspondante.
+
     @staticmethod
     def supprimer_amende(amendes_id):
 
@@ -182,6 +156,42 @@ class Amendes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+
+    # Fonction qui permet de "transformer" les données issue de la table concernée en un dictionnaire,
+    # qui est ensuite utilisé dans l'API pour retourner des données au format JSON.
+
+    def amendes_to_jsonapi_dict(self):
+        return {
+            "type": "amende",
+            "id": self.amendes_id,
+            "attributes": {
+                "amendes_id": self.amendes_id,
+                "amendes_source_id": self.amendes_source_id,
+                "amendes_montant": self.amendes_montant,
+                "amendes_type": self.amendes_type,
+                "amendes_franche_verite": self.amendes_franche_verite,
+                "amendes_transcription": self.amendes_transcription,
+                "amendes_personnes_id": self.amendes_personnes_id
+            },
+            "links": {
+                "justiciables(personnes)": url_for("api_personnes", personnes_id=self.amendes_personnes_id, _external=True),
+                "self": url_for("amende", amendes_id=self.amendes_id, _external=True),
+                "json": url_for("api_amendes", amendes_id=self.amendes_id, _external=True),
+                "source": url_for("source", source_id=self.amendes_source_id, _external=True)
+
+            },
+            "relationships": {
+                "editions": [
+                    author.author_to_json()
+                    for author in self.authorships
+                ]
+                # "justiciables": [
+                #     justiciable.justiciables()
+                #     for justiciable in self.justiciable
+                # ]
+            }
+        }
+
 class Personnes(db.Model):
     personnes_id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
     personnes_amendes_id = db.Column(db.Integer, db.ForeignKey("amendes.amendes_personnes_id"))
@@ -191,29 +201,7 @@ class Personnes(db.Model):
     amendes = db.relationship("Amendes", backref="amendes", foreign_keys="Amendes.amendes_personnes_id")
 
 
-    def personnes_to_jsonapi_dict(self):
-        return {
-            "type": "personnes",
-            "id": self.personnes_id,
-            "attributes": {
-                "personnes_amendes_id": self.personnes_amendes_id,
-                "personnes_nom": self.personnes_nom,
-                "personnes_prenom": self.personnes_prenom
-            },
-            "links": {
-                "self": url_for("personne", personnes_id=self.personnes_id, _external=True),
-                "json": url_for("api_personnes", personnes_id=self.personnes_id, _external=True),
-                "amende": url_for("api_amendes", amendes_id=self.personnes_amendes_id, _external=True)
-
-            },
-            "relationships": {
-                "editions": [
-                    author.author_to_json()
-                    for author in self.authorships
-                ]
-            }
-        }
-
+    # Méthode statique qui permet d'ajouter une personne à la BDD. Elle est appelée dans la route correspondante.
 
     @staticmethod
     def ajout_personne(ajout_personnes_id, ajout_personnes_amendes_id, ajout_personnes_nom, ajout_personnes_prenom):
@@ -249,6 +237,9 @@ class Personnes(db.Model):
         except Exception as erreur:
             return False, [str(erreur)]
 
+
+    #Méthode statique qui permet de supprimer une personne et qui est appelée dans la route correspondante.
+
     @staticmethod
     def supprimer_personne(personnes_id):
 
@@ -263,6 +254,34 @@ class Personnes(db.Model):
             return False, [str(erreur)]
 
 
+    # Fonction qui permet de "transformer" les données issue de la table concernée en un dictionnaire,
+    # qui est ensuite utilisé dans l'API pour retourner des données au format JSON.
+
+    def personnes_to_jsonapi_dict(self):
+        return {
+            "type": "personnes",
+            "id": self.personnes_id,
+            "attributes": {
+                "personnes_amendes_id": self.personnes_amendes_id,
+                "personnes_nom": self.personnes_nom,
+                "personnes_prenom": self.personnes_prenom
+            },
+            "links": {
+                "self": url_for("personne", personnes_id=self.personnes_id, _external=True),
+                "json": url_for("api_personnes", personnes_id=self.personnes_id, _external=True),
+                "amende": url_for("api_amendes", amendes_id=self.personnes_amendes_id, _external=True)
+
+            },
+            "relationships": {
+                "editions": [
+                    author.author_to_json()
+                    for author in self.authorships
+                ]
+            }
+        }
+
+
+
 class Authorship(db.Model):
     __tablename__ = "authorship"
     authorship_id = db.Column(db.Integer, nullable=True, autoincrement=True, primary_key=True)
@@ -275,6 +294,9 @@ class Authorship(db.Model):
     amende = db.relationship("Amendes", back_populates="authorships")
     personne = db.relationship("Personnes", back_populates="authorships")
     source = db.relationship("Source", back_populates="authorships")
+
+    # Fonction qui permet de "transformer" les données issue de la table concernée en un dictionnaire,
+    # qui est ensuite utilisé dans l'API pour retourner des données au format JSON.
 
     def author_to_json(self):
         return {

@@ -1,4 +1,5 @@
 from warnings import warn
+#Import permettant d'afficher des messages d'erreurs.
 
 API_ROUTE = "/api"
 
@@ -8,6 +9,7 @@ RESULTATS_PAR_PAGES = 10
 RESULTATS_PAR_PAGES_INDEX= 10
 
 RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE = 130
+
 #Jacques Le Goff l'a démontré :
 SECRET_KEY = "L'EPOQUE MODERNE N'EST QU'UN LONG MOYEN AGE"
 

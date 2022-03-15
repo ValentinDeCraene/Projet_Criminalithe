@@ -77,6 +77,12 @@
 {% endif %}
 
 </p>
+
+    <!-- On utilise ici une série de blocs conditionnels pour permettre la navigation vers les personnes précédentes et suivantes,
+     et donc afficher uniquement le bouton page suivante s'il s'agit de la première personne et uniquement le bouton personne précédente
+     s'il s'agit de la dernière personne, afin d'éviter les renvois vers des amendes inexistantes et donc  des messages d'erreurs.
+     Dans les autres cas, les deux boutons sont disponibles-->
+
 <div class="navbar navbar-dark">
         {% if personne.personnes_id == 1 %}
 <p class="col-md-12 text-center">

@@ -1,5 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+# Permet le hash des mots de passe
+
 from flask_login import UserMixin
+# Permet d'implémenter la classe utilisateur
 
 from .. app import db, login
 
@@ -46,7 +49,7 @@ class User(UserMixin, db.Model):
         if not nom:
             erreurs.append("Le nom fourni est vide")
         if not motdepasse or len(motdepasse) < 6:
-            erreurs.append("Le mot de passe fourni est vide ou trop court")
+            erreurs.append("Le mot de passe fourni est vide ou trop court (6 caractères minimum sont requis")
 
         #On vérifie que personne n'a utilisé cet email ou ce login
         uniques = User.query.filter(
@@ -87,10 +90,14 @@ class User(UserMixin, db.Model):
         return self.user_id
 
     def to_jsonapi_dict(self):
-        """ It ressembles a little JSON API format but it is not completely compatible
 
-        :return:
         """
+        :return: données 'jsonifiées'
+        :rtype: dict
+
+        Fonction qui permet de transformer les données issue de la table concernée en un dictionnaire,
+        qui est ensuite utilisé dans l'API pour retourner des données au format JSON."""
+
         return {
             "type": "people",
             "attributes": {
