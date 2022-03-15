@@ -5,7 +5,7 @@
 <center>
 <form method="POST" action="{{url_for('supprimer_personne', personnes_id=suppr_personne.personnes_id)}}">
 	<div>
-		<p>Etes-vous certain de vouloir supprimer cette personne ?
+		<p><b>Etes-vous certain de vouloir supprimer cette personne ?</b>
 		<br/>
 		<p name="personne" value="{{suppr_personne}}">
 			<em>Identifiant de la personne : {{suppr_personne.personnes_id}}</em> <br/>
@@ -17,7 +17,7 @@
 	<div>
       <div>
           <button type="submit" class="btn btn-info">Confirmer</button>
-		  		  <button type="button" class="btn btn-outline-danger"> <a href="{{url_for('accueil')}}">Annuler</a>
+		  		  <button type="button" class="btn btn-danger"> <a href="{{url_for('accueil')}}">Annuler</a>
 		  </button>
       </div>
   	</div>

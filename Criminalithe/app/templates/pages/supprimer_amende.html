@@ -5,7 +5,7 @@
 <center>
 <form method="POST" action="{{url_for('supprimer_amende', amendes_id=suppr_amende.amendes_id)}}">
 	<div>
-		<p>Etes-vous certain de vouloir supprimer cette amende ? </>
+		<p><b>Etes-vous certain de vouloir supprimer cette amende ?</b></p>
 		<br/>
 		<p name="amende" value="{{suppr_amende}}">
 			<em> Numéro de l'amende : {{suppr_amende.amendes_id}}</em> <br/>
@@ -16,7 +16,7 @@
 	<div>
       <div>
           <button type="submit" class="btn btn-info">Confirmer</button>
-		  <button type="button" class="btn btn-outline-danger"> <a href="{{url_for('accueil')}}">Annuler</a>
+		  <button type="button" class="btn btn-danger"> <a href="{{url_for('accueil')}}">Annuler</a>
 		  </button>
       </div>
   </div>
