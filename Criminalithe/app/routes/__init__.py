@@ -1,35 +1,53 @@
 from flask import Flask, render_template, request, flash, redirect, send_file, url_for
+# L'import de flash permet d'afficher des messages d'alertes en "pop-up".
+# L'import de redirect permet de rediriger vers une page spécifique dans le return-template.
+# L'import de send_file permet des fichiers au client; nous l'utilisons pour permettre de télécharger la BDD sous divers formats.
 
 from ..app import app, login, db
+# Importe les variables app, login et db qui instancient notre application.
 from ..modeles.donnees import Source, Amendes, Personnes, Authorship
+# Importe les modèles de données de notre BDD
 from ..modeles.utilisateurs import User
-from sqlalchemy import and_, or_
-from ..constantes import RESULTATS_PAR_PAGES, RESULTATS_PAR_PAGES_INDEX, RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE
-from flask_login import login_user, current_user, logout_user, login_required
-from warnings import warn
-import random
+# Importe les modèles de données de notre BDD consacrée aux utilisateurs
 
-#Route menant à la page d'accueil:
+from sqlalchemy import and_, or_
+# L'import de _and et _or permet d'utiliser les opérateurs booléens and et or dans les fonctions de requêtes sur la BDD.
+
+from ..constantes import RESULTATS_PAR_PAGES, RESULTATS_PAR_PAGES_INDEX, RESULTATS_PAR_PAGES_RECHERCHE_AVANCEE
+# Importe le nombre de résultats par pages de manière différenciée.
+from flask_login import login_user, current_user, logout_user, login_required
+# Import permettant de gérer les connexions et déconnexion des utilisateurs de l'application.
+from warnings import warn
+# Import permettant d'afficher des messages d'erreurs.
+import random
+# Import qui permet de générer des entiers aléatoires; nous l'utilisons pour la fonction de navigation aléatoire dans la BDD.
+
+
+#Route menant à la page d'accueil.
 
 @app.route("/")
 def accueil():
     return render_template("pages/accueil.html")
 
-#Route menant à l'"index général":
+#Route menant à l'index général, comprenant des urls redirigeant vers les index spécifiques.
 
 @app.route("/Index/")
 def index():
     return render_template("pages/Index.html")
 
+#Route menant au répertoire des formulaires d'ajout des données.
+
 @app.route("/repertoire/")
 def repertoire():
     return render_template("pages/repertoire.html")
+
+#Route menant au répertoire des formulaires de recherce.
 
 @app.route("/repertoire_recherche_avancee/")
 def repertoire_recherche_avancee():
     return render_template("pages/repertoire_recherche_avancee.html")
 
-#Route menant aux différentes pages d'index:
+#Route menant aux différentes pages d'index (personnes, sources et amendes):
 
 @app.route("/Index/personnes/")
 def index_personnes():
@@ -110,7 +128,9 @@ def source(source_id):
     source_unique = Source.query.filter(Source.source_id == source_id).first()
     return render_template("pages/source.html", source=source_unique)
 
+
 #Route pour une page de recherche simple par le biais d'une requête sur la table Amendes.
+#La méthode .like() permet d'élargir le champs de recherche.
 #Permet d'afficher 5 résultats par page grâce à la méthode .paginate de Flask.
 
 @app.route("/recherche")
@@ -144,7 +164,8 @@ def recherche():
 
 
 #Permet d'afficher une page avec le formulaire d'inscription si l'utilisateur n'est pas encore enregistré dans la base de données.
-
+#Nous utilisons flahs pour indiquer le succès ou les erreurs liées à l'inscription et redirect pour renvoyer l'utilisateur soit sur la page
+#d'accueil une fois l'inscription réussie, soit vers cette même page en cas d'erreurs.
 @app.route("/inscription", methods=["GET", "POST"])
 def inscription():
     if request.method == "POST":
@@ -163,16 +184,17 @@ def inscription():
     else:
         return render_template("pages/inscription.html")
 
-#Permet d'afficher une page de connexion:
+#Permet d'afficher une page de connexion :
+# - Route vérifiant si l'utilisateur est déja connecté lorsqu'il s'authentifie
+# - Si c'est le cas, l'utilisateur est redirigé vers la page d'accueil (avec redirect)
+# - Sinon, renvoi un formulaire de connexion (avec redirect)
+# - En cas d'erreurs, affiche un message d'erreurs (avec flash)
 
 @app.route("/connexion", methods=["POST", "GET"])
 def connexion():
-    """
-    Route vérifiant si l'utilisateur est déja connecté lorsqu'il s'authentifie
-    Si c'est le cas, l'utilisateur est redirigé vers la page d'accueil.
-    Sinon, renvoi un formulaire de connexion.
-    En cas d'erreurs, affiche un message d'erreurs.
-    """
+
+
+
     if current_user.is_authenticated is True:
         flash("Vous êtes déjà connecté-e", "info")
         return redirect("/")
@@ -191,10 +213,9 @@ def connexion():
 
     return render_template("pages/connexion.html")
 
-
 login.login_view = 'connexion'
 
-#Route permettant la déconnexion de l'utilisateur.
+#Route permettant la déconnexion de l'utilisateur; utilisation de la fonction importée logout_user() pour gérer la déconnexion.
 
 @app.route("/deconnexion", methods=["POST", "GET"])
 def deconnexion():
@@ -341,11 +362,14 @@ def source_update(source_id):
         updated=updated
     )
 
+
+#Route permettant l'ajout d'une amende dans la BDD.
+#Nous utilisons la méthode statique @login_required pour en limiter l'accès aux utilisateurs inscrits et connectés.
+#Nous appelons la méthode statique .ajout_amende issue de notre modéle de données.
+
 @app.route("/ajout_amende", methods=["GET", "POST"])
 @login_required
 def ajout_amende():
-
-    amendes_type = ["vol", "violence_physique", "port_arme"]
 
 
     # Ajout d'une amende
@@ -367,7 +391,11 @@ def ajout_amende():
             return render_template("pages/ajout_amende.html")
     else:
         return render_template("pages/ajout_amende.html", amendes_type=amendes_type)
-                               # amendes_type=amendes_type)
+
+
+#Route permettant l'ajout d'une personne dans la BDD.
+#Nous utilisons la méthode statique @login_required pour en limiter l'accès aux utilisateurs inscrits et connectés.
+#Nous appelons la méthode statique .ajout_personne issue de notre modéle de données.
 
 @app.route("/ajout_personne", methods=["GET", "POST"])
 @login_required
@@ -391,6 +419,11 @@ def ajout_personne():
     else:
         return render_template("pages/ajout_personne.html")
 
+
+#Route permettant l'ajout d'une source dans la BDD.
+#Nous utilisons la méthode statique @login_required pour en limiter l'accès aux utilisateurs inscrits et connectés.
+#Nous appelons la méthode statique .ajout_source issue de notre modéle de données.
+
 @app.route("/ajout_source", methods=["GET", "POST"])
 @login_required
 def ajout_source():
@@ -410,6 +443,11 @@ def ajout_source():
             return render_template("pages/ajout_source.html")
     else:
         return render_template("pages/ajout_source.html")
+
+
+#Route permettant la suppresion d'une amende dans la BDD.
+#Nous utilisons la méthode statique @login_required pour en limiter l'accès aux utilisateurs inscrits et connectés.
+#Nous appelons la méthode statique .supprimer_amende issue de notre modéle de données.
 
 @app.route("/supprimer_amende/<int:amendes_id>", methods=["POST", "GET"])
 @login_required
@@ -431,6 +469,11 @@ def supprimer_amende(amendes_id):
     else:
         return render_template("pages/supprimer_amende.html", suppr_amende=suppr_amende)
 
+
+#Route permettant la suppression d'une personne dans la BDD.
+#Nous utilisons la méthode statique @login_required pour en limiter l'accès aux utilisateurs inscrits et connectés.
+#Nous appelons la méthode statique .supprimer_personne issue de notre modéle de données.
+
 @app.route("/supprimer_personne/<int:personnes_id>", methods=["POST", "GET"])
 @login_required
 def supprimer_personne(personnes_id):
@@ -450,6 +493,11 @@ def supprimer_personne(personnes_id):
             return redirect("/")
     else:
         return render_template("pages/supprimer_personne.html", suppr_personne=suppr_personne)
+
+#Route permettant la suppression d'une source dans la BDD.
+#Nous utilisons la méthode statique @login_required pour en limiter l'accès aux utilisateurs inscrits et connectés.
+#Nous appelons la méthode statique .supprimer_source issue de notre modéle de données.
+
 
 @app.route("/supprimer_source/<int:source_id>", methods=["POST", "GET"])
 @login_required
@@ -471,6 +519,7 @@ def supprimer_source(source_id):
     else:
         return render_template("pages/supprimer_source.html", suppr_source=suppr_source)
 
+#Route permettant une recherche 'semi-avancée' par le biais de formulaires requêtant en .like() les attributs de la table concernée.
 
 @app.route('/rechercheavancee', methods=["POST", "GET"])
 def rechercheavancee():
@@ -488,7 +537,6 @@ def rechercheavancee():
 
         questionAmendes = Amendes.query
 
-        # Amende
         idAmende = request.form.get("idAmende", None)
         idSourceAmende = request.form.get("idSourceAmende", None)
         montantAmende = request.form.get("montantAmende", None)
@@ -496,7 +544,7 @@ def rechercheavancee():
         francheVeriteAmende = request.form.get("francheVeriteAmende", None)
         transcriptionAmende = request.form.get("transcriptionAmende", None)
         idPersonneAmende = request.form.get("idPersonneAmende", None)
-        nomPersonne = request.form.get("nomPersonne", None)
+        #nomPersonne = request.form.get("nomPersonne", None)
 
 
         if idAmende:
@@ -522,6 +570,10 @@ def rechercheavancee():
         if idPersonneAmende:
             questionAmendes = questionAmendes.filter(Amendes.amendes_personnes_id.like("%{}%".format(idPersonneAmende)))
 
+        #Tentative de requêter également sur les données des jointures, en l'occurence les personnes mentionnées dans les amendes.
+        #Cependant, cette technique ne fonctionne pas. Nous en déduisons que les données issues des jointures
+        #ne sont pas requêtable directement par le biais de SQLAlchemy :
+
         # if nomPersonne:
         #     questionAmendes = questionAmendes.filter(Amendes.justiciable.like("%{}%".format(nomPersonne)))
 
@@ -539,6 +591,9 @@ def rechercheavancee():
         )
 
     return render_template("pages/rechercheavancee.html", page=page)
+
+
+#Route permettant une recherche 'semi-avancée' par le biais de formulaires requêtant en .like() les attributs de la table concernée.
 
 @app.route('/rechercheavancee_personnes', methods=["POST", "GET"])
 def rechercheavancee_personnes():
@@ -592,6 +647,9 @@ def rechercheavancee_personnes():
 
     return render_template("pages/rechercheavancee_personnes.html", page=page)
 
+
+#Route permettant une recherche 'semi-avancée' par le biais de formulaires requêtant en .like() les attributs de la table concernée.
+
 @app.route('/rechercheavancee_source', methods=["POST", "GET"])
 def rechercheavancee_source():
     page = request.args.get("page", 1)
@@ -636,19 +694,29 @@ def rechercheavancee_source():
 
     return render_template("pages/rechercheavancee_source.html", page=page)
 
+#Route menant à la page de téléchargement de la BDD.
+
 @app.route('/telechargement')
 def telechargement():
     return render_template("pages/telechargement.html")
+
+#Route envoyant avec return send_file la BDD à l'utilisateur au format SQLite.
 
 @app.route('/download')
 def download():
     f = './bdd2.db'
     return send_file(f, attachment_filename='bdd2.db', as_attachment=True)
 
+#Route envoyant avec return send_file la BDD à l'utilisateur au format SQL.
+
+
 @app.route('/download_sql')
 def download_sql():
     f = './bdd2.sql'
     return send_file(f, attachment_filename='bdd2.sql', as_attachment=True)
+
+#Route donnant accès à la page de navigation dans l'API.
+#Sur celle-ci, trois formulaires permettent de requêter l'API pour la table amendes, personnes et sources.
 
 @app.route("/navigation_api")
 def navigation_api():
@@ -671,25 +739,38 @@ def navigation_api():
         resultats_source=resultats_source
     )
 
+#Permet avec errorhandler d'afficher le code status HTTP approprié en cas d'erreur et de renvoyer vers
+#la page erreur 404.
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('pages/404.html', nom="404 - Page non trouvée"), 404
+
+
+#Permet avec errorhandler d'afficher le code status HTTP approprié en cas d'erreur et de renvoyer vers
+#la page erreur 404.
 
 @app.errorhandler(418)
 def page_not_found(e):
     return render_template('pages/404.html', nom="418 - I am a teapot"), 418
 
-@app.route("/418")
-def teapot():
-    return render_template("pages/418.html")
+
+# Route génère un nombre aléatoire, et retourne une redirection vers l'url composée de noticechercheur et de ce nombre aléatoire,
+# ce qui déclenche de là la fonction noticechercheur prenant ce nombre aléatoire en paramètre : cela affiche donc une notice aléatoirement
+#
 
 @app.route('/aleatoire')
 def aleatoire():
-    """Route génère un nombre aléatoire, et retourne une redirection vers l'url composée de noticechercheur et de ce nombre aléatoire,
-    ce qui déclenche de là la fonction noticechercheur prenant ce nombre aléatoire en paramètre : cela affiche donc une notice aléatoirement"""
 
     nbMax = Amendes.query.count()
 
     nb = random.randint(1, nbMax)
 
     return redirect(url_for('amende', amendes_id=nb))
+
+
+#Route cachée quelque part dans l'application qui permet d'afficher la fameuse erreur 418 "I am a teapot".
+
+@app.route("/418")
+def teapot():
+    return render_template("pages/418.html")
