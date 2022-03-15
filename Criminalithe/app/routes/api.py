@@ -1,16 +1,31 @@
 from flask import render_template, request, url_for, jsonify
+#Import de jsonify permet de renvoyer les données au format JSON.
 from urllib.parse import urlencode
+#Import d'urlencode utilisé pour encoder les paramètres GET des url via un dictionnaire.
 
 from ..app import app
-from ..modeles.donnees import Source, Amendes, Personnes, Authorship
-from ..modeles.utilisateurs import User
-from ..constantes import RESULTATS_PAR_PAGES, API_ROUTE
+# Importe les variables app instancie notre application.
 
+from ..modeles.donnees import Source, Amendes, Personnes, Authorship
+# Importe les modèles de données de notre BDD
+
+from ..modeles.utilisateurs import User
+# Importe les modèles de données de notre BDD utilisateurs
+
+from ..constantes import RESULTATS_PAR_PAGES, API_ROUTE
+#Import des constantes du nombres de résultats par page et de la constante
+#de la route de l'API
+
+
+#Route renvoyant une erreur 404 lorsque la requête est erronée ou ne pas renvoyer
+#de données en JSON
 
 def Json_404():
     response = jsonify({"erreur": "Unable to perform the query"})
     response.status_code = 404
     return response
+
+#Route permettant de renvoyer les données issue des amendes au format JSON.
 
 @app.route(API_ROUTE+"/amende/<amendes_id>")
 def api_amendes(amendes_id):
@@ -20,6 +35,8 @@ def api_amendes(amendes_id):
     except:
         return Json_404()
 
+#Route permettant de renvoyer les données issue des amendes au format JSON.
+
 @app.route(API_ROUTE+"/source/<source_id>")
 def api_source(source_id):
     try:
@@ -27,6 +44,8 @@ def api_source(source_id):
         return jsonify(query.source_to_jsonapi_dict())
     except:
         return Json_404()
+
+#Route permettant de renvoyer les données issue des amendes au format JSON.
 
 @app.route(API_ROUTE+"/personne/<personnes_id>")
 def api_personnes(personnes_id):
@@ -36,12 +55,14 @@ def api_personnes(personnes_id):
     except:
         return Json_404()
 
+
+#Route permettant de naviguer directement dans la BDD des amendes
+# au format JSon ainsi que d'effectuer une recherche plein-texte
+
 @app.route(API_ROUTE+"/amendes")
 def api_amendes_navigation():
-    """ Route permettant la recherche plein-texte et la navigation classique
 
-    On s'inspirera de http://jsonapi.org/ faute de pouvoir trouver temps d'y coller à 100%
-    """
+
     # q est très souvent utilisé pour indiquer une capacité de recherche
     motclef = request.args.get("q", None)
     page = request.args.get("page", 1)
@@ -91,6 +112,9 @@ def api_amendes_navigation():
 
     response = jsonify(dict_resultats)
     return response
+
+#Route permettant de naviguer directement dans la BDD des personnes
+# au format JSon ainsi que d'effectuer une recherche plein-texte
 
 @app.route(API_ROUTE+"/personnes")
 def api_personnes_navigation():
@@ -143,6 +167,9 @@ def api_personnes_navigation():
 
     response = jsonify(dict_resultats)
     return response
+
+#Route permettant de naviguer directement dans la BDD des sources
+# au format JSon ainsi que d'effectuer une recherche plein-texte
 
 @app.route(API_ROUTE+"/source")
 def api_source_navigation():
