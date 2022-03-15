@@ -16,7 +16,7 @@ Nota : commandes à exécuter dans le terminal (Linux ou macOS).
 
 Cloner le dossier : git clone https://github.com/ValentinDeCraene/Projet_Python
 
-Installer l'environnement virtuel :
+Installer l'environnement virtuel : sudo apt-get install python3 libfreetype6-dev python3-pip python3-virtualenv
 
 Vérifier que la version de Python est bien 3.x : python --version;
 
@@ -32,4 +32,4 @@ Lancer la commande pip install -r requirements.txt.
 
 Lancement : python run.py ;
 
-Aller sur http://127.0.0.1:5000/;
+Aller sur http://127.0.0.1:5000/
