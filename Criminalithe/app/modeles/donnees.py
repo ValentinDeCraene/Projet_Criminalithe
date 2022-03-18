@@ -177,7 +177,7 @@ class Amendes(db.Model):
                 "justiciables(personnes)": url_for("api_personnes", personnes_id=self.amendes_personnes_id, _external=True),
                 "self": url_for("amende", amendes_id=self.amendes_id, _external=True),
                 "json": url_for("api_amendes", amendes_id=self.amendes_id, _external=True),
-                "source": url_for("source", source_id=self.amendes_source_id, _external=True)
+                "source": url_for("api_source", source_id=self.amendes_source_id, _external=True)
 
             },
             "relationships": {
