@@ -17,8 +17,8 @@
     </head>
     <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-between">
-        <a class="navbar-brand" href="{{ url_for('accueil') }}">Criminalithé</a>
-
+        <a class="navbar-brand mr-1" href="{{ url_for('accueil') }}"><img class="nav nav-pills mr-0" src="{{url_for('static', filename='images/C.png')}}" width="60" height="50" alt=""/></a><p class="text-white nav mr-auto pl-ml-1"><a href="{{ url_for('accueil') }}" class="text-white display-5 navbar-brand">riminalithé</a></p>
+<!-- Logo généré à partir de l'application web pictor développée par l'IRHT, voir : http://pictor.irht.cnrs.fr/fr-->
         <ul class="nav nav-pills mr-auto">
             {% if not current_user.is_authenticated %}
               <li class="nav-item">
