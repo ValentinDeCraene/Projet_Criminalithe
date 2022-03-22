@@ -19,7 +19,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 # Import permettant de gérer les connexions et déconnexion des utilisateurs de l'application.
 from warnings import warn
 # Import permettant d'afficher des messages d'erreurs.
-import random
+import random, sqlalchemy
 # Import qui permet de générer des entiers aléatoires; nous l'utilisons pour la fonction de navigation aléatoire dans la BDD.
 
 
@@ -525,8 +525,6 @@ def supprimer_source(source_id):
 def rechercheavancee():
     page = request.args.get("page", 1)
 
-    id_amendes = Amendes.query.filter(Amendes.amendes_id)
-
 
     if isinstance(page, str) and page.isdigit():
         page = int(page)
@@ -540,6 +538,7 @@ def rechercheavancee():
 
 
         questionAmendes = Amendes.query
+
 
         idAmende = request.form.get("idAmende", None)
         idSourceAmende = request.form.get("idSourceAmende", None)
@@ -594,7 +593,7 @@ def rechercheavancee():
             resultats_amendes=resultats_amendes
         )
 
-    return render_template("pages/rechercheavancee.html", page=page, id_amendes=id_amendes
+    return render_template("pages/rechercheavancee.html", page=page
 )
 
 

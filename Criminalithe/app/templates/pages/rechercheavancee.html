@@ -11,15 +11,16 @@
                     <h2>Amende</h2>
                 </div>
             <div>
-                <div class="mb-3">
-		    <label class="form-label">Identifiant de l'amende:</label>
-		    <select>
-		    	{% for i in id_amendes %}
-		    		<option value="{{i.value}}">
-			    		{{i.amendes_id}}
-			    	</option>
-		    	{% endfor %}
-		    </select>
+                <div class="col-md-10">
+                    <strong>Identifiant de l'amende:</strong>
+                    <input type="text" name="idAmende" class="form-control" value="" />
+<!--		    <select>-->
+<!--		    	{% for i in id_amendes %}-->
+<!--		    		<option value="{{i.value}}">-->
+<!--			    		{{i.amendes_id}}-->
+<!--			    	</option>-->
+<!--		    	{% endfor %}-->
+<!--		    </select>-->
 		  </div>
 
 <!--                <div class="col-md-10">-->
@@ -42,6 +43,7 @@
             <b>Type de l'amende :</b></label>
         <div class="col-sm-10">
             <select name="typeAmende" id="typeAmende">
+                <option value=""></option>
                 <option value="brigandage">brigandage</option>
                 <option value="conflit_juridiction">conflit_juridiction</option>
                 <option value="dégradation">dégradation</option>
@@ -61,6 +63,7 @@
             <b>Franches-vérités :</b></label>
         <div class="col-sm-10">
             <select name="francheVeriteAmende" id="francheVeriteAmende">
+                <option value=""></option>
                 <option value="oui">oui</option>
                 <option value="non">non</option>
             </select>
