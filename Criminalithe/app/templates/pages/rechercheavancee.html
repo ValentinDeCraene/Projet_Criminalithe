@@ -11,10 +11,21 @@
                     <h2>Amende</h2>
                 </div>
             <div>
-                <div class="col-md-10">
-                    <strong>Identifiant de l'amende:</strong>
-                    <input type="text" name="idAmende" class="form-control" value="" />
-                </div>
+                <div class="mb-3">
+		    <label class="form-label">Identifiant de l'amende:</label>
+		    <select>
+		    	{% for i in id_amendes %}
+		    		<option value="{{i.value}}">
+			    		{{i.amendes_id}}
+			    	</option>
+		    	{% endfor %}
+		    </select>
+		  </div>
+
+<!--                <div class="col-md-10">-->
+<!--                    <strong>Identifiant de l'amende:</strong>-->
+<!--                    <input type="text" name="idAmende" class="form-control" value="" />-->
+<!--                </div>-->
                 <div class="col-md-10">
                     <strong>Identifiant de la source dont provient l'amende :</strong>
                     <input type="text" name="idSourceAmende" class="form-control" value="" />
@@ -25,16 +36,36 @@
                     <strong>Montant de l'amende :</strong>
                     <input type="text" name="montantAmende" class="form-control" value="" />
                 </div>
+
                 <div class="col-md-10">
-                    <strong>Type de l'amende :</strong>
-                    <input type="text" name="typeAmende" class="form-control" value="" />
-                </div>
+        <label for="typeAmende" class="col-form-label">
+            <b>Type de l'amende :</b></label>
+        <div class="col-sm-10">
+            <select name="typeAmende" id="typeAmende">
+                <option value="brigandage">brigandage</option>
+                <option value="conflit_juridiction">conflit_juridiction</option>
+                <option value="dégradation">dégradation</option>
+                <option value="désobéissance">désobéissance</option>
+                <option value="port_arme">port_arme</option>
+                <option value="soutien_banni">soutien_banni</option>
+                <option value="violence_physique">violence_physique</option>
+                <option value="vol">vol</option>
+            </select>
+    </div>
+    </div>
+
             </div>
             <div>
-                <div class="col-md-10">
-                    <strong>Franche vérité</strong>
-                    <input type="text" name="francheVeriteAmende" class="form-control" value="" />
-                </div>
+<div class="col-md-10">
+        <label for="francheVeriteAmende" class="col-form-label">
+            <b>Franches-vérités :</b></label>
+        <div class="col-sm-10">
+            <select name="francheVeriteAmende" id="francheVeriteAmende">
+                <option value="oui">oui</option>
+                <option value="non">non</option>
+            </select>
+        </div>
+</div>
                 <div class="col-md-10">
                     <strong>Transcription</strong>
                     <input type="text" name="transcriptionAmende" class="form-control" value="" />

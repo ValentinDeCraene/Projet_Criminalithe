@@ -525,6 +525,9 @@ def supprimer_source(source_id):
 def rechercheavancee():
     page = request.args.get("page", 1)
 
+    id_amendes = Amendes.query.filter(Amendes.amendes_id)
+
+
     if isinstance(page, str) and page.isdigit():
         page = int(page)
     else:
@@ -534,6 +537,7 @@ def rechercheavancee():
 
         keyword = "test"
         resultats_amendes = []
+
 
         questionAmendes = Amendes.query
 
@@ -587,10 +591,11 @@ def rechercheavancee():
 
         return render_template(
             "pages/resultats_recherche_avancee.html",
-            resultats_amendes=resultats_amendes,
+            resultats_amendes=resultats_amendes
         )
 
-    return render_template("pages/rechercheavancee.html", page=page)
+    return render_template("pages/rechercheavancee.html", page=page, id_amendes=id_amendes
+)
 
 
 #Route permettant une recherche 'semi-avancée' par le biais de formulaires requêtant en .like() les attributs de la table concernée.
