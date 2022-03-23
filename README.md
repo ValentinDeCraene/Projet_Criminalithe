@@ -22,9 +22,9 @@ Vérifier que la version de Python est bien 3.x : ```python --version```;
 
 Aller dans le dossier : ```cd Projet-Criminalithé```;
 
-Installer l'environnement : ```python3 -m venv [nom_environnement```;
+Installer l'environnement : ```virtualenv ~/.Projet-Criminalithe -p python3```;
 
-Activer l'environnement : ```source [nom de l'environnement]/bin/activate```;
+Activer l'environnement : ```source ~/.Projet-Criminalithe/bin/activate```;
         
 Lancer la commande: ```pip install -r requirements.txt```.
 
