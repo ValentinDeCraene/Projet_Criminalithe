@@ -36,5 +36,5 @@ db = SQLAlchemy(app)
 #On met en place le gestionnaire d'utilisateurs.
 login = LoginManager(app)
 
-from .routes import __init__
+from .routes import generic
 from .routes import api
