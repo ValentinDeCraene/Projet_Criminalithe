@@ -20,7 +20,7 @@ Installer l'environnement virtuel : ```sudo apt-get install python3 libfreetype6
 
 Vérifier que la version de Python est bien 3.x : ```python --version```;
 
-Aller dans le dossier : ```cd Projet-Criminalithé```;
+Aller dans le dossier : ```cd Projet-Criminalithe```;
 
 Installer l'environnement : ```virtualenv ~/.Projet-Criminalithe -p python3```;
 
@@ -28,8 +28,8 @@ Activer l'environnement : ```source ~/.Projet-Criminalithe/bin/activate```;
         
 Lancer la commande: ```pip install -r requirements.txt```.
 
-Déplacez-vous dans le dossier de l'application : ```cd Criminalithe```
+(!) Déplacez-vous dans le dossier de l'application (!) : ```cd Criminalithe```
 
-Lancez l'application : ```python3 run.py``` ;
+Lancer l'application : ```python3 run.py``` ;
 
 Aller sur http://127.0.0.1:5000/
