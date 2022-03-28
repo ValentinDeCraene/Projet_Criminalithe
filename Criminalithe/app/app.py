@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
-from .constantes import CONFIG
+from .constantes import CONFIG, SECRET_KEY
 
 
 #Le chemin courant est stocké dans la variable chemin_actuel:
@@ -28,7 +28,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./bdd2.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 #TRACK_MODIFICATIONS configuré en False pour retirer le message d'alerte à chaque lancement de l'application.
-# app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SECRET_KEY'] = SECRET_KEY
 
 # On initie l'extension
 db = SQLAlchemy(app)
