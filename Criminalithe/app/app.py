@@ -38,3 +38,10 @@ login = LoginManager(app)
 
 from .routes import generic
 from .routes import api
+
+
+# def config_app(config_name="test"):
+#     app.config.from_object(CONFIG[config_name])
+#     db.init_app(app)
+#     login.init_app(app)
+#     return app
