@@ -52,8 +52,20 @@ class Base(TestCase):
             amendes_transcription="pour ce qu'il avoit esté trouver pourtant ung glaive es mettes dudit bailliage",
             amendes_personnes_id="202"
         ),
-
-    ]
+    ],
+    sources = [
+        Source(
+            source_id="6245",
+            source_date = "1445"
+        ),
+        Source(
+            source_id="6246",
+            source_date="1445"
+        ),
+        Source(
+            source_id="6247",
+            source_date="1446"
+        )]
 
     def setUp(self):
         self.app = config_app("test")
