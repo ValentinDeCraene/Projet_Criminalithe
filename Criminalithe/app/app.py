@@ -31,10 +31,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SECRET_KEY'] = SECRET_KEY
 
 # On initie l'extension
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 #On met en place le gestionnaire d'utilisateurs.
-login = LoginManager(app)
+login = LoginManager()
 
 from .routes import generic
 from .routes import api
