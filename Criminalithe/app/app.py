@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 import os
-from .constantes import SECRET_KEY
+from .constantes import CONFIG, SECRET_KEY
 
 
 #Le chemin courant est stocké dans la variable chemin_actuel:
@@ -31,10 +31,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config['SECRET_KEY'] = SECRET_KEY
 
 # On initie l'extension
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 #On met en place le gestionnaire d'utilisateurs.
-login = LoginManager(app)
+login = LoginManager()
 
 from .routes import generic
 from .routes import api
+
+
+def config_app(config_name="test"):
+    app.config.from_object(CONFIG[config_name])
+    db.init_app(app)
+    login.init_app(app)
+    return app

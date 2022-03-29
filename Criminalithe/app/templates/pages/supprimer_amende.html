@@ -1,27 +1,37 @@
 {% extends "conteneur.html" %}
 
 {% block corps %}
+<h1 class="text-center">Page de suppression de données amende</h1>
 
-<center>
 <form method="POST" action="{{url_for('supprimer_amende', amendes_id=suppr_amende.amendes_id)}}">
 	<div>
-		<p><b>Etes-vous certain de vouloir supprimer cette amende ?</b></p>
-		<br/>
+		<p class="text-center"><b>Etes-vous certain de vouloir supprimer cette amende ?</b></p>
+
 		<p name="amende" value="{{suppr_amende}}">
-			<em> Numéro de l'amende : {{suppr_amende.amendes_id}}</em> <br/>
-			<em> Transcription de l'amende : "{{suppr_amende.amendes_transcription}}"</em>
+			<b> Numéro de l'amende </b> : {{suppr_amende.amendes_id}} <br/>
+			<b> Identifiant de la source dont est tirée l'amende </b>: B {{suppr_amende.amendes_source_id}} <br/>
+			<b> Montant de l'amende en sous parisis </b> : {{suppr_amende.amendes_montant}} <br/>
+			<b> Type de l'amende </b> : {{suppr_amende.amendes_type}} <br/>
+			<b> Identifiant de la personne mentionnée </b> : {{suppr_amende.amendes_personnes_id}} <br/>
+			<b> Transcription de l'amende </b> : "{{suppr_amende.amendes_transcription}}"
 		</p>
 	</div>
 	<br/>
 	<div>
-      <div>
-          <button type="submit" class="btn btn-info">Confirmer</button>
-		  <button type="button" class="btn btn-danger"> <a href="{{url_for('accueil')}}">Annuler</a>
-		  </button>
-      </div>
+<p class="text-center">
+	<input type="submit" name="Confirmer" class="btn btn-info">
+<button type="button" class="btn btn-danger">
+    <a class="text-light" href="{{url_for('index_amendes')}}">Annuler</a></li>
+</button>
+
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
   </div>
 </form>
 
-</center>
+
 
 {% endblock %}

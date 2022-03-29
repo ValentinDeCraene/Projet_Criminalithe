@@ -10,13 +10,13 @@
 </div>
 <form class="form" method="POST" action="{{url_for('ajout_amende')}}">
     <div class="form-group row">
-      <label for="ajout_amendes_id" class="col-sm-2 col-form-label">Identifiant de l'amende</label>
+      <label for="ajout_amendes_id" class="col-sm-2 col-form-label"><b>Identifiant de l'amende</b></label>
       <div class="col-sm-10">
         <input type="text" class="form-control" name="ajout_amendes_id" placeholder="Id de l'amende"/>
       </div>
     </div>
     <div class="form-group row">
-      <label for="ajout_amendes_source_id" class="col-sm-2 col-form-label">Identifiant de la source de l'amende</label>
+      <label for="ajout_amendes_source_id" class="col-sm-2 col-form-label"><b>Identifiant de la source de l'amende</b></label>
       <div class="col-sm-10">
         <input type="text" class="form-control" name="ajout_amendes_source_id" placeholder="Id de la source de l'amende (sous la forme B62XX)"/>
       </div>
@@ -24,7 +24,7 @@
 
     <!-- Nous avons opté pour la balise html datalist ici qui permet de suggérer des valeurs courantes sans fermer la liste, en prévision d'amendes exceptionnelles-->
     <div class="form-group row">
-      <label for="ajout_amendes_montant" class="col-sm-2 col-form-label">Montant de l'amende (en sous parisis)</label>
+      <label for="ajout_amendes_montant" class="col-sm-2 col-form-label"><b>Montant de l'amende (en sous parisis)<b></b></label>
       <div class="col-sm-10">
         <input type="text" class="form-control" list="datalistOptions3" name="ajout_amendes_montant" placeholder="Montant de l'amende (voir les plus courants ci dessous : )"/>
           <datalist id="datalistOptions3">
@@ -42,7 +42,7 @@
 
 
     <div class="form-group row">
-        <label for="ajout_amendes_type" class="col-sm-2 col-form-label">Type de l'amende :</label>
+        <label for="ajout_amendes_type" class="col-sm-2 col-form-label"> <b>Type de l'amende</b> </label>
         <div class="col-sm-10">
             <select name="ajout_amendes_type" id="ajout_amendes_type">
                 <option value="brigandage">brigandage</option>
@@ -58,7 +58,7 @@
     </div>
 
             <div class="form-group row">
-    <label for="ajout_amendes_franche_verite" class="col-sm-2 col-form-label">Franches-vérités:</label>
+    <label for="ajout_amendes_franche_verite" class="col-sm-2 col-form-label">Franches-vérités</label>
         <div class="col-sm-10">
             <select name="ajout_amendes_franche_verite" id="ajout_amendes_franche_verite">
                 <option value="oui">oui</option>
@@ -74,14 +74,14 @@
       </div>
     </div>
     <div class="text-center">
-        <button type="submit" class="btn btn-info text-center">Ajouter</button>
+        <button type="submit" class="btn btn-primary text-center">Ajouter</button>
     </div>
 
 </form>
 
+<br/>
 
-
-<p>
+<p class="text-center">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
 </button>

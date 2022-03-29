@@ -7,31 +7,30 @@
     		<p>Modification réussie. Merci pour votre contribution !</p>
     	</div>
     {% endif %}
+<h1 class="text-center"> Mise à jour des données de la fiche de source</h1>
     <form method="POST" action="{{ url_for('source_update', source_id=source.source_id)}}">
     	 <div class="mb-3">
-		    <label for="source_id" class="form-label">Identifiant unique de la source (correspond à la cote du document aux ADN)</label>
+		    <label for="source_id" class="form-label"><b>Identifiant unique de la source (correspond à la cote du document aux ADN):</b></label>
 		    <input type="text" name="source_id" class="form-control {% if 'source_id' in erreurs%}is-invalid{% endif %}" id="source_id" value="{{source.source_id}}" />
          </div>
     	 <div class="mb-3">
-		    <label for="source_date" class="form-label">Date de la source (correspond à la date de reddition du compte à la Chambre des Comptes de Lille)</label>
+		    <label for="source_date" class="form-label"><b>Date de la source (correspond à la date de reddition du compte à la Chambre des Comptes de Lille):</b></label>
 		    <input type="text" name="source_date" class="form-control {% if 'source_date' in erreurs%}is-invalid{% endif %}" id="source_date" value="{{source.source_date}}" />
          </div>
 
-        <input type="submit" name="Modifier" class="btn btn-primary" />
-        <button type="button" class="btn btn-outline-danger">
-        <a href="{{url_for('accueil')}}">Annuler</a>
-        </button>
     </form>
-    {% else %}
+<p class="text-center">
+<input type="submit" name="Modifier" class="btn btn-info" />
+<button type="button" class="btn btn-danger">
+    <a class="text-light" href="{{url_for('index_personnes')}}">Annuler</a></li>
+</button>
+
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
+{% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
-
-
-<p>
-
-</p>
 {% endblock %}
-
-
-<!-- Possibilité de transformer certains formulaires comme  en menu déroulant pour limiter les choix et les possibilité de mauvaise saisie (volontaire ou non) des données.
--->

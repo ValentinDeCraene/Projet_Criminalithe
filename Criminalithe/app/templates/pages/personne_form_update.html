@@ -7,29 +7,37 @@
     		<p>Modification réussie. Merci pour votre contribution !</p>
     	</div>
     {% endif %}
+<h1 class="text-center"> Mise à jour des données de la fiche de personne</h1>
     <form method="POST" action="{{ url_for('personne_update', personnes_id=personne.personnes_id)}}">
     	 <div class="mb-3">
-		    <label for="personnes_id" class="form-label">Identifiant unique de la personne</label>
+		    <label for="personnes_id" class="form-label"><b>Identifiant unique de la personne:</b></label>
 		    <input type="text" name="personnes_id" class="form-control {% if 'personnes_id' in erreurs%}is-invalid{% endif %}" id="personnes_id" value="{{personne.personnes_id}}" />
 		  </div>
     	 <div class="mb-3">
-		    <label for="personnes_amendes_id" class="form-label">Identifiant unique de l'amende dans laquelle est mentionnée la personne.</label>
+		    <label for="personnes_amendes_id" class="form-label"><b>Identifiant unique de l'amende dans laquelle est mentionnée la personne:<b></label>
 		    <input type="text" name="personnes_amendes_id" class="form-control {% if 'personnes_amendes_id' in erreurs%}is-invalid{% endif %}" id="personnes_amendes_id" value="{{personne.personnes_amendes_id}}" />
 		  </div>
     	 <div class="mb-3">
-		    <label for="personnes_nom" class="form-label">Nom de la personne mentionnée</label>
+		    <label for="personnes_nom" class="form-label">Nom de la personne mentionnée:</label>
 		    <input type="text" name="personnes_nom" class="form-control {% if 'personnes_nom' in erreurs %}is-invalid{% endif %}" id="personnes_nom" value="{{personne.personnes_nom}}" />
 		  </div>
 		 <div class="mb-3">
-		    <label for="personnes_prenom" class="form-label">Prénom de la personne mentionnée</label>
+		    <label for="personnes_prenom" class="form-label">Prénom de la personne mentionnée:</label>
 		    <input type="text" name="personnes_prenom" class="form-control {% if 'personnes_prenom' in erreurs %}is-invalid{% endif %}" id="personnes_prenom" value="{{personne.personnes_prenom}}" />
 		  </div>
-
-		  <input type="submit" name="Modifier" class="btn btn-primary" />
-		<button type="button" class="btn btn-outline-danger">
-        <a href="{{url_for('accueil')}}">Annuler</a>
-        </button>
     </form>
+<br/>
+<p class="text-center">
+<input type="submit" name="Modifier" class="btn btn-info" />
+<button type="button" class="btn btn-danger">
+    <a class="text-light" href="{{url_for('index_personnes')}}">Annuler</a></li>
+</button>
+
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
     {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}

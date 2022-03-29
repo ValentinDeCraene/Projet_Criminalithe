@@ -1,13 +1,14 @@
 {% extends "conteneur.html" %}
 {% block corps %}
     <h1 class="text-center"> Bienvenue dans le répertoire des index.</h1>
-<p class="h3"> Choisissez l'index que vous voulez consulter : </p>
-<ul type="square" class="navbar-brand list-unstyled">
+<p class="h3 text-center"> Choisissez l'index que vous voulez consulter : </p>
+<br/>
+<ul class="navbar-brand list-unstyled text-center">
     <li class="list-group-item btn-outline-light"><h3><a href="{{url_for('index_amendes')}}">Accès à l'index des amendes</a></li></h3>
     <li class="list-group-item btn-outline-light"><h3><a href="{{url_for('index_personnes')}}">Accès à l'index des personnes</a></li></h3>
     <li class="list-group-item btn-outline-light"><h3><a href="{{url_for('index_sources')}}">Accès à l'index des sources</a></li></h3>
 </ul>
-<p>
+<p class="text-center">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
 </button>

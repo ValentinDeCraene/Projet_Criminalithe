@@ -10,7 +10,7 @@
     <ul>
         <li><b>Numéro de l'amende</b>: {{amende.amendes_id}}<br/>
         <b>Transcription</b>:"{{amende.amendes_transcription}}"<br/>
-        <b>Lien</b> : <a class="btn btn-secondary stretched-link" href="{{url_for("amende", amendes_id=amende.amendes_id)}}"> cliquez ici</a></li>
+        <b>Lien</b> : <a class="btn btn-primary stretched-link" href="{{url_for("amende", amendes_id=amende.amendes_id)}}"> cliquez ici</a></li>
     </ul>
     </p>
     {% endfor %}
@@ -51,17 +51,18 @@
         <dl>
 
 <dt> Accéder aux données correspondantes dans l'API:</dt>
-            <dl><button type="button" class="btn btn-secondary">
+            <dl><button type="button" class="btn btn-primary">
                 <a class="text-light" href="{{url_for("api_source", source_id=source.source_id)}}">Cliquez ici</a>
             </button></dl>
 
     </p>
+    <br/>
 {% if current_user.is_authenticated %}
 <p>
   <dl>
     <dt> Modifications autorisées de la page : </dt>
     <dd>
-    <button type="button" class="btn btn-primary text-light">
+    <button type="button" class="btn btn-info text-light">
         <a class="text-light" href="{{url_for("source_update", source_id=source.source_id)}}">Modifier la page</a>
     </button>
 

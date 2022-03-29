@@ -7,40 +7,46 @@
     		<p>Modification réussie. Merci pour votre contribution.</p>
     	</div>
     {% endif %}
+<h1 class="text-center"> Mise à jour des données de la fiche d'amende</h1>
     <form method="POST" action="{{ url_for('amende_update', amendes_id=amende.amendes_id)}}">
     	 <div class="mb-3">
-		    <label for="amendes_id" class="form-label">Identifiant unique de l'amende</label>
+		    <label for="amendes_id" class="form-label"><b>Identifiant unique de l'amende:</b></label>
 		    <input type="text" name="amendes_id" class="form-control {% if 'amendes_id' in erreurs%}is-invalid{% endif %}" id="amendes_id" aria-describedby="amendes_id_help" value="{{amende.amendes_id}}" />
 		  </div>
     	 <div class="mb-3">
-		    <label for="amendes_source_id" class="form-label">Identifiant unique de la source dont est tirée l'amende</label>
+		    <label for="amendes_source_id" class="form-label"><b>Identifiant unique de la source dont est tirée l'amende:</b></label>
 		    <input type="text" name="amendes_source_id" class="form-control {% if 'amendes_source_id' in erreurs%}is-invalid{% endif %}" id="amendes_source_id" value="{{amende.amendes_source_id}}" />
 		  </div>
     	 <div class="mb-3">
-		    <label for="amendes_montant" class="form-label">Montant de l'amende (en sous parisis par défaut)</label>
+		    <label for="amendes_montant" class="form-label"><b>Montant de l'amende (en sous parisis par défaut):</b></label>
 		    <input type="text" name="amendes_montant" class="form-control {% if 'amendes_montant' in erreurs %}is-invalid{% endif %}" id="amendes_montant" value="{{amende.amendes_montant}}" />
 		  </div>
 		 <div class="mb-3">
-		    <label for="amendes_type" class="form-label">Type de l'amende</label>
+		    <label for="amendes_type" class="form-label"><b>Type de l'amende:</b></label>
 		    <input type="text" name="amendes_type" class="form-control {% if 'amendes_type' in erreurs %}is-invalid{% endif %}" id="amendes_type" value="{{amende.amendes_type}}" />
 		  </div>
     	 <div class="mb-3">
-		    <label for="amendes_franche_verite" class="form-label">Amende attribuée à l'issue d'une franche vérité</label>
+		    <label for="amendes_franche_verite" class="form-label"><b>Amende attribuée à l'issue d'une franche vérité:</b></label>
 		    <textarea type="text" name="amendes_franche_verite" class="form-control {% if 'amendes_franche_verite' in erreurs%}is-invalid{% endif %}" id="amendes_franche_verite">{{amende.amendes_franche_verite}}</textarea>
 		  </div>
         <div class="mb-3">
-		    <label for="amendes_transcription" class="form-label">Transcription de l'amende</label>
+		    <label for="amendes_transcription" class="form-label"><b>Transcription de l'amende:</b></label>
 		    <textarea name="amendes_transcription" class="form-control {% if 'amendes_transcription' in erreurs%}is-invalid{% endif %}" id="amendes_transcription">{{amende.amendes_transcription}}</textarea>
 
-		  <input type="submit" name="Modifier" class="btn btn-primary" />
-			<button type="button" class="btn btn-outline-danger">
-        <a href="{{url_for('accueil')}}">Annuler</a>
-            </button>
+
+
     </form>
+<br/>
+<p class="text-center">
+<input type="submit" name="Modifier" class="btn btn-info" />
+<button type="button" class="btn btn-danger">
+    <a class="text-light" href="{{url_for('index_amendes')}}">Annuler</a></li>
+</button>
+</p>
     {% else %}
         <p>La base de données est en cours de constitution</p>
     {% endif %}
-<p>
+<p class="text-center">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
 </button>
