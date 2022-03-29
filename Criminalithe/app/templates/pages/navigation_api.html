@@ -5,41 +5,41 @@
 
     <h1 class="text-center"> Bienvenue sur la page de navigation de l'API.</h1>
 <br/>
-    <h2 class="list-item">Navigation API amendes</h2>
+    <h2 class="text-center">Navigation API amendes</h2>
 <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_amendes_navigation')}}" method="GET">
     <input type="search" name="q" class="form-control mr-sm-10" type="text">
-    <button type="submit" class="btn btn-secondary">Rechercher</button>
+    <button type="submit" class="btn btn-grey">Rechercher</button>
 </form>
 
     <p>
         Pour naviguer dans l'ensemble des données de l'API (au format JSON), cliquez sur le lien ce dessous, puis utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
-<li><a class="btn btn-dark" href="{{url_for('api_amendes_navigation', amendes_id=amendes_id)}}"> cliquez ici </a></li>
+<li><a class="btn btn-primary" href="{{url_for('api_amendes_navigation', amendes_id=amendes_id)}}"> cliquez ici </a></li>
     </p>
 
 <br/>
 <br/>
 
-          <h2>Navigation API personnes</h2>
+          <h2 class="text-center">Navigation API personnes</h2>
     <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_personnes_navigation')}}" method="GET">
         <input type="search" name="q" class="form-control mr-sm-10" type="text">
-        <button type="submit" class="btn btn-secondary">Rechercher</button>
+        <button type="submit" class="btn btn-grey">Rechercher</button>
     </form>
     <p>
         Pour naviguer dans l'ensemble des données de l'API (au format JSON), cliquez sur le lien ce dessous, puis utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
-<li><a class="btn btn-dark" href="{{url_for('api_personnes_navigation', personnes_id=personnes_id)}}"> cliquez ici </a></li>
+<li><a class="btn btn-primary" href="{{url_for('api_personnes_navigation', personnes_id=personnes_id)}}"> cliquez ici </a></li>
     </p>
 
 <br/>
 <br/>
 
-          <h2>Navigation API sources</h2>
+          <h2 class="text-center">Navigation API sources</h2>
     <form class="form-inline my-2 my-lg-0" style="margin-left: 30px;" action="{{url_for('api_source_navigation')}}" method="GET">
         <input type="search" name="q" class="form-control mr-sm-10" type="text">
-        <button type="submit" class="btn btn-secondary">Rechercher</button>
+        <button type="submit" class="btn btn-grey">Rechercher</button>
     </form>
     <p>
         Pour naviguer dans l'ensemble des données de l'API (au format JSON), cliquez sur le lien ce dessous, puis utilisez les liens dans les valeurs des clés "next" et "previous" (dans la clé "links").
-<li><a class="btn btn-dark" href="{{url_for('api_source_navigation', source_id=source_id)}}"> cliquez ici </a></li>
+<li><a class="btn btn-primary" href="{{url_for('api_source_navigation', source_id=source_id)}}"> cliquez ici </a></li>
     </p>
 
 

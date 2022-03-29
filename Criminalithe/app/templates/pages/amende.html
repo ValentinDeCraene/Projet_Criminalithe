@@ -35,7 +35,7 @@
     <ul>
         <li><b>Nom</b> de la personnne : {{justiciable.personnes_nom}}</li>
         <li><b>Prénom</b> de la personne : {{justiciable.personnes_prenom}}</li>
-        <li><b>Lien</b> vers la fiche de la personne : <a class="btn btn-secondary stretched-link" href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">cliquez ici</a></li>
+        <li><b>Lien</b> vers la fiche de la personne : <a class="btn btn-primary stretched-link" href="{{url_for("personne", personnes_id=justiciable.personnes_id)}}">cliquez ici</a></li>
     {% endfor %}
     </ul>
     </dd>
@@ -76,19 +76,19 @@
         <dl>
 
 <dt> Accéder aux données correspondantes dans l'API:</dt>
-            <dl><button type="button" class="btn btn-secondary">
+            <dl><button type="button" class="btn btn-primary">
                 <a class="text-light" href="{{url_for("api_amendes", amendes_id=amende.amendes_id)}}">Cliquez ici</a>
             </button></dl>
 
     </p>
 {% if current_user.is_authenticated %}
-    <p>
+    <p class="text-center">
   <dl>
     <dt> Modifications autorisées de la page : </dt>
     <dd>
 
 
-    <button type="button" class="btn btn-primary text-light">
+    <button type="button" class="btn btn-info text-light">
         <a class="text-light" href="{{url_for("amende_update", amendes_id=amende.amendes_id)}}">Modifier la page</a>
     </button>
 
@@ -100,6 +100,7 @@
 {% endif %}
 </p>
 
+    <br/>
     <!-- On utilise ici une série de blocs conditionnels pour permettre la navigation vers les amendes précédentes et suivantes,
      et donc afficher uniquement le bouton page suivante s'il s'agit de la première amende et uniquement le bouton amende précédente
      s'il s'agit de la dernière amende, afin d'éviter les renvois vers des amendes inexistantes et donc  des messages d'erreurs.

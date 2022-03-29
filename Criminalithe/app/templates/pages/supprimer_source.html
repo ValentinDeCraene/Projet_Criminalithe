@@ -2,26 +2,30 @@
 
 {% block corps %}
 
-<center>
+<h1 class="text-center">Page de suppression de données source </h1>
+
 <form method="POST" action="{{url_for('supprimer_source', source_id=suppr_source.source_id)}}">
 	<div>
-		<p><bEtes-vous certain de vouloir supprimer cette personne : </b>
-		<br/>
-		<br name="source" value="{{suppr_source}}"><em> Identifiant de la source : {{suppr_source.source_id}}</em> </br>
-        <br name="source" value="{{suppr_source}}"><em>Date de la source : {{suppr_source.source_date}}</em> </br>
-		</p>
-
+		<p class="text-center"> <b>Etes-vous certain de vouloir supprimer cette source : </b></p>
+		<div>
+		<b> Identifiant de la source </b>: {{suppr_source.source_id}} <br/>
+		<b> Date de la source : </b> {{suppr_source.source_date}} <br/>
+		</div>
 	</div>
 	<br/>
-	<div>
-      <div>
-          <button type="submit" class="btn btn-info">Confirmer</button>
-		  <button type="button" class="btn btn-danger"> <a href="{{url_for('accueil')}}">Annuler</a>
-		  </button>
-      </div>
-  </div>
 </form>
 
-</center>
+<p class="text-center">
+	<input type="submit" name="Confirmer" class="btn btn-info">
+<button type="button" class="btn btn-danger">
+    <a class="text-light" href="{{url_for('index_personnes')}}">Annuler</a></li>
+</button>
+
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
+
 
 {% endblock %}

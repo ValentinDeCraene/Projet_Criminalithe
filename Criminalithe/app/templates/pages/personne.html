@@ -12,7 +12,7 @@
         <ul>
         <li> <b>Type</b> de l'amende : {{amendes.amendes_type}}</li>
         <li> <b>Transcription</b> : <br/>"Par {{personne.personnes_nom}} {{personne.personnes_prenom}}, <br/> {{amendes.amendes_transcription}}"</li>
-        <li> <b>Lien</b> vers la fiche de l'amende: <a class="btn btn-secondary stretched-link" href="{{url_for("amende", amendes_id=amendes.amendes_id)}}">cliquez ici</a></li>
+        <li> <b>Lien</b> vers la fiche de l'amende: <a class="btn btn-primary stretched-link" href="{{url_for("amende", amendes_id=amendes.amendes_id)}}">cliquez ici</a></li>
     {% endfor %}
         </ul>
     </dd>
@@ -53,7 +53,7 @@
         <dl>
 
 <dt> Accéder aux données correspondantes dans l'API:</dt>
-            <dd><button type="button" class="btn btn-secondary">
+            <dd><button type="button" class="btn btn-primary">
                 <a class="text-light" href="{{url_for("api_personnes", personnes_id=personne.personnes_id)}}">Cliquez ici</a>
             </button></dd>
 
@@ -66,7 +66,7 @@
     <dt> Modifications autorisées de la page : </dt>
     <dd>
 
-    <button type="button" class="btn btn-primary text-light">
+    <button type="button" class="btn btn-info text-light">
         <a class="text-light" href="{{url_for("personne_update", personnes_id=personne.personnes_id)}}">Modifier la page</a>
     </button>
 

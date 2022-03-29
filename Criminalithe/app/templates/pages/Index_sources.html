@@ -6,15 +6,10 @@
 
         <ul>
             {% for source in sources.items %}
-                <li><a class="btn btn-dark stretched-link" href="{{url_for('source', source_id=source.source_id)}}">
-                    <style>
-        .btn{
-          width: 300px;
-        }
-      </style>
+                <li><div class="card"><a href="{{url_for('source', source_id=source.source_id)}}">
                     <b>Cote de la source : B {{source.source_id}}</b><br/>
                     Date : {{source.source_date}}<br/>
-                </a></li><br/>
+                </a></div></li><br/>
             {% endfor %}
         </ul>
 
@@ -42,7 +37,7 @@
         {%- endfor %}
       </ul>
 
-<p>
+<p class="text-center">
 <button type="button" class="btn btn-dark">
     <a class="text-light" href="{{url_for('index')}}">Retour à l'index général.</a></li>
 </button>
