@@ -5,10 +5,16 @@
         <p>Il y a {{resultats_personnes.total}} personnes(s) qui répond(ent) à votre requête :</p>
         <ul>
             {% for resultat in resultats_personnes.items %}
-            <li><a href="{{url_for('personne', personnes_id=resultat.personnes_id)}}">{{resultat.personnes_id}} : {{resultat.personnes_nom}} {{resultat.personnes_prenom}} </a>
-            </li>
+            <li><p class="card"><a href="{{url_for('personne', personnes_id=resultat.personnes_id)}}"><b>Identifiant de la personne </b>: {{resultat.personnes_id}} <br/>
+                <b>Nom de la personne</b> : {{resultat.personnes_nom}} <br/>
+                <b> Prénom de la personne</b> : {{resultat.personnes_prenom}}</a>
+            </li></p>
             {% endfor %}
         </ul>
-
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
 
 {% endblock %}

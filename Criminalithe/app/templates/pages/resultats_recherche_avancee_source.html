@@ -5,10 +5,15 @@
         <p>Il y a {{resultats_source.total}} source(s) qui répond(ent) à votre requête :</p>
         <ul>
             {% for resultat in resultats_source.items %}
-            <li><a href="{{url_for('source', source_id=resultat.source_id)}}">{{resultat.source_id}} : {{resultat.source_date}} </a>
-            </li>
+            <li><p class="card"><a href="{{url_for('source', source_id=resultat.source_id)}}"> <b>Identifiant de la source </b>: {{resultat.source_id}} <br/>
+                <b>Date</b> : {{resultat.source_date}} </a>
+            </li></p>
             {% endfor %}
         </ul>
-
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
 
 {% endblock %}

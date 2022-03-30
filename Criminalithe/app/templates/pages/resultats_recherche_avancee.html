@@ -3,12 +3,20 @@
 {% block corps %}
 
         <p>Il y a {{resultats_amendes.total}} amende(s) qui répond(ent) à votre requête :</p>
-        <ul>
+
             {% for resultat in resultats_amendes.items %}
-            <li><a href="{{url_for('amende', amendes_id=resultat.amendes_id)}}">{{resultat.amendes_id}} : "{{resultat.amendes_transcription}}"</a>
-            </li>
+<li><p class="card"><a href="{{url_for('amende', amendes_id=resultat.amendes_id)}}"> <b> Identifiant de l'amende : </b>{{resultat.amendes_id}} <br/>
+    <b> Montant de l'amende : </b> {{resultat.amendes_montant}}<br/>
+    <b> Identifiant de la personne mentionnée : </b> {{resultat.amendes_personnes_id}}<br/>
+    <b> Transcription : </b>"{{resultat.amendes_transcription}}"
+    </a>
+            </p></li>
             {% endfor %}
-        </ul>
+<p class="text-center">
+<button type="button" class="btn btn-dark">
+    <a class="text-light" href="{{url_for('accueil')}}">Retour à l'accueil.</a></li>
+</button>
+</p>
 
 
 {% endblock %}

@@ -7,8 +7,8 @@
         <ul>
             {% for source in sources.items %}
                 <li><div class="card"><a href="{{url_for('source', source_id=source.source_id)}}">
-                    <b>Cote de la source : B {{source.source_id}}</b><br/>
-                    Date : {{source.source_date}}<br/>
+                    <b>Cote de la source</b> : B {{source.source_id}}<br/>
+                    <b>Date</b> : {{source.source_date}}<br/>
                 </a></div></li><br/>
             {% endfor %}
         </ul>

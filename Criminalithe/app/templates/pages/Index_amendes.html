@@ -7,9 +7,11 @@
         <ul>
             {% for amende in amendes.items %}
                 <li><div class="card"><a href="{{url_for('amende', amendes_id=amende.amendes_id)}}">
-                        <b>Numéro de l'amende : {{amende.amendes_id}}</b> <br/>
-                        Type de l'amende: {{amende.amendes_type}} <br/>
-                        Transcription : "{{amende.amendes_transcription}}" <br/>
+                    <b>Identifiant de l'amende</b> : {{amende.amendes_id}} <br/>
+                        <b>Type de l'amende </b>: {{amende.amendes_type}} <br/>
+                        <b> Montant de l'amende : </b> {{amende.amendes_montant}}<br/>
+                        <b> Identifiant de la personne : </b> {{amende.amendes_personnes_id}}<br/>
+                        <b>Transcription </b> : "{{amende.amendes_transcription}}" <br/>
                 </a></div></li></br>
             {% endfor %}
         </ul>
