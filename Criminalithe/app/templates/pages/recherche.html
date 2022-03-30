@@ -4,12 +4,12 @@
 {% include "partials/recherche.html" %}
     <h1 class="text-center">{{titre}}</h1>
     {% if resultats %}
-    <p>Il y a {{resultats.total}} amendes qui répondent à votre requête :</p>
-        <ul>
+    <p>Il y a {{resultats.total}} amende(s) qui répondent à votre requête :</p>
+
             {% for amende in resultats.items %}
-                <li><a href="{{url_for('amende', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></li>
+                <p class="card"><a href="{{url_for('amende', amendes_id=amende.amendes_id)}}">{{amende.amendes_id}} : {{amende.amendes_transcription}}</a></p>
             {% endfor %}
-        </ul>
+
 
     <nav aria-label="research-pagination">
       <ul class="pagination">
@@ -18,7 +18,7 @@
 
               {% if page != resultats.page %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ url_for("recherche", keyword=keyword, page=page) }}">{{page}}</a>
+                    <a class="page-link" href="{{ url_for('recherche', keyword=keyword, page=page) }}">{{page}}</a>
                 </li>
               {% else %}
                 <li class="page-item active disabled">
@@ -30,12 +30,14 @@
                 <li class="page-item disabled">
                   <a class="page-link">...</a>
                 </li>
+      </ul>
+    </nav>
           {% endif %}
         {%- endfor %}
 
 
     {% else %}
         <p> Il n'y a pas de résultats à votre requête.</p>
-        <p>Vous pouvez entrer une autre requête, ou naviguer dans la base de donnée en <a href="{{url_for("index")}}"> cliquant ici. </a></p>
+        <p>Vous pouvez entrer une autre requête, ou naviguer dans la base de donnée en <a href="{{url_for('index')}}"> cliquant ici. </a></p>
     {% endif %}
 {% endblock %}

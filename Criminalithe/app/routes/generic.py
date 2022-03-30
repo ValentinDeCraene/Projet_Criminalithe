@@ -160,7 +160,7 @@ def recherche():
         )\
             .paginate(page=page, per_page=RESULTATS_PAR_PAGES)
 
-        titre = "Résultat pour la recherche `" + motclef + "`"
+        titre = "Résultat pour la recherche '" + motclef + "'"
     return render_template("pages/recherche.html", resultats=resultats, titre=titre, keyword=motclef)
 
 
