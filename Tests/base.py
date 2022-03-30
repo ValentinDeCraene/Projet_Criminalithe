@@ -76,10 +76,10 @@ class Base(TestCase):
     def tearDown(self):
         self.db.drop_all(app=self.app)
 
-    def insert_all(self, names=True):
+    def insert_all(self, amendes=True):
         # On donne à notre DB le contexte d'exécution
         with self.app.app_context():
-            if names:
-                for fixture in self.names:
+            if amendes:
+                for fixture in self.amendes:
                     self.db.session.add(fixture)
             self.db.session.commit()
