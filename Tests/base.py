@@ -1,6 +1,5 @@
 from Criminalithe.app.app import db, config_app, login
-from Criminalithe.app.modeles.utilisateurs import User
-from Criminalithe.app.modeles.donnees import Personnes, Amendes, Source, Authorship
+from Criminalithe.app.modeles.donnees import Personnes, Amendes, Source
 from unittest import TestCase
 
 class Base(TestCase):
@@ -31,7 +30,7 @@ class Base(TestCase):
             amendes_montant = "60",
             amendes_type = "violence_physique",
             amendes_franche_verite = "non",
-            amendes_transcription = "pour avoir manié et volenté ung denommé Jehan de la Salle es mettres dudit bailliage",
+            amendes_transcription = "pour ce qu'il avoit este pourtrais d'avoir manie es mettes dudit bailliage ung certain Jacques Le Blond",
             amendes_personnes_id ="200"
         ),
         Amendes(
@@ -40,7 +39,7 @@ class Base(TestCase):
             amendes_montant="40",
             amendes_type="defaut_entretien",
             amendes_franche_verite="non",
-            amendes_transcription="pour ce qu'il avoit esté trouver ung default de resparacion de sien heritaige cis es village de Fretin",
+            amendes_transcription="pour avoir fait default heritaige es mettes dudit bailliage",
             amendes_personnes_id="201"
         ),
         Amendes(
@@ -49,14 +48,14 @@ class Base(TestCase):
             amendes_montant="80",
             amendes_type="port-armes",
             amendes_franche_verite="non",
-            amendes_transcription="pour ce qu'il avoit esté trouver pourtant ung glaive es mettes dudit bailliage",
+            amendes_transcription="pourte armes nues deffendues",
             amendes_personnes_id="202"
         ),
     ],
     sources = [
         Source(
             source_id="6245",
-            source_date = "1445"
+            source_date="1445"
         ),
         Source(
             source_id="6246",
@@ -65,7 +64,8 @@ class Base(TestCase):
         Source(
             source_id="6247",
             source_date="1446"
-        )]
+        ),
+    ]
 
     def setUp(self):
         self.app = config_app("test")
@@ -76,8 +76,7 @@ class Base(TestCase):
     def tearDown(self):
         self.db.drop_all(app=self.app)
 
-    def insert_all(self, personnes=True, amendes=True, sources = True ):
-        # On donne à notre DB le contexte d'exécution
+    def insert_all(self, personnes=True, amendes=True, sources=True):
         with self.app.app_context():
             if amendes:
                 for fixture in self.amendes:
@@ -88,5 +87,4 @@ class Base(TestCase):
             if sources:
                 for fixture in self.sources:
                     self.db.session.add(fixture)
-
             self.db.session.commit()
