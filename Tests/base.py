@@ -2,6 +2,10 @@ from Criminalithe.app.app import db, config_app, login
 from Criminalithe.app.modeles.donnees import Personnes, Amendes, Source
 from unittest import TestCase
 
+# Pour une raison que je ne suis pas parvenu à identifier, je n'arrive pas à lancer
+# les tests avec la commande python -m unittest discover Tests. Cependant, en cliquant ci-dessous
+# sur Run, le test semble se lancer.
+
 class Base(TestCase):
     personnes = [
         Personnes(

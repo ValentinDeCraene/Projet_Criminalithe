@@ -1,6 +1,9 @@
 from base import Base
 from Criminalithe.app.modeles.utilisateurs import User
 
+# Pour une raison que je ne suis pas parvenu à identifier, je n'arrive pas à lancer
+# les tests avec la commande python -m unittest discover Tests. Cependant, en cliquant ci-dessous
+# sur Run, le test semble se lancer.
 
 
 class TestUser(Base):
